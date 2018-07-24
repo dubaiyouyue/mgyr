@@ -1,0 +1,129 @@
+<body>
+<div class="dak-1" style="position:absolute;">
+  <div class="nvz">
+    <div class="nvz-sho">
+      <div class="sho-left">
+        <p><input name='searchname'  id='searchname' maxlength="36" style="display:block;width:100%;height: 1.4rem;outline:medium; background-color: #F9F9F9;" type="text" value="{$names}"  placeholder="搜索品牌、商品" ></p>
+      </div>
+      <div class="sho-right" id='searchs'>
+        <p><a onclick="searchs()">搜索</a></p>
+      </div>
+    </div>
+  </div>
+  <!-- 显示全部 -->
+  <!-- <div  id="xianshiall" style="display:none">
+  <div style="width: 100%;height:1.5rem;display: block; border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #E5E5E5; float:right;">
+        <p ><a onclick='xianshiall()' style="margin-right:0.6rem; float:right;display: block; line-height:1.5rem; color:#B1B1B1;">返回</a></p>
+        </div>
+         <div class="right-2">
+           <volist name="listtyp" id='vfu'  key="k">
+          <div style="display:block;width:100%;float:left;border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #E5E5E5;"><h3 style="margin-top:0.5rem;margin-bottom:0.3rem; margin-left:1rem;">{$vfu.catname}</h3></div>
+          <ul style="width:100%;float:left">
+            <volist name='vfu[allctids]' id='vo'>
+              <li style="margin:0.5rem 0.82rem 0.5rem 0.82rem;width:14.6%;float:left; display:block;  height: auto;"><a href="{:U('Home/Product/lists',array(id=>$vo[id]))}">
+                <div class="right-pic1" style="width:100%;" >
+                  <div class="pic1"><img src="{$vo.image}"  width="100%" height=""/></div>
+                   <p>{$vo.catname}</p>
+                </div>
+              </a></li>
+            </volist>
+          </ul>
+
+        </volist>
+      </div>
+    </div> -->
+
+    <div class="spfl" id="xianshibufen" >
+      <div class="spfl-left">
+
+	  <!-- 2017.01.15 -->
+	  <a href="/index.php/Home/Product/index.html"><div <if condition="$catid eq 0">class="left-2" <else />class="left-1" </if>>
+             <p>全部分类</p>
+          </div></a>
+	  
+        <volist name='lists_type' id='vo'>
+          <a href="{:U('Home/Product/index',array(tid=>$vo[id]))}"><div <if condition="$catid eq $vo[id]">class="left-2"<else />class="left-1"</if>>
+             <p>{$vo.catname}</p>
+          </div></a>
+        </volist>
+      </div>
+      <div class="spfl-right">
+        <div class="right-1">    
+          <!-- onclick="chakanqunbu({$catid})" -->
+        <p><a href=" {:U('Home/Product/lists',array(id=>$catid))}" >查看全部</a></p>
+        </div>
+         <!-- <div class="right-2">
+          <volist name='catid_lsits' id='vo'>
+           <a href="{:U('Home/Product/lists',array(id=>$vo[id]))}" ><div class="right-pic{$i}">
+             <div class="pic1"><img src="{$vo.image}" width="100%" height="" /></div>
+             <p>{$vo.catname}</p>
+           </div></a>
+          </volist>
+         </div> -->
+         <div class="right-2">
+          <ul style="width:100%;float:left">
+            <volist name='catid_lsits' id='vo'>
+              <li style="<if condition='$i eq 1'>margin:0rem 0rem 1rem 0rem;</if><if condition='$i elt 3 and $i neq 1'>margin:0rem 0rem 1rem 1.5rem;</if><if condition='($i-1)%3 eq 0 and $i gt 1'>margin:0rem 0rem 1rem 0rem;</if> <if condition='($i-1)%3 neq 0 and $i gt 4'>margin:0rem 0rem 1rem 1.5rem;</if> width:23%;float:left; display:block;height: auto;"><a href="{:U('Home/Product/lists',array(id=>$vo[id]))}">
+                <div class="right-pic1" style="width:100%;" >
+                  <div class="pic1" style="
+    height: 1.6rem;/*2017.01.15*/
+	width:100%;
+	background:url({$vo.image});    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+"></div>
+                   <p style="
+    width: 100%;/*2017.01.15*/
+    overflow: hidden;
+    height: 17px;
+    line-height: 17px;
+">{$vo.catname}</p>
+                </div>
+              </a></li>
+            </volist>
+              
+
+          </ul>
+         
+      </div>
+    
+    </div>
+</div>
+
+<script type="text/javascript">
+   function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+  function searchs(){
+    var wds=$('#searchname').val();
+    if(wds.length<0||!wds){
+      tishicengjsqiuonclick('请输入搜索内容',searchs); return false;
+    }
+    $.ajax({
+        type: "get",
+        url: "{:U('Home/Product/goodsearch')}",
+        data: "wds=" + wds,
+        success: function(msg){
+            window.location.href="/index.php/Home/Product/goodsearch/wds/"+wds;
+        }
+    });
+   
+  }
+  // function chakanqunbu(){
+  //     $('#xianshibufen').hide();
+  //     $('#xianshiall').show();
+  // }
+  // function xianshiall(){
+  //     $('#xianshiall').hide();
+  //     $('#xianshibufen').show();
+  // }
+</script>

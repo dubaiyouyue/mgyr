@@ -1,0 +1,202 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>订单查询</strong></div></a>
+</div>
+<volist name="ddlists" id='vo'>
+<div id="remoreapp{$vo.id}" class="ddcx"><p style="display:block;float:left;color:#746f6f">订单号：{$vo.sn}</p><p style="text-align:right; color:#F00; <if condition='$i gt 1'>margin-top:6.5rem;<else/>margin-top:1rem;</if>">待发货</p>
+  <div class="ddcx-1"></div>
+     <div class="ddcx-2">
+         <a href="{:U('Home/Product/detailes',array('id'=>$vo[shipping_id]))}"><div class="ddcx-left">
+          <div class="ddcx-pic1" style="background: url({$vo.thumb}) no-repeat;background-size: cover;"></div>
+          <div class="ddcx-wz">
+          <p>{$vo.shipping_name|asmsubstr=0,20,'utf-8',true}</p>
+          <p>颜色：{$vo.ys}   尺码：{$vo.cm}  x {$vo.number}</p><p>{$vo.cxprice}</p><p1>{$vo.yprice}</p1>
+           </div>
+          </div></a>
+    </div>
+<div class="ddcx-right">
+          <div class="ddcx-right-1">
+          <if condition="$vo['pay_status'] eq 2">
+          <if condition="$vo['isth'] eq 0">
+          <a onclick="sqthsp({$vo.id})"><div id='sqthuan_{$vo.id}' data-url="{:U('Home/Member/sqtk',array('id'=>$vo['id']))}" class="lxmj">申请退换</div></a><else/> <a><div class="lxmj" onclick="quxiaosq({$vo.id})" >取消申请</div></a></if>
+
+          </if>
+          <a><div onclick="remoreddapp({$vo.id})" class="lxmj-2" style="color:#333333">删除订单</div></a>
+          <if condition="$vo['pay_status'] eq 2"><a ><div  class="lxmj-1" style="text-align: center;">已支付</div></a><else /><a ><div id="wxgozhifu_{$vo.id}" data-url="{:U('Home/Product/detailes',array('id'=>$vo['shipping_id']))}" onclick="zhifu({$vo.id})" class="lxmj-2">去支付</div></a></if>
+          </div>
+        
+        </div>
+  </div>
+</volist>
+ <input type="hidden" id="sqthid" value="">
+</div>
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+<div class="foom" style="width:94%" >
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+    </div>
+  </div> 
+<script type="text/javascript">
+   function zhifu (zfid) {
+    var urls=$('#wxgozhifu_'+zfid).attr('data-url');
+     $.ajax({
+        type: "POST",
+        url: "{:U('Home/Member/ajax_zhifuapp')}",
+        data:"zfid=" + zfid,
+        success: function(msg) {
+           if(msg['zf']==1){
+              layer.msg('请稍候...');
+              setTimeout(function(){
+                  window.location.href="{:U('Home/Member/qrdd')}";
+              },3000)
+             
+           }else if(msg['zf']==3){
+                layer.msg('正前往登录...');
+                        setTimeout(function(){
+                          window.location.href="{:U('Home/Register/login')}"                            
+                        },3000)
+           }else if(msg['zf']==6){
+                layer.msg('改该商品库存数量不足，无法提交支付');
+                if(urls){
+                  setTimeout(function(){
+                        window.location.href=urls;                            
+                    },3000) 
+                }
+           }else{
+              layer.msg('支付失败');
+           }
+        }
+      });
+  }
+  function remoreddapp(obj){
+      layer.confirm('是否取删除订单？', {
+          btn: ['确定','取消'] //按钮
+        }, function(){
+          $.ajax({
+          
+                type: "POST",
+                url: "{:U('Home/Member/quxiaodd')}",
+                data: "get_id=" + obj,
+                success: function(msg) {
+                    if(msg['del']==1){
+                      layer.msg('删除订单成功', {icon: 1});
+                        $("#remoreapp"+obj).remove();
+                    }else if(msg['del']==3){
+                        layer.msg('正前往登录...');
+                        setTimeout(function(){
+                          window.location.href="{:U('Home/Register/login')}"                            
+                        },3000)
+
+                    }else {
+                     
+                      // layer.msg('取消订单失败！请稍后重试'); 
+                      layer.msg('删除订单失败！请稍后重试', {icon: 2});
+                    }
+                    
+                }
+            });
+        }, function(){
+         
+          layer.msg('已取消',{icon: 1});
+        });
+  }
+  // 申请退款
+  var kds=0;
+
+  function sqthsp(objid){
+    $('#sqthid').val(objid);
+    if(kds==2){return false;}
+    kds=2;
+    var url =$('#sqthuan_'+objid).attr('data-url');
+          $.ajax({
+                type: "POST",
+                url: "{:U('Home/Member/tcshenqin')}",
+                data: "get_id=" + objid,
+                success: function(msg) {
+                  if(msg['shul']==2){
+                     layer.confirm('该订单存在多条，若要申请，则其他数据也会申请，是否继续？', {
+                      btn: ['确定','取消'] //按钮
+                    }, function(){
+                      kds=1;
+                      if(url){
+                        layer.open({
+                          type: 2,
+                          title: '申请退（换)',
+                          shadeClose: true,
+                          shade: 0.8,
+                          area: ['80%', '80%'],
+                          content:url
+                       }); 
+                        return false;
+                      }
+                    }, function(){   
+                       kds=1;
+                     layer.msg('已取消',{icon: 1});
+                    });
+                  }else if(msg['shul']==1){
+                     kds=1;
+                  if(url){
+                        layer.open({
+                          type: 2,
+                          title: '申请退（换)',
+                          shadeClose: true,
+                          shade: 0.8,
+                          area: ['80%', '80%'],
+                          content:url
+                       }); 
+                      }
+                }
+                   
+                }
+      });
+
+  }
+  
+  function quxiaosq(_obj){
+     layer.confirm('是否取消申请？', {
+          btn: ['确定','取消'] //按钮
+        }, function(){
+          $.ajax({
+          
+                type: "POST",
+                url: "{:U('Home/Member/yhqxsq')}",
+                data: "getid=" + _obj,
+                success: function(msg) {
+                    if(msg['qx']==1){
+                      layer.msg('取消申请成功', {icon: 1});
+                       setTimeout(function(){
+                         window.location.reload();                          
+                        },2000)
+                    }else if(msg['qx']==3){
+                        layer.msg('正前往登录...');
+                        setTimeout(function(){
+                          window.location.href="{:U('Home/Register/login')}"                            
+                        },3000)
+
+                    }else {
+                     
+                      // layer.msg('取消订单失败！请稍后重试'); 
+                      layer.msg('取消申请失败！请稍后重试', {icon: 2});
+                    }
+                    
+                }
+            });
+        }, function(){
+         
+          layer.msg('已取消',{icon: 1});
+        });
+  }
+</script>

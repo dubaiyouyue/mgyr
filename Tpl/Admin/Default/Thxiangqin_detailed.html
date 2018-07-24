@@ -1,0 +1,56 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="textml;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title></title>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+<div>
+<div class="table-list">
+    <table width="380px" cellspacing="0" style="margin:0 auto" >
+      <tr style="margin:0 auto">
+       
+        <td  style="float:left;margin-top:20px;"><span >支付金额：</span><input style=" height:30px" type="txet" value="{$xfjl.je}"></td>
+        <td  style="float:left;margin-top:20px;"><span >订单数量：</span><input style="height:30px" type="txet"  value="{$shuliang}"></td>
+        <td  style="float:left;margin-top:20px;"><span >用户名：</span><input style="height:30px" type="txet" value="{$username}"></td>
+        <td  style="float:left;margin-top:20px;"><span >应退回金额：</span><input style="height:30px" type="txet" id="jine" value="{$xfjl.je}"></td>
+        <td  style="float:left;margin-top:20px;"><input type="button" onclick="qurenfh({$thxx.id})"  value="确认" style=" height:30px" class="button" ><input  style=" height:30px;margin-left:30px;" type="button"  onclick="quxiaofh()" value="取消" class="button" ></td>
+      </tr>
+    </table>
+  
+   <!--  -->
+
+</div>
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+  function qurenfh (obj) {
+  var je=$("#jine").val();
+    $.ajax({
+        type: "POST",
+        url: "{:U('Admin/Thxiangqin/shenhe')}",
+        data: "je=" + je+"&uid="+obj,
+        success: function(msg) {
+              if(msg['tjcg']==1){
+                layer.msg('操作成功，金额已退还', {icon: 1});
+                setTimeout(function(){
+                    setTimeout(' parent.location.reload();',1000);
+                },3000)
+              }else{
+                layer.msg('操作失败，请稍后重试', {icon: 2});
+              }
+                   
+        }
+    });
+  }
+  
+  function quxiaofh(){
+      setTimeout(' parent.location.reload();',1);
+  }
+</script>

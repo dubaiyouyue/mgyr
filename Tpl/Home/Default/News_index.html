@@ -1,0 +1,48 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--banner-->
+  <style type="text/css">
+  .sdadszs{font-size:14px;}
+</style>
+  <div class="banner3"><img src="{$tupian}" width="100%" height="" /></div>
+  <div class="scjs">
+    <ul>
+      <volist name='zx_list' id='vo'>
+         <a href="{:U('Home/News/index',array(tid=>$vo[id]))}"><li class="sdadszs <if condition='$vo[id] eq $zxctid'>current</if>"<if condition='$i gt 1'>style=" margin-left:0.24rem;"</if>>{$vo.catname}</li></a>
+      </volist>
+    </ul>
+  </div>
+  <div class="rm">
+    <div class="rm-1">
+      <div class="rm-1-left">
+        <h2>{$catnames}</h2>
+      </div>
+      <div class="rm-1-right"></div>
+    </div>
+  </div>
+  <div class="zxgg">
+  <ul>
+    <volist name='list_news' id='vo'>
+        <li><a href="{:U('Home/News/detailes',array(id=>$vo[id]))}">{$vo.title|asmsubstr=0,18,'utf-8',true}</a><span>{$vo.createtime}</span></li>
+    </volist>
+  </ul>
+  </div>
+  <if condition="$list_news">
+  <div class="zxgg-22">
+      <a href="{:U('Home/News/index',array(tid=>$zxctid,page=>shang,p=>$prevp))}"><div class="zxgg-23">上一页</div></a>
+      <a href="{:U('Home/News/index',array(tid=>$zxctid,page=>next,p=>$nextp))}"><div class="zxgg-24">下一页</div></a>  
+  
+  </div>
+</if>
+
+    <div class="foom" style="width:94%">
+      <div class="foom-2"></div>
+        
+        <div class="foom-1" style=" margin-bottom:-0.2rem">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+  </div>

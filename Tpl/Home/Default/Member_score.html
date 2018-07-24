@@ -1,0 +1,64 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>我的积分</strong></div></a>
+<div class="hyjf">
+
+
+ <h3>当前总积分：<strong>{$users.jifen}</strong></h3>
+    <div class="hyjf-1">
+      <div class="hyjf-left">
+        <p>全部</p>
+      </div>
+      <div class="hyjf-zz"><p>积分</p></div>
+      <div class="hyjf-right"><p>用途</p></div>
+    </div>
+
+    <style>
+  .fdsafadsfdasfdsa li{float:left;    float: left;
+    padding: 8px 0px;
+    border-bottom: 1px solid #ddd;line-height: 20px;}
+  </style>
+<!-------------当前总积分 结束----------->
+
+    
+<foreach name="jifenlsit" item="vo">
+<?php
+$jtypeone='-';
+$jtypetwo='积分抵扣';
+if($vo['jtype']==1){
+  $jtypeone='+';
+  $jtypetwo='购买赠送';
+}
+
+?>
+<ul class="fdsafadsfdasfdsa">
+<li style="
+    width: 59%;    text-align: center;
+"><?php
+  echo date('Y-m-d H:i:s',$vo['ctime']);
+?></li>
+<li style="
+    width: 20%;    text-align: center;
+">{$jtypeone} {$vo.jifen}</li>
+<li style="width: 21%;text-align: center;">{$jtypetwo}</li>
+</ul>
+</foreach>
+
+
+  
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+<div class="foom" >
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+      
+     

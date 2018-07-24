@@ -1,0 +1,61 @@
+<!--头部-->
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>充值</strong></div></a>
+<div class="cz">
+  <div class="cz-1">
+    <div class="cz-mr">
+      <p>账户余额：<strong>{$users.yue}元</strong></p>
+    </div>
+      <div class="cz-2"><a href="{:U('Home/Member/rechargenext')}">在线充值</a></div>
+    
+  </div>
+  
+    <div class="cz-3">
+     <div class="cz-xfjl">消费记录：</div>
+     <div class="cz-sj">
+       <div class="cz-sj-1"><strong>时间</strong></div>
+       <div class="cz-sj-2"><strong>收入/支出</strong></div>
+       <div class="cz-sj-3"><strong>明细</strong></div>
+     </div>
+     
+<foreach name="hyxfjllist" item="vo">
+<?php
+	$gtypetwo='充值';
+	$gtypeone='+';
+	if($vo['gtype']==1){
+		$gtypeone='-';
+		$gtypetwo='购买';
+	}
+?>    <div class="cz-sj1">
+       <div class="cz-sj-1" style="color:#666;">{$vo.ctime|toDate=###,'Y-m-d'}</div>
+       <div class="cz-sj-2" style="color:#666;">{$gtypeone}{$vo.je}</div>
+       <div class="cz-sj-3" style="color:#666;">{$gtypetwo}</div>
+    </div>
+</foreach>
+	
+
+        
+        
+    </div>
+</div>
+
+
+  
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+      

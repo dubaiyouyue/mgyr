@@ -1,0 +1,51 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>优惠活动-详情页</strong></div></a>
+
+</div>
+
+<div class="yhhd-xqy">
+  <div class="yhhd-xqy-top" style="color:#ff4400; font-weight:bold; font-size:15px">{$yhgood.title}</div>
+  <div class="yhhd-xqy-sj">发布时间：{$yhgood.createtime}</div>
+</div>
+<style type="text/css">
+  .yhhd-xqy-wenzi p{text-indent: 0em;}
+  .yhhd-xqy-wenzi p img{width: 100%;
+   background-position: 50% 50%;
+  background-size: cover;
+text-indent: 0em;}
+</style>
+<div class="yhhd-xqy-wenzi">
+ {$yhgood.content}
+<div class="previous">
+  <div class="previous-1">上一篇：<if condition="$pre"><a href="{:U('Home/Index/yhdetails',array(id=>$pre[id]))}">{$pre.title}</a><else /><a>没有了</a></if></div>
+  <div class="previous-2"> 下一篇：<if condition="$next"><a href="{:U('Home/Index/yhdetails',array(id=>$next[id]))}">{$next.title}</a><else /><a>没有了</a></if></div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+  
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1" style=" margin-bottom:-0.2rem">
+         <include file="Home:banquan"/>
+        </div>
+    </div>
+      
+     

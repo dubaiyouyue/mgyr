@@ -1,0 +1,309 @@
+<script src="http://api.map.baidu.com/api?v=1.3" type="text/javascript"></script>
+<!--+++主体内容+++-->
+
+<div class="zhuti">
+
+	<div class="zhuti_con clearfloat">
+	
+		<!--+++新闻部分+++--->
+	
+		<div class="znss_con_l clearfloat">
+		
+			<div class="znss_con_l_l">
+			
+				<div class="focusBox">
+				
+					<include file="N:l"/>
+					
+				</div>
+
+			
+			</div>
+			
+			
+<script type="text/javascript">
+
+	/*SuperSlide图片切换*/
+	
+	jQuery(".focusBox").slide({ 
+		mainCell:".pic",
+		effect:"left", 
+		autoPlay:true, 
+		delayTime:600, 
+		trigger:"click",
+		interTime:3000,
+	});
+		
+</script>
+			
+			
+			
+			<div class="znss_con_l_r">
+			
+				<GZ:list sql="select * from gz_slide_data where id = '77' ">
+			
+			<img src="{$r.pic}">
+		</GZ:list>
+			
+			</div>
+		
+		</div>
+	
+		<!--+++新闻部分结束+++--->
+	
+		<!--+++新闻下面的内容板块+++-->
+	
+		<div class="content">
+		
+		<!--+++内容左边+++-->
+		
+			<div class="content_l">
+			
+			
+			<!--+++选项导航+++-->
+			
+				<div class="content_l_t">
+				
+					<div class="content_l_t_t"><span>{$Categorys.$parentid.keywords}</span> {$Categorys.$parentid.catname}</div>
+					
+					<div class="content_l_t_b">
+					
+						<ul>
+							<include file="A:l"/>
+							
+							
+						</ul>
+					
+					</div>
+				
+				</div>
+				
+				
+				<!--+++选项导航结束+++-->
+				
+				<!--+++联系我们+++-->
+				
+				<include file="C:u"/>
+				
+				<!--+++联系我们结束+++-->
+				
+				<!--+++友情链接+++-->
+				
+				<div class="content_l_b">
+				
+					<div class="content_l_b_t">
+					
+					<p>友情链接</p>
+					
+					<p><span>LINK</span></p>
+					
+					</div>
+					
+					
+					<div class="content_l_b_b">
+					
+						<ul>
+						
+							<include file="Y:l"/>
+						
+						</ul>
+					
+					</div>
+				
+				</div>
+				
+				<!--+++友情链接结束+++-->
+			
+			</div>
+		
+		<!--+++内容左边结束+++-->
+		
+		<!--+++内容右边+++-->
+			
+			<div class="content_r">
+			
+			<!--+++产品推荐+++-->
+			
+			<div class="picScroll" id="picScroll_new">
+		
+		<ul>
+		
+			<include file="P:l"/>
+			
+			
+		</ul>
+
+		<a class="prev" href="javascript:void(0)"></a>
+		<a class="next" href="javascript:void(0)"></a>
+	</div>
+
+<script type="text/javascript">
+
+	jQuery(".picScroll").slide({ 
+		mainCell:"ul", 
+		effect:"leftLoop", 
+		vis:4, 
+		scroll:2,  
+		autoPage:true, 
+		autoPlay:true,
+		interTime:5000,
+	});
+	
+	//子元素加class
+	
+	$('#picScroll_new').children().addClass('tempWrap_new');
+	
+	$('#picScroll_new li').hover(
+			
+		(function(){
+            // $(this).find('.showDetail').css('display','inline-block');
+			
+            $(this).find('.tjcp_title').stop().animate({top:'76px'},'fast');
+			
+            }),
+			
+			(function(){
+			
+                $(this).find('.tjcp_title').stop().animate({top:'106px'},'fast',function(){
+				
+                    $(this).find('.tjcp_title').css("display","none");
+					
+                }
+				
+				);
+
+            })
+			
+			);
+	
+	
+</script>
+			
+			<!--+++产品推荐结束+++-->
+			
+			<!--+++内页主体部分+++-->
+			
+			<div class="nyzhuti">
+				
+				<!--+++内页主体头部+++-->
+			
+				<div class="nyzhuti_top clearfloat">
+				
+					<div class="nyzhuti_top_l">{$catname}</div>
+					
+					<div class="nyzhuti_top_r">
+					
+					 <include file="Home:catpos"/>
+					
+					</div>
+				
+				</div>
+				
+				<!--+++内页主体头部结束+++-->
+				
+				<!--+++内页主体内容+++-->
+				
+				<div class="nrzhuti_con">
+				
+					<div class="contact">
+					
+					<img src="/images/contact_img.png">
+					
+					<p>预订热线: {$hotline}</p>
+					
+					<p>服务邮箱：{$site_email}</p>
+					
+					<p>联系地址：{$address} </p>
+					
+					<div class="ditu" id="map"></div>
+					
+					
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMapOverlay();//向地图添加覆盖物
+    }
+    function createMap(){
+        map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(109.275315,22.701219),19);
+    }
+    function setMapEvent(){
+        map.enableScrollWheelZoom();
+        map.enableKeyboard();
+        map.enableDragging();
+        map.enableDoubleClickZoom()
+    }
+    function addClickHandler(target,window){
+        target.addEventListener("click",function(){
+            target.openInfoWindow(window);
+        });
+    }
+    function addMapOverlay(){
+        var markers = [
+            {content:"<?php echo $address;?>",title:"<?php echo $company;?>",imageOffset: {width:-46,height:-21 },position:{lat:22.701219,lng:109.275315}}
+        ];
+        for(var index = 0; index < markers.length; index++ ){
+            var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
+            var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),{
+                imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+            })});
+            var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+            var opts = {
+                width: 200,
+                title: markers[index].title,
+                enableMessage: false
+            };
+            var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
+            marker.setLabel(label);
+            addClickHandler(marker,infoWindow);
+            map.addOverlay(marker);
+        };
+    }
+    //向地图添加控件
+    function addMapControl(){
+        var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+        map.addControl(scaleControl);
+        var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(navControl);
+        var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:false});
+        map.addControl(overviewControl);
+    }
+    var map;
+    initMap();
+</script>
+					
+					</div>
+				
+				</div>
+				
+				<!--+++内页主体内容结束+++-->
+			
+			</div>
+			
+			<!--+++内页主体部分结束+++-->
+			
+			</div>
+			
+		<!--+++内容右边结束+++-->
+		
+		</div>
+	
+	<!--+++新闻下面的内容板块结束+++-->
+	
+	</div>
+
+</div>
+
+<!--+++主体内容结束+++-->
+
+
+
+
+
+</div>
+
+<!--+++banner下来部分结束+++-->

@@ -1,0 +1,142 @@
+
+<!--+++大图轮播+++-->
+
+<div class="banner_top"></div>
+
+<div class="banner1 banner6" style="background: url({$Categorys.$catid.image}) no-repeat;">
+
+
+</div>
+
+<div class="banner_bottom"></div>
+
+<!--+++大图下来整体大背景+++-->
+
+<div class="dbj">
+
+	<!--+++++内容+++++-->
+	
+	<div class="dbj_con zhuti_con clearfloat">
+	
+
+
+	<!--+++++内容左边+++++-->
+	
+		<div class="zhuti_con_l">
+		
+			<div class="zhuti_con_l_ttop">
+		
+			<div class="zhuti_con_l_t">{$Categorys.$parentid.catname} / {$Categorys.$parentid.keywords}</div>
+			
+			<div class="zhuti_con_l_b">
+			
+				<ul>
+				
+					<include file="A:l"/>
+				
+				</ul>
+			
+			</div>
+			
+			</div>
+			
+			<div class="zhuti_con_l_bbottom">
+			
+			
+				<include file="C:u"/>
+				
+				
+			
+			</div>
+			
+		
+		</div>
+		
+<!--+++++内容右边+++++-->	
+		
+		<div class="zhuti_con_r">
+		
+			<div class="zhuti_con_r_t clearfloat">
+			
+		
+					<div class="zhuti_con_r_t_l">{$catname} <span>{$Categorys.$catid.keywords}</span></div>
+			
+				<include file="Home:catpos"/>
+			
+			</div>
+			
+			<!--+++++装内容的盒子+++++-->
+			
+			<div class="zhuti_con_r_b">
+			
+				<div class="clearfloat">
+				
+					<div class="jolin_l">
+				
+					<ul>
+					<volist name="list" id="r" empty="$em" key="k">
+						<li>
+						
+							<div class="join_tit clearfloat">
+							<span class="sp1">职位：</span>{$r.title|str_cut=###,15}<span class="sp2">{$r.createtime|toDate=###,'Y-m-d'}</span>
+							</div>
+							
+							<div class="join_con">
+								
+								<span>要求：</span>{$r.description|str_cut=###,84}
+								
+							
+							</div>
+							
+							<div class="join_but">
+							<a href="{$r.url}" style="font-size:14px;">
+							查看详情>>
+							</a>
+							</div>
+						
+						</li></volist> 
+						
+						
+					
+					</ul>
+				
+				
+					</div>
+					
+					<div class="jolin_r">
+					
+<GZ:list sql="select * from gz_slide_data where id = '79' limit 1" key='i'>
+			<img src="{$r.pic}" />
+		</GZ:list>
+					
+					</div>
+					
+				</div>
+					
+					<!--+++分页+++-->
+					
+					<!--+++翻页+++-->
+				
+					<div class="fanye">
+
+						<ul class="fy_ul">
+							
+					
+				
+				
+				{$pages}
+				</ul></div>
+					
+				<!--+++翻页结束+++-->
+			
+			</div>
+			
+		
+		</div>
+	
+
+
+	
+	</div>
+
+</div>

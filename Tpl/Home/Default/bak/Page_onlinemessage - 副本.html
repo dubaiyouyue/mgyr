@@ -1,0 +1,394 @@
+<script src="/js/jquery.slimscroll.js"></script>
+
+<script src="/layer-v2.1/layer.js"></script>
+<!--+++大图轮播+++-->
+
+<div class="banner_top"></div>
+
+<div class="banner1 banner7" style="background: url({$Categorys.$catid.image}) no-repeat;">
+
+
+</div>
+
+<div class="banner_bottom"></div>
+
+<!--+++大图下来整体大背景+++-->
+
+<div class="dbj">
+
+	<!--+++++内容+++++-->
+	
+	<div class="dbj_con zhuti_con clearfloat">
+	
+
+
+	<!--+++++内容左边+++++-->
+	
+		<div class="zhuti_con_l">
+		
+			<div class="zhuti_con_l_ttop">
+		
+			<div class="zhuti_con_l_t">{$Categorys.$parentid.catname} / {$Categorys.$parentid.keywords}</div>
+			
+			<div class="zhuti_con_l_b">
+			
+				<ul>
+				
+					<include file="A:l"/>
+				
+				</ul>
+			
+			</div>
+			
+			</div>
+			
+			<div class="zhuti_con_l_bbottom">
+			
+			
+				<include file="C:u"/>
+				
+				
+			
+			</div>
+			
+		
+		</div>
+		
+<!--+++++内容右边+++++-->	
+		
+		<div class="zhuti_con_r">
+		
+			<div class="zhuti_con_r_t clearfloat">
+			
+		
+					<div class="zhuti_con_r_t_l">{$catname} <span>{$Categorys.$catid.keywords}</span></div>
+			
+				<include file="Home:catpos"/>
+			
+			</div>
+			
+			<!--+++++装内容的盒子+++++-->
+			
+			<div class="zhuti_con_r_b">
+			
+				<p class="ms_ts"><span>温馨提示：</span>{$lyts}</p>
+			
+			
+			<form name="myform" id="myform" method="POST" action="/index.php?g=User&m=Post&a=Message">
+
+            <div class="bt clearfloat">
+                        <p class="btp1">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</p>
+                        <input type="text" value="请填写姓名" name="name" id="xm" class="btin1" maxlength="5" onfocus="if(this.value=='请填写姓名') value='';" onblur="if(this.value=='') value='请填写姓名';" />
+
+                    </div>
+                    <div class="bt clearfloat">
+                        <p class="btp1">联系电话：</p>
+                        <input type="text" value="请填写联系电话" name="tel" id="dh" class="btin1" maxlength="11" onfocus="if(this.value=='请填写联系电话') value='';" onblur="if(this.value=='') value='请填写联系电话';" />
+                    </div>
+                    <div class="bt clearfloat">
+                        <p class="btp1">电子邮箱：</p>
+                        <input type="text" value="请填写电子邮箱" name="email"id="yx" class="btin1" maxlength="45" onfocus="if(this.value=='请填写电子邮箱') value='';" onblur="if(this.value=='') value='请填写电子邮箱';" />
+                    </div>
+                    <div class="bt clearfloat">
+                        <p class="btp1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</p>
+                        <input type="text" name="dz" id="dz" value="请填写地址" class="btin1" maxlength="95" onfocus="if(this.value=='请填写地址') value='';" onblur="if(this.value=='') value='请填写地址';" />
+                    </div>
+                    <div class="bt clearfloat">
+                        <p class="btp2 clearfloat">留言内容：</p>
+                        <textarea name="content" id="content"  class="btin2" onblur="if($(this).val()=='')$(this).val('留言内容');" onfocus="if($(this).val()=='留言内容')$(this).val('');" >留言内容</textarea>
+						
+						
+						
+                    </div>
+                    <input type="button" name="" onclick="xxpd();" value="提交"  class="ml80 clearfloat" />
+                    <input type="button" onclick="congzhi()" name="" value="重置" class="ml802 clearfloat" />
+
+<!--
+            </div>-->
+            </form>
+			
+			
+			
+<script>
+
+	document.getElementById('xm').focus();
+	
+	function  xxpd(){
+	
+		var name=$('#xm').val();
+		
+		if(name=='' || name=='请填写姓名'){
+		
+			layer.msg(name,{time:1000,shift:6}
+			
+			,function(){
+			
+			//alert('123');
+			//documnet.getElementById('xm').focus();
+			document.getElementById('xm').focus();
+			
+			}
+			
+			
+			);
+			
+			return false;
+		
+		}
+		
+		var  tell=$('#dh').val();
+		
+		
+		//alert(tell);
+		
+		if(tell=='' || tell=='请填写联系电话'/* || tell.length!=7&&tell.length!=11*/){
+		
+			layer.msg('请填写联系电话',{time:1000,shift:6}
+			
+			,function(){
+			
+
+			document.getElementById('dh').focus();
+			
+			}
+			
+			
+			);
+			
+			return false;
+		
+		}
+		
+		var yx=$('#yx').val();
+
+		function  youxiang(n){
+		
+		var email = document.getElementById(n).value;
+		
+		//alert(email);
+		
+		//return false;
+		
+            if (email != "") {
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                isok= reg.test(email );
+                if (!isok) {
+                    return false;
+                }
+				else return true;
+            }
+		}
+		
+		if(!youxiang('yx') || !yx){
+		
+			layer.msg('请填写电子邮箱',{time:1500,shift:6}
+			
+			,function(){
+			
+			$('#yx').val('');
+			
+			document.getElementById('yx').focus();
+			
+			}
+			
+			);
+			
+			return false;
+			
+		}
+		
+		var dz=$('#dz').val();
+		
+		//alert(dz);
+		
+		if(dz=='' || dz=='请填写地址'){
+		
+		
+			layer.msg('请填写地址',{time:1000,shift:6}
+			
+			,function(){
+			
+
+			document.getElementById('dz').focus();
+			
+			}
+			
+			
+			);
+			
+			return false;
+		
+		}
+		
+		var content=$('#content').val();
+		
+		//alert(content);
+		
+		if(content=='' || content=='留言内容'){
+		
+			layer.msg('留言内容',{time:1000,shift:6}
+			
+			,function(){
+			
+
+			document.getElementById('content').focus();
+			
+			}
+			
+			);
+			
+			return false;
+		
+		}
+		
+		
+		layer.msg('提交成功',{icon: 6,time:1000,shift:1},function(){
+			
+			//alert('123');
+			document.getElementById('myform').submit();
+			
+			
+		
+		});
+	
+	}
+	
+	
+	function congzhi(){
+		//document.getElementById("myform").reset(); 
+		//alert('123');
+		
+		layer.open({
+		
+			//type:1,
+			shift:1,
+			title:'页面信息提示',
+			content:'确定要清空所填信息？',
+			btn:['确定','取消'],
+			area:['300px','150px'],
+			btn1: function(index, layero){
+        //按钮【按钮三】的回调
+		document.getElementById("myform").reset();
+    }
+		
+		});
+	
+	}
+	
+
+</script>
+
+			<!--+++++访客留言+++++-->
+			
+			<div class="fkly">
+			
+				<div class="fkly_con">访客留言的内容：</div>
+				
+				
+				<div class="fknrqu">
+				
+					<div class="slimscroll">
+					
+						<ul class="fkly_uuu">
+						
+						
+						
+						<li class="jiazai" onclick="sslyss();" id="sfsdfssss">加载更多...</li>
+	
+						
+						</ul>
+					
+					</div>
+					
+						
+					
+<script>
+
+
+	nyyyyn=0;
+	sslyss();
+	function sslyss(){
+	$("#sfsdfssss").text('加载中...');
+	$.ajax( {
+			url: '/index.php?g=Home&m=Onlinemessagee&a=index&aid='+nyyyyn, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(!data){
+					$("#sfsdfssss").text('没有了');
+					return false;
+				}
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+				$("#sfsdfssss").before(data);
+				$("#sfsdfssss").text('查看更多...');
+				nyyyyn=nyyyyn+1;
+			}
+	});
+	//alert(nyyyyn);
+	
+	
+		/*var index = layer.load(1, {
+		shade: [0.2,'#fff'], //0.1透明度的白色背景
+		//time:2*1000,
+		});*/
+	
+	
+	
+	}
+
+
+
+	$(function() {
+		$(".slimscroll").slimScroll({
+				//没有定宽高父层
+			  height: '220px',
+			  width: '758px',
+			  //父层定宽高
+			//width: 'auto', //可滚动区域宽度
+			//height: '100%', //可滚动区域高度
+			size: '4px', //组件宽度
+			color: '#999', //滚动条颜色
+			position: 'right', //组件位置：left/right
+			distance: '0px', //组件与侧边之间的距离
+			start: 'top', //默认滚动位置：top/bottom
+			opacity: .4, //滚动条透明度
+			alwaysVisible: true, //是否 始终显示组件
+			disableFadeOut: false, //是否 鼠标经过可滚动区域时显示组件，离开时隐藏组件
+			railVisible: true, //是否 显示轨道
+			railColor: '#333', //轨道颜色
+			railOpacity: .2, //轨道透明度
+			railDraggable: true, //是否 滚动条可拖动
+			railClass: 'slimScrollRail', //轨道div类名 
+			barClass: 'slimScrollBar', //滚动条div类名
+			wrapperClass: 'slimScrollDiv', //外包div类名
+			allowPageScroll: true, //是否 使用滚轮到达顶端/底端时，滚动窗口
+			wheelStep: 20, //滚轮滚动量
+			touchScrollStep: 200, //滚动量当用户使用手势
+			borderRadius: '7px', //滚动条圆角
+			railBorderRadius: '7px' //轨道圆角
+		});
+	});
+</script>
+				
+				
+				</div>
+			
+			
+			</div>
+			
+			<!--+++++访客留言结束+++++-->
+					
+					
+
+			</div>
+			
+		</div>
+			
+		
+		</div>
+	
+
+
+	
+	</div>
+
+</div>

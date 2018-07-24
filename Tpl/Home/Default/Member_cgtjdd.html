@@ -1,0 +1,230 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak" style="
+    overflow: hidden;
+">
+  <div class="grzl"> <a onclick="javascript:history.back(-1);">
+    <div class="zltb bj"><strong>成功提交订单</strong></div>
+    </a></div>
+    <div class="cgtj">
+      <div class="cgtj-1">
+        <div class="cgtj-wenzi">成功提交订单，请尽快付款！</div>
+        <div class="cgtj-wenzi1">请于 <strong id="t_h">00</strong> 时 <strong id="t_m" >00</strong> 分 <strong id="t_s">00 </strong> 秒内，在新开的页面完成支付，超时后订
+          单将被取消。</div>
+      </div>
+      <div class="cgtj-2">
+        <p>收货人：{$ddzz.xm}</p>
+        <p>联系电话：{$ddzz.tel}</p>
+        <p>地址：{$ddzz.xx}&nbsp;&nbsp;<span style="color:#fe5400" onclick="xiugauidz()">【更换地址】</span><if condition="!$ddzz[xx]"><span style="color:#fe5400" onclick="addodzap()">【添加地址】</span></if></p>
+      </div>
+      <div class="cgtj-3" style="height: auto;">
+        <p><strong>支付方式：</strong></p>
+		
+		
+<p><input name="fkfs" type="radio" id="yuepayid" value="3" checked /><label style="cursor: pointer;" for="yuepayid">余额<img src="/account_balance_wallet.png" height="48" /></label></p>
+<p><input name="fkfs" type="radio" id="alipayid" value="1" /><label style="cursor: pointer;" for="alipayid">支付宝<img src="/Alipay_48.png" /></label></p>
+<p><input name="fkfs" type="radio" id="wxspayid" value="2" /><label style="cursor: pointer;" for="wxspayid">微信<img src="/Wechat_48.png" /></label></p>
+		
+		
+		
+		
+		
+        <div class="cgtj-yg clearfix" style="display:none;">
+          <!-- 微信支付 -->
+          <form id="form1" onclick="appzhifufs('wx')" name="form1" method="post" action="">
+            <table  width="110" style="float:left;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup1" id="zftype_wx" class="xuzhongl" type="radio"  value="" checked="checked" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"><img src="/images/20.png" width="100" height="20" /></div></td>
+              </tr>
+            </table>
+          </form>
+          <!-- 支付宝支付 -->
+          <form id="form1" onclick="appzhifufs('zfb')" name="form1" method="post" action="">
+            <table  width="110" style="float:right;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup0" class="xuzhongl" type="radio" id="zftype_zfb" value="" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"> <img src="/images/23.png" width="100" height="29" /></div></td>
+              </tr>
+            </table>
+          </form>    
+          <!-- 余额支付     -->
+          <form onclick="appzhifufs('ye')" id="form1"  name="form1" method="post" action="">
+            <table width="110" style="float:left;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup1" type="radio" class="xuzhongl" id="zftype_ye" value="" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"> <img src="/images/21.png" width="100" height="29" /></div></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+      <div class="amount1">
+        <div class="amount">应付金额：<strong>{$sum}</strong></div>
+        <a onclick="nextrag();"><div class="payment">立即付款</div></a>
+        <input type="hidden" id="zhifujieapp" value="{$sum}">
+        <input type="hidden" id="thisdzes" value="{$ddzz.xx}">
+        <input type='hidden' id='yxsj' value="{$qxsj}">
+      </div>
+    </div>
+<script>
+function nextrag(){
+	
+	var chongzhije=$('#chongzhije').val();
+	var fkfs=2;
+	fkfs=$("input[name='fkfs']:checked").val();
+	/*if(isNaN(chongzhije) || chongzhije==0 || !chongzhije){
+		alert('请输入数字充值金额！');
+		return false;
+	}*/
+	location.href = '/index.php/Home/Zhifunew/index/fkfs/'+fkfs;
+	//ssyyrightt('/index.php/Home/Chongzhi/index/fkfs/'+fkfs+'/je/'+chongzhije,'');
+}
+</script>
+<!------------------------------- footer开始 ---------------------------------->
+ 
+  <div class="foom clearfix" style=" /*margin-top:7.95rem;*/" >
+    <div class="foom-2"></div>
+    <div class="foom-1">
+      <include file="Home:banquan"/>
+    </div>
+  </div>
+  </div>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+
+var zflx='wx';
+function  appzhifufs(types) {
+  
+ /* if(types=='wx'){
+    zflx='wx';
+     $("#zftype_wx").attr("checked",true);
+     $('#zftype_zfb').attr('checked',false);
+     $('#zftype_ye').attr('checked',false);
+     return false;
+  }
+   if(types=='zfb'){
+    zflx='zfb';
+     $("#zftype_zfb").attr("checked",true);
+     $('#zftype_ye').attr('checked',false);
+     $("#zftype_wx").attr("checked",false);
+     return false;
+  }
+   if(types=='ye'){
+    zflx='ye';
+     $("#zftype_ye").attr("checked",true);
+     $("#zftype_zfb").attr("checked",false);
+     $("#zftype_wx").attr("checked",false);
+     return false;
+  }*/
+}
+function appzhifu(){
+    var prices=$("#zhifujieapp").val();
+    var dz=$("#thisdzes").val();
+    if(prices==''){
+      layer.msg('没有可支付的订单');
+      return false;
+    }
+    if(!dz){
+      layer.msg('请先选好收货地址');
+      return false;
+    }
+    if(!zflx){
+        layer.msg('请先选择支付类型');
+      return false;
+    }
+    alert(zflx);return false;
+    $.ajax({
+        type: "POST",
+        url: "{:U('Home/Member/ajax_zhifuapp')}",
+        data:"prices=" + prices,
+        success: function(msg) {
+           if(msg['zf']==1){
+              layer.msg('请稍候...');
+              window.location.href='/apptest/example/native.php';
+           }else if(msg['zf']==3){
+              setTimeout(function(){
+                        window.location.href="{:U('Home/Register/login')}"
+                      },3000)
+
+           }else{
+              layer.msg('支付失败');
+           }
+        }
+      });
+    
+    
+  }
+  function xiugauidz(){
+      layer.open({
+        type: 2,
+        title: '更换地址',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '80%'],
+        content: "{:U('Home/Member/dizhilist')}"
+      }); 
+    }
+  function addodzap(){
+    layer.open({
+    type: 2,
+    title: '添加新地址',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['90%', '80%'],
+    content: "{:U('Home/Member/xaddress')}"
+  }); 
+  }
+</script>
+<!-- 倒计时 -->
+<script type="text/javascript"> 
+function getRTime(){ 
+  var timers=$('#yxsj').val();
+
+// var EndTime= new Date('2017/10/23 10:00:00'); //截止时间 
+// var NowTime = new Date(); 
+var ths=Date.parse(new Date())/1000;
+var t=timers-ths;
+if(t<0){return false;}
+// alert(ths)
+// alert(NowTime);/**/
+// var t=timers-NowTime.getTime();
+// var t =EndTime.getTime() - NowTime.getTime(); 
+/*var d=Math.floor(t/1000/60/60/24); 
+t-=d*(1000*60*60*24); 
+var h=Math.floor(t/1000/60/60); 
+t-=h*60*60*1000; 
+var m=Math.floor(t/1000/60); 
+t-=m*60*1000; 
+var s=Math.floor(t/1000);*/
+
+    var h=Math.floor(t/60/60%24); 
+    var m=Math.floor(t/60%60); 
+    var s=Math.floor(t%60); 
+     
+    // document.getElementById("t_d").innerHTML = d + "天"; 
+    document.getElementById("t_h").innerHTML = h; 
+    document.getElementById("t_m").innerHTML = m; 
+    document.getElementById("t_s").innerHTML = s; 
+
+// var d=Math.floor(t/1000/60/60/24); 
+
+} 
+setInterval(getRTime,1000); 
+</script> 

@@ -1,0 +1,131 @@
+
+
+<!--+++大图轮播+++-->
+
+<div class="banner_top"></div>
+
+<div class="banner1 banner2" style="background: url({$Categorys.$catid.image}) no-repeat center;background-size: cover;">
+
+
+</div>
+
+<div class="banner_bottom"></div>
+
+<!--+++大图下来整体大背景+++-->
+
+<div class="dbj">
+
+	<!--+++++内容+++++-->
+	
+	<div class="dbj_con zhuti_con clearfloat">
+	
+
+
+	<!--+++++内容左边+++++-->
+	
+		<div class="zhuti_con_l">
+		
+			<div class="zhuti_con_l_ttop">
+		
+			<div class="zhuti_con_l_t">{$Categorys.$parentid.catname} / {$Categorys.$parentid.keywords}</div>
+			
+			<div class="zhuti_con_l_b">
+			
+				<ul>
+				
+					<include file="A:l"/>
+				
+				</ul>
+			
+			</div>
+			
+			</div>
+			
+			<div class="zhuti_con_l_bbottom">
+			
+			
+				<include file="C:u"/>
+				
+				
+			
+			</div>
+			
+		
+		</div>
+		
+<!--+++++内容右边+++++-->	
+		
+		<div class="zhuti_con_r">
+		
+			<div class="zhuti_con_r_t clearfloat">
+			
+		
+				<div class="zhuti_con_r_t_l">{$catname} <span>{$Categorys.$catid.keywords}</span></div>
+			
+				<include file="Home:catpos"/>
+			
+			</div>
+			
+			<!--+++++装内容的盒子+++++-->
+			
+			<div class="zhuti_con_r_b">
+			
+				<ul class="news_ul clearfloat">
+					<volist name="list" id="r" empty="$em" key="k">
+						<li>
+						
+							<div class="news_ul_li_l">
+							
+							<a href="{$r.url}">
+							
+							<img src="{$r.thumb}">
+							
+							</a>
+							
+							</div>
+							
+							<div class="news_ul_li_r">
+							
+							<div class="news_title">{$r.title|str_cut=###,56}</div>
+							
+							<div class="news_time">{$r.createtime|toDate=###,'Y-m-d'}</div>
+							
+							<div class="news_con3">{$r.description|str_cut=###,120}</div>
+							
+							<div class="news_more2"><a href="{$r.url}" style="font-size:14px;">查看详情>></a></div>
+							
+							</div>
+						
+						</li>
+						</volist>
+						
+					
+					</ul>
+					
+					<!--+++分页+++-->
+					
+					<!--+++翻页+++-->
+				
+					<div class="fanye">
+
+						<ul class="fy_ul">
+							
+					
+				
+				
+				{$pages}
+				</ul></div>
+					
+				<!--+++翻页结束+++-->
+			
+			</div>
+			
+		
+		</div>
+	
+
+
+	
+	</div>
+
+</div>

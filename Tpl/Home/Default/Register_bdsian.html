@@ -1,0 +1,173 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>绑定新浪微博登录</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+	<div class="Login">
+    <a href="/"><div class="zc-logo" style="margin-top:30px"><img src="/images/6/zc-logo.png"  /></div></a>
+    <h2><strong>登录-绑定新浪微博</strong></h2>
+		<ul>
+            <li>
+                <p class="Code-Pic1"><input type="text" name="tel" id="tel" placeholder="手机号" /></p>
+		    </li>
+            <li>
+				<p><input type="password" name="pass" id="pass" placeholder="密码" /></p>
+			</li>
+			<li class="QuickBtn">
+				<a href="{:U('Home/Register/wangjpass')}">忘记密码？</a>
+			</li>
+			<li class="Login-Btn">
+				<a onclick="checkedform();" id="cxhqdxyzmcxhqdxyzm" style="display: block;cursor: pointer;">立即登录</a>
+			</li>
+			<div class="qit"><p>其他方式登录</p></div>
+          <div class="qitdt">
+            <div align="qitdt-pic1"><a href="#"><img src="/images/6/2_r1_c1_s1.jpg"  /></a></div>
+            <div align="qitdt-pic2"><a href="#"><img src="/images/6/2_r1_c3_s1.jpg" /></a></div>
+            <div align="qitdt-pic3"><a href="/index.php/Home/Loginsinaapp/index"><img src="/images/6/2_r1_c5_s1.jpg"/></a></div>
+          </div>
+            
+           <li class="zcgryzh">
+				<a href="{:U('Home/Register/register')}">注册广羽人帐号  |</a>
+                <a href="{:U('Home/Register/wangjpass')}">忘记密码？</a>
+			</li> 
+		</ul>
+	</div>
+</body>
+</html>
+<!--提示层代码开始-->
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script>
+    function tishicengjsqiuonclick(textwz,nicheng){
+        $('body').tishicengjsqiu({
+            textwz:  textwz, //提示层文字 支持html
+            tishicbj: '#ff662d', //提示层背景 #ddd
+            colors: '#fff', //文字颜色
+            iddtt:3, //自动关闭时间秒
+            admmint:'flipInX', //显示动画
+            //动画属性说明
+            admmout:'zoomOut' //隐藏动画
+        });
+        document.getElementById(nicheng).focus();
+    }
+
+<!--提示层代码结束-->
+function checkedform(){
+    var tel=$('#tel').val();
+    var pass=$('#pass').val();
+
+    if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+        /*document.getElementById('tel').focus();
+        tishi('','请填写正确的手机号');*/
+        tishicengjsqiuonclick('请填写正确的手机号','tel');
+        return false;
+    }
+    if(!pass || (pass.length<6)){
+        /*document.getElementById('pass').focus();
+        tishi('','请填写密码');*/
+        tishicengjsqiuonclick('请填写6位以上密码','pass');
+        return false;
+    }
+   
+    //判断手机、邮箱、验证码
+    $('#cxhqdxyzmcxhqdxyzm').html('正在登录...');
+    $('#cxhqdxyzmcxhqdxyzm').removeAttr("onclick");
+    //document.getElementById("cxhqdxyzm").onclick = function(){};
+    
+    
+    var fssjdxxyyyz=hqsjhyxx(tel,pass);
+    
+}
+//获取手机号、邮箱是否被注册
+function hqsjhyxx(tel,pass){
+    var er;
+    $.ajax( {
+        url:"{:U('Home/Register/is_login')}", //这里是静态页的地址
+        type: "post", //静态页用get方法，否则服务器会抛出405错误
+        data:"tel="+tel+"&pass="+pass,
+        //dataType: "json",
+        //cache: false,
+        //async: false,
+        beforeSend: function(){
+         // Handle the beforeSend event
+        },
+        success: function(data){
+            er=data;
+                if(data=='e2'){
+                    tishicengjsqiuonclick('手机号没有注册','tel');
+                    dxaaaa();
+                    return false;
+                }if(data=='e3' || data=='e4'){
+                    tishicengjsqiuonclick('手机号或密码错误','pass');
+                    dxaaaa();
+                    return false;
+                }if(data=='e4'){
+                    tishicengjsqiuonclick('服务器繁忙！','code');
+                    dxaaaa();
+                    return false;
+                }
+                if(data=='lok'){
+                    $('body').tishicengjsqiu({
+                        textwz:  '登录成功！<br />页面即将跳转....', //提示层文字 支持html
+                        tishicbj: '#ff662d', //提示层背景 #ddd
+                        colors: '#fff', //文字颜色
+                        iddtt:5, //自动关闭时间秒
+                        url:"{:U('Home/Member/index')}",
+                        admmint:'flipInX', //显示动画
+                        //动画属性说明
+                        admmout:'zoomOut' //隐藏动画
+                    });
+                    return false;
+                }
+                //短信验证码
+                //$('#dxyzm').val(data);
+                //$('#cxhqdxyzm').html('重发(60秒)');
+                //timer(59);
+            //var result = $(data).find("另一个html页面的指定的一部分").html();
+        }
+    });
+    return er;
+}
+function dxaaaa(){
+    $('#cxhqdxyzmcxhqdxyzm').attr("onclick","checkedform();");
+    $('#cxhqdxyzmcxhqdxyzm').html('立即登录');
+}
+</script>

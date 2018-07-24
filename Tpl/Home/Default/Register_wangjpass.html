@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>{$title} {$catname} {$site_name}</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+	<div class="Login">
+    <a href="/"><div class="zc-logo" style="margin-top:30px"><img src="/images/6/zc-logo.png"  /></div></a>
+    <h2><strong>忘记密码</strong></h2>
+		<ul>
+        
+        <li>
+        <h3>手机号：</h3>
+  <p class="Code-Pic1">
+					<input type="text" name="tels" id="tels"  placeholder="请输入手机号" />
+				</p>
+		  </li>	
+
+<li>
+        <h3>验证码：</h3>
+  <p class="Code-Pic1">
+					<input type="text" name="code" id="code"  placeholder="请输入验证码" />
+				</p>
+				<p><img src="{:U('Home/Index/verify')}" id="verifyImage" onclick="javascript:resetVerifyCode();" width="100%" height="30px"></p>
+		  </li>	
+
+		  
+	  <li class="Login-Btn" id="sfasdfdasfasd">
+				<a onclick="zhanghao();" id="zhanghao" >确定</a>
+			</li>            
+	  </ul>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script>
+    function tishicengjsqiuonclick(textwz,nicheng){
+        $('body').tishicengjsqiu({
+            textwz:  textwz, //提示层文字 支持html
+            tishicbj: '#ff662d', //提示层背景 #ddd
+            colors: '#fff', //文字颜色
+            iddtt:3, //自动关闭时间秒
+            admmint:'flipInX', //显示动画
+            //动画属性说明
+            admmout:'zoomOut' //隐藏动画
+        });
+        document.getElementById(nicheng).focus();
+    }
+    // /index.php/Home/Member/yhdetails/id/$value[id]";window.location.href='/index.php?s=/addon/Rpass/Rpass/zhanghao/tel/'+tels+'.html'
+    function zhanghao(){
+        var tels=$("#tels").val();
+		var code=$("#code").val();
+            if(!tels){
+                tishicengjsqiuonclick('请输入手机号','tels');
+                return false;
+            }if(!code){
+                tishicengjsqiuonclick('请输入验证码','code');
+                return false;
+            }else{
+				$('#sfasdfdasfasd').html('<a>正在提交....</a>');
+                 $.ajax( {
+                    url:"/index.php/Home/Register/wangjpasschh.html", //这里是静态页的地址
+                    type: "post", //静态页用get方法，否则服务器会抛出405错误
+                    data:"tel="+tels+"&code="+code,
+                    success: function(msg){
+                        if(msg=='e1'){
+							resetVerifyCode();
+                            tishicengjsqiuonclick('验证码错误','code'); 
+							$('#sfasdfdasfasd').html('<a onclick="zhanghao();" id="zhanghao" >确定</a>');
+							return false;
+                        }else if(msg=='e2'){
+							tishicengjsqiuonclick('手机号没有注册','tels');
+							$('#sfasdfdasfasd').html('<a onclick="zhanghao();" id="zhanghao" >确定</a>');
+							return false;
+						}
+						smssend();
+
+                    }
+                });
+                //
+            }       
+    }
+//sen
+//验证码
+function smssend(){
+	$.ajax( {
+		url: '/sms.php', //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		//dataType: "json",
+		//cache: false,
+		//async: false,
+		beforeSend: function(){
+		 // Handle the beforeSend event
+		},
+		success: function(data){
+			alert('新密码已经发送到手机。请重新登录。');
+			location.href = '/index.php/Home/Register/login';
+			//var result = $(data).find("另一个html页面的指定的一部分").html();
+		}
+	});
+}
+//end
+//验证码
+function resetVerifyCode(){
+	var timenow = new Date().getTime();
+	document.getElementById('verifyImage').src='/index.php?g=Home&m=Index&a=verify#'+timenow;
+}
+</script>

@@ -1,0 +1,455 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="textml;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>{$title} {$catname} {$site_name}</title>
+<!--css start-->
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+
+
+<link href="/css/style.css?3" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--商品图切换-->
+  <div class="">
+  
+  <!---------------------------------- container开始 ---------------------------------->
+<!--幻灯片-->
+    <script type="text/javascript" src="/js/prefixfree.min.js"></script>
+    <script type="text/javascript" src="/js/flipsnap.min.js"></script>
+  <script>
+  var ww=$(window).width();
+  //alert(ww);
+  //banner
+  var w=430;
+  var h=300;
+  var b=1;
+  var newsssheigtg=(ww*b*h)/w;
+new_widht_baifenbi_kuandu=1;
+var xiaoxunews=ww-(182/360)*ww;
+document.write("<style>.index-h-l-wenzi{width:"+xiaoxunews+"px;top: 50%;margin-top: -28px;}</style>");
+
+</script>
+    
+<if condition="!empty($goodimg)">
+<div class="container">
+        <section class="banner">
+          <ul>
+            <volist name="goodimg" id="gimg">
+              <li><img src="{$gimg}"></li>
+            </volist>
+          </ul>
+        <span class="identify">
+          <volist name="goodimg" id="gimg">
+            <em></em>
+          </volist>
+        </span>
+        </section>
+      </div>
+<script type="text/javascript" src="/js/mobile_module.js"></script>
+    <script type="text/javascript" src="/js/admin_common.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.WeiPHP.initBanner(true,5000);
+        $.WeiPHP.setRandomColor('.random_color');
+    })
+</script>
+</if>
+<!--幻灯片-->
+<!---------------------------------- container结束 ---------------------------------->
+<!--2016.11.29 尺寸--->
+<?php
+  //dump($kc);
+  //获取颜色
+  $yanseee=explode('moweilin',$detail['kc']);
+  //dump($yanseee);
+  foreach($yanseee as $ks=>$vs){
+    $ysssaaa=explode('lizhenqiu',$vs);
+    $yansearr[]=$ysssaaa['0'];
+    $yuccmmck=$yuccmmck?$yuccmmck.'-'.$ysssaaa['0'].$ysssaaa['1'].'-'.$ysssaaa['3']:$ysssaaa['0'].$ysssaaa['1'].'-'.$ysssaaa['3'];
+  }
+  $yansearr=(array_unique($yansearr));
+  //dump($yuccmmck);
+?>
+<script>
+cmmmmm='';//选择尺寸
+ysssyyy='';//选择颜色
+var yuccmmck=new Array(<?php 
+  $yuccmmck=explode('-',$yuccmmck);
+  foreach($yuccmmck as $kk=>$vv){
+    echo '\''.$vv.'\',';
+  }
+?>0);//库存数组
+function yhansss(sthis,keys){
+  //点击颜色
+  ysssyyy=keys;
+  $('.yaes').css("background","");
+  $('#yanse_'+keys).css("background","#DFDFDF");
+  $('#getys').val(keys);
+  ddsmmyy();
+}
+function yhanssscm(sthis,cm){
+    cmmmmm=cm;
+    $('.cms').css("background","");
+    $('#cm_'+cm).css("background","#DFDFDF");
+    $('#getcm').val(cm);
+    ddsmmyy();
+  }
+function ddsmmyy(){
+  //修改库存
+  if(cmmmmm && ysssyyy){
+    var kkuuccc=yuccmmck.indexOf(ysssyyy+cmmmmm);
+    if(kkuuccc<0) kkuucccstr=0;
+    else kkuucccstr=yuccmmck[(kkuuccc+1)];
+    $('#sdfsdkkccc').text(kkuucccstr);
+    $('#kucun').val(kkuucccstr);
+  }else{
+    $('#sdfsdkkccc').text('--');
+    $('#kucun').val(0);
+  }
+}
+</script>
+<!--end-->
+  
+  </div>
+<div class="spxqy" style="margin-top: 0.5rem;margin-bottom: 0rem;">
+  <div class="sqxqy-1" style="margin-top: 0rem; height: 1rem;"><strong>￥{$detail.price}</strong></div>
+   <div class="sqxqy-2" style="margin-left: 2.5rem;font-size: 14px; padding-top:2px; margin-top: 0rem; height: 1rem;">￥{$detail.cprice}</div>
+ <div style="clear:both"></div>
+</div>
+<div class="sqxqy-3">{$detail.description|asmsubstr=0,18,'utf-8',true}</div>
+
+
+<div class="sqxqy-cm">
+  <div class="sqxqy-cma"><strong>尺码</strong></div>
+
+  <div class="cc">
+    <div onclick="yhanssscm(this,'XS')" id="cm_XS" class="cms cc-3">XS</div>
+    <div onclick="yhanssscm(this,'S')" id="cm_S" class="cms cc-2">S</div>
+    <div onclick="yhanssscm(this,'M')" id="cm_M" class="cms cc-2">M</div>
+
+  </div>
+  <div class="cc1">
+    <div onclick="yhanssscm(this,'L')" id="cm_L" class="cms cc-3">L</div>
+    <div onclick="yhanssscm(this,'XL')" id="cm_XL" class="cms cc-2">XL</div>
+    <div onclick="yhanssscm(this,'XXL')" id="cm_XXL" class="cms cc-2">XXL</div>
+  </div>
+
+<div class="sqxqy-cma"><strong>颜色</strong></div>
+<style type="text/css">
+  .ulcss{width: 100%; height: 1.5rem; float: left; border: 1px solid #CCCCCC; color: #666; text-align: center; line-height: 1.5rem;}
+</style>
+<div style="float:left;margin:20px 0px 20px 0px; width:100%">
+  <ul style="float:left; width:100%">
+    <volist name="yansearr" id='vys'>
+      <li style="float:left;width:28%; margin:10px 5px 0px 10px;"><a onclick="yhansss(this,'{$vys}');"><div id="yanse_{$vys}" class="yaes ulcss">{$vys}</div></a></li>
+    </volist>
+  </ul>
+</div>
+<div class="kucun" style=" margin-left:40px; line-height:25px; margin-top:5px; margin-bottom:25px;">(<span class="kucunliang" style="color:#f40;" id="sdfsdkkccc">--</span>库存)
+     <!-- <span class="dhtz" style="display:inline-block; margin-left:15px;"><a href="#" style="color: #666;text-decoration: underline;">到货通知</a></span>
+     
+     <span class="dhtz" style="display:inline-block; margin-left:15px;">购买送积分{$detail.jifen}</span> -->
+     
+     </div>
+     <div class="spxqy-sl">
+       <div class="sl">数量：</div>
+       <div class="sl-1">
+         <div id='jian' class="sl-2">-</div>
+         <div class="sl-3"><input style="width:100%; height:1.1rem;text-align:center" type='text' id='mun'  name='mun' value='1'></div>
+         <div id='jia' class="sl-4" style="padding-top: 0.2rem;  height:0.9rem;" >+</div>
+       
+       </div>
+       
+     </div>
+     <div class="ppbz">
+        <a> <div class="ppbz-1" style="border-right:1px solid #ccc;">销量&nbsp;<span style="color:#f00">{$detail.xiaoliang}</span></div></a>
+        <a onclick="addshochangapp({$detail.id})" ><div class="ppbz-2" id='mashangmai'  style="border-right:1px solid #ccc;  background:url(/images/wsc.png) no-repeat left;">收藏商品</div></a>
+        <a ><div class="ppbz-2 " >送积分&nbsp;<span style="color:#ff4400">{$detail.score}</span></div></a>
+     </div>
+    <style type="text/css">
+    .cssbzbh{background: #545E6E;color: #FFF;}
+    .cssbzbq{color: #545E6E;}
+    .cssqh{display:none;}
+    </style>
+     <div class="spxx">
+      <a><div id="spxinxi" class="spxx-2 cssbzbh">商品信息</div></a>
+      <a><div id="shbaozhang" class="spxx-2 cssbzbq">售后保障</div></a>
+     </div>
+    <div class="spxx-3">
+      <p class="spxxnr">品牌：{$detail.pinpai}</p>
+      <p class="spxxnr">衣门襟：{$detail.yimenjin}</p>
+      <p class="spxxnr">适用场景：{$detail.sycj}</p>
+      <p class="spxxnr">商品毛重：{$detail.spmz}</p>
+      <p class="spxxnr">含毛量：{$detail.mhliang}</p>
+      <p class="spxxnr">图案：{$detail.tuan}</p>
+      <p class="spxxnr">版型：{$detail.banxing}</p>
+      <p class="spxxnr">薄厚：{$detail.bohou}</p>
+      <p class="spxxnr">流行元素：{$detail.lxys}</p>
+      <p class="spxxnr">销量：{$detail.xiaoliang}</p>
+      <div class="shbz cssqh">{$detail.shbz}</div>
+    </div>
+    <style type="text/css">
+    .xqy-tu p img{width: 100%;
+   background-position: 50% 50%;
+    background-size: cover;}
+    </style>
+    <div class="spxxnr sqxqy-cma1">
+      <div class="sqxqy-cma"><strong>商品图片</strong></div>
+      <div class="xqy-tu" style="display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;"> {$detail.content}  </div>
+                                  
+    </div>
+   <input type="hidden" id="kucun" value="0">
+   <input type="hidden" id="getcm" value="">
+   <input type="hidden" id="getys" value="">  
+
+</div>
+      <div class="xqy-db" style="
+    z-index: 9999;
+">
+        <div class="xqy-db-1">
+          <div id="mycart" class="xqy-gwc" onclick="jrgwc({$detail.id})">加入购物车</div>
+          <div  id="buynowapp" class="xqy-ligm" onclick="lijigoumai({$detail.id})">立即购买</div>
+        
+        </div>
+      </div>
+      
+            <!---------------------------------- footer结束 ----------------------------------> 
+      
+    </div>
+
+<div style="height: 3.5rem;width:100%;"></div>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script type="text/javascript">
+  $("#spxinxi").click(function(){
+    $(this).addClass('cssbzbh');
+    $(this).removeClass('cssbzbq');
+    $("#shbaozhang").removeClass('cssbzbh');
+    $(".shbz").addClass('cssqh');
+    $(".spxxnr").removeClass('cssqh');
+  })
+  $("#shbaozhang").click(function(){
+    $(this).addClass('cssbzbh');
+    $(this).removeClass('cssbzbq');
+    $("#spxinxi").removeClass('cssbzbh');
+    $(".spxxnr").addClass('cssqh');
+    $(".shbz").removeClass('cssqh');
+  })
+  function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+  var key=1;
+  function jrgwc(good_id){
+    var cm=$('#getcm').val();
+    var ys=$('#getys').val();
+    var gkc=$('#kucun').val();
+    var sum=$('#mun').val();
+    if(Number(sum)>Number(gkc)){
+      sum=gkc;
+      $('#mun').val(sum);
+    }
+    if(!cm){
+      tishicengjsqiuonclick('请选择尺码','mycart');return false;
+    }
+    if(!ys){
+      tishicengjsqiuonclick('请选择颜色','mycart');return false;
+    }
+    if(gkc==0){
+      tishicengjsqiuonclick('抱歉，该货物暂时缺货，选择其他看看吧！','mycart');return false;
+    }
+    if(sum<=0){
+       $('#mun').val(1); return false;
+    }
+    if(key==2){return false;}
+      key=2;
+      tishicengjsqiuonclick('正在提交，请稍等...','mycart');
+   
+    $.ajax({
+            type: "POST",
+            url: "{:U('Home/Product/Cart_add')}",
+            data: "good_id=" + good_id +"&get_mun="+ sum +"&ys=" + ys +"&cm="+ cm+"&gkc="+gkc,
+            success: function(msg) {
+                if(msg['is']==1){
+                   key=1;
+                  tishicengjsqiuonclick('成功将数量为'+sum+'加入购物车','mycart');
+                 
+
+                }else if(msg['is']==2||!msg){
+                  key=1;
+                  tishicengjsqiuonclick('未能加入购物车，请稍后重试','mycart');
+                  
+                }else if(msg['is']==3){
+                  key=1;
+                  tishicengjsqiuonclick('您未登录，正前往登录','mycart');
+                  setTimeout(function(){
+                    window.location.href="{:U('Home/Register/login')}"
+                  },3000)
+                }else if(msg['is']==4){
+                  key=1;
+                  tishicengjsqiuonclick('抱歉当前库存数量不足,仅剩'+msg['thiskcs']+'件','mycart');
+                }
+            }
+    });
+    
+  }
+
+  $('#jian').click( function(){
+    var sum=$('#mun').val();
+    if(sum>1){
+      sum--;
+      $('#mun').val(sum);
+    }
+  })
+  $('#jia').click( function(){
+    var kc=$('#kucun').val();
+    var sum=$('#mun').val();
+    if(Number(sum)<Number(kc)){
+      console.log(kc+"\n"+sum);
+      sum=Number(sum)+1;
+      $('#mun').val(sum);
+    }
+  })
+  $('#mun').blur(function(){
+    var sum=$('#mun').val();
+    var kc=$('#kucun').val();
+    if(Number(sum)>Number(kc)){
+      sum=kc;
+      $('#mun').val(sum);
+    }
+    if((/^(\+|-)?\d+$/.test( sum ))&&sum>0){  
+      $('#mun').val(sum);
+    }else{
+      sum=1;
+      $('#mun').val(sum);
+
+    }
+  })
+  var shc=1;
+  function addshochangapp(get_gid){
+    if(shc==2){return false;}
+    shc=2;
+    if(!get_gid){
+        shc=1;
+       tishicengjsqiuonclick('该数据非法，无法收藏','mashangmai'); return false;
+    }
+    $.ajax({
+            type: "POST",
+            url: "{:U('Home/Member/addshoucang')}",
+            data: "good_id=" + get_gid,
+            success: function(msg) {
+                if(msg['apsc']==1){
+                  shc=1;
+                  $("#mashangmai").css("background-image","url(/images/ysc.png)");
+                  tishicengjsqiuonclick('已加入收藏','mashangmai');
+                 
+                }else if(!msg){
+                  shc=1;
+                  tishicengjsqiuonclick('收藏失败，请稍后重试','mashangmai');
+                }else if(msg['apsc']==2){
+                  shc=1;
+                  tishicengjsqiuonclick('您未登录，正前往登录','mashangmai');
+                  setTimeout(function(){
+                    window.location.href="{:U('Home/Register/login')}"
+                  },3000)
+                }else if(msg['apsc']==3){
+                  shc=1;
+                  $("#mashangmai").css("background-image","url(/images/ysc.png)");
+                  tishicengjsqiuonclick('您已收藏该商品','mashangmai');
+                 
+                }
+            }
+    });
+  }
+
+var ml=1;
+  function lijigoumai(spid){
+    var cm=$('#getcm').val();
+    var ys=$('#getys').val();
+    var sum=$('#mun').val();
+    var gkc=$('#kucun').val();
+    if(!cm){
+      tishicengjsqiuonclick('请选择尺码','getcm');return false;
+    }
+    if(!ys){
+      tishicengjsqiuonclick('请选择颜色','getys');return false;
+    }
+    if(sum<=0){
+       $('#mun').val(1); return false;
+    }
+    if(gkc==0){
+      tishicengjsqiuonclick('抱歉，该货物暂时缺货，选择其他看看吧！','kucun');return false;
+    }
+    if(ml==2){return false;}
+      ml=2;
+    $.ajax({
+            type: "POST",
+            url: "{:U('Home/Member/ljgm')}",
+            data: "good_id=" + spid+"&get_mun="+ sum +"&ys=" + ys +"&cm="+ cm,
+            success: function(msg) {
+               if(msg['gm']==1){
+                  tishicengjsqiuonclick('订单已提交','buynowapp');
+                  setTimeout(function(){
+                    ml=1;
+                    window.location.href="{:U('Home/Member/qrdd')}";
+                  },3000)
+               }else if(msg['gm']==2||!msg){
+                   tishicengjsqiuonclick('订单提交失败，请稍后重试','buynowapp');
+                    ml=1;
+               }else if(msg['gm']==3){
+                    tishicengjsqiuonclick('您未登录，正前往登录','buynowapp');
+                     ml=1;
+                    setTimeout(function(){
+                     window.location.href="{:U('Home/Register/login')}"
+                    },3000)
+               }
+            }
+    });
+  }
+</script></body>
+</html>

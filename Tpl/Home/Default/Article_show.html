@@ -1,0 +1,40 @@
+<style>.lfbox1 img{max-width:100%;}</style>
+<!---------------------------------content2开始--------------------------------->
+<div class="content2">
+  <div class="lfbox1">
+     <div class="title" style="">{$title}</div> 
+     <div class="fabuxinxi">发布者：香港昇航集团 &nbsp;&nbsp;&nbsp;&nbsp;浏览次数：<span>{$hits}</span>次</div>
+          
+     
+     {$content}
+     <!--翻页start-->
+			 <style>
+			 .yema span {
+    padding: 5px 10px;
+    margin: 3px;
+    color: #fff;
+    background-color: #009BCE;
+}
+			 </style>
+            <div class="yema">
+               {$pages}
+            </div>
+             <!--翻页end-->
+     
+     <div class="clearfix"></div>
+     <div class="fanhui"> <a style="cursor: pointer;" class="hvr-sweep-to-top" onclick="history.go(-1)">返回上一页</a></div>
+          
+     
+  </div>
+   
+   
+   <div class="rgbox1">
+      <ul class="rgimg">
+         <include file="C:t"/>
+      </ul>
+   </div>
+</div>
+
+
+<div class="clearfix"></div>
+<!---------------------------------content2开始--------------------------------->

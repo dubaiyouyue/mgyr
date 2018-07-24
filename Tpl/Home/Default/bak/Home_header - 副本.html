@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="/css/css.css" type="text/css" rel="stylesheet" />
+
+<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+
+<script src="/js/jquery.SuperSlide.2.1.1.js"></script>
+
+<script src="/layer-v2.1/layer.js"></script>
+
+
+<title>{$title} {$catname} {$site_name}</title>
+<meta name="keywords" content="{$seo_keywords}{$keywords}">
+<meta name="description" content="{$seo_description}{$description}">
+
+
+</head>
+
+<body>
+
+<!--+++头部轮播图开始+++-->
+
+<div class="lunbo">
+
+<div class="fullSlide">
+		
+	<div class="bd">
+		<ul>
+			
+<GZ:list sql="select * from gz_slide_data where fid = '1' and lang='1' and  status='1' order by listorder desc,id desc limit 5" key='i'>
+			<li><a href="{$r.link}"><img src="{$r.pic}"></a></li>
+		</GZ:list>
+		</ul>
+	</div>
+
+	<div class="hd"><ul></ul></div>
+	<span style="display:block;" class="prev"></span>
+	<span style="display:block;" class="next"></span>
+</div>
+
+<script type="text/javascript">	
+
+	/* 调用SuperSlide */
+	jQuery(".fullSlide").slide({ 
+		titCell:".hd ul", 
+		mainCell:".bd ul", 
+		effect:"top",  
+		autoPlay:true, 
+		autoPage:true, 
+		trigger:"click",
+		interTime:5000,
+		startFun:function(i){
+			
+		}
+	});
+</script>
+	
+<!--+++导航栏开始+++-->
+
+
+
+<div class="naver">
+
+	
+	<div class="naver_con clearfloat">
+	
+		<div class="naver_con_l" id="yin" ><a href="/"><img src="/images/logo.fw.png"></a></div>
+		
+		<div class="naver_con_r">
+		
+			<div class="naver_con_r_t"></div>
+			
+			<div class="naver_con_r_b">
+			
+				<ul>
+				
+					<li <?php if(!$catid) echo 'class="active"';?>><a href="/">首页</a></li>
+					
+<?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li class="';
+              if(in_array($catid,$vv))  echo 'active';
+                echo '"><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+            }
+?>
+				
+				</ul>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+	
+	
+</div>
+
+
+
+<!--+++导航栏结束+++-->
+
+
+<!--<div class="cesi">
+
+	<div class="cesi_con"></div>
+
+</div>-->
+
+
+</div>
+
+<!--+++头部轮播图结束+++-->
+
+<!--+++banner下来部分+++-->
+
+<div class="zhengti">
+
+<!--+++站内搜索部分+++-->
+
+<div class="znss clearfloat">
+
+	<div class="znss_con clearfloat">
+	
+		<div class="znss_con_con">
+	
+		<Span>站内搜索：</span>
+		
+		<input class="ssbd ss_con" type="text" value="请输入搜的关键词" id="seachr_kew" onblur="if(this.value=='')value='请输入搜的关键词';" onfocus="if(this.value=='请输入搜的关键词')value='';" name=""  />
+		
+		<span class="ssbut" id="xxww"><img src="/images/ss.fw.png"></span>
+		
+		
+<script>
+	//搜索
+	function sseesaa(){
+		
+		var  xxx=$('.ss_con').val();
+		
+		//alert(xxx);
+		
+		if(xxx=='' || xxx=='请输入搜的关键词'){
+
+		//alert('1234');
+		
+		layer.tips('请输入搜的关键词', '#xxww',{ tips:2,time:1500,shift:6,}); 
+		
+		//在元素的事件回调体中，follow直接赋予this即可
+		
+		document.getElementById('seachr_kew').focus();
+		
+		return false;
+		
+		}
+		
+		//获取搜素框关键词
+		
+		var s_k_ww=$('#seachr_kew').val();
+		
+		//跳转网页
+		
+		//window.location.href='https://www.baidu.com/s?wd='+s_k_ww; //百度搜索
+		
+		//window.location.href='http://m2.cn.bing.com/search?q='+s_k_ww; //必应搜索
+		
+		window.location.href='/index.php/searchpage/?k='+s_k_ww;
+	}
+			
+	$('#xxww').on('click', function(){
+	
+	
+		sseesaa();
+	
+		
+	
+	});
+				
+	
+
+</script>
+
+
+<script>
+
+$('#seachr_kew').keydown(function(e){
+ 
+	
+	if(e.keyCode==13){ 
+	
+	sseesaa();
+	
+	} 
+	
+});  
+
+</script>
+		
+		
+	
+		</div>
+		
+	</div>
+	
+</div>
+
+<!--+++站内搜索部分结束+++-->

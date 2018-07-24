@@ -1,0 +1,243 @@
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="/layer/layer.js"></script>
+<!------------------------------------------container4开始------------------------------------------>
+<div class="container4">
+    <div class="leftbox">
+        <div class="lanmu">
+          <div class="lanmu-tp"></div>
+          <div class="lanmu-md"></div>
+          <div class="lanmu-btm"></div>
+             <div class="zbt">{$Categorys.$parentid.catname}<span class="hz">{$Categorys.$parentid.keywords}</span></div>
+             <div class="lbwz">
+                <ul>
+				<include file="A:l"/>
+                   
+                </ul>
+             </div>
+       </div>
+        <div class="lxfs">
+           <include file="C:u"/>
+        </div>
+    </div>
+    
+    <div class="rightbox">
+      <div class="dqwzbg">
+         <include file="Home:catpos"/>
+      </div>
+      <div class="bottombox">
+         <div class="ejlmbt">在线留言<span class="bybg"></span></div>
+         <div class="changmojixian"></div>
+         <div class="nrq" style="padding-top:20px;">
+           <div class="hyy">{$lyts}</div>
+            <div class="fbly">发表留言</div>
+            
+            <form name="myform" id="myform" method="POST" action="/index.php?g=User&m=Post&a=Message">
+                <div id="content_form">
+                    <table cellpadding=0 cellspacing=0 class="table_form"  >
+                        <input type="hidden"  name="catid" value="19" />
+                        <input type="hidden"  name="moduleid" value="8" />
+                        <input type="hidden"  name="lang" value="1" />
+                        <input type="hidden"  name="forward" value="/message/" />
+                        <tr id="liuyan" height="45px">
+                                    <td width="100" align="right" id="liuyan_wz"><font color="red">*</font> 标题：</td>
+                                    <td id="table" class="box_title">
+                                        <input type="text"   class="input-text " name="name"  id="name" value="" size="40"  validate=" minlength:2, maxlength:50, required:true" />                                     </td>
+                                </tr>
+
+                                </tr><tr id="liuyan" height="45px">
+                                    <td width="100" align="right" id="liuyan_wz"><font color="red">*</font> 电子邮箱：</td>
+                                    <td id="table" class="box_email">
+                                        <input type="text"   class="input-text " name="email"  id="email" value="" size="20"  validate=" maxlength:40, required:true, email:true" />                                     </td>
+                                </tr><tr id="liuyan" height="45px">
+                                    <td width="100" align="right" id="liuyan_wz"> 手机号码：</td>
+                                    <td id="table" class="box_telephone">
+                                        <input type="text"   class="input-text " name="tel"  id="tel" value="" size="20"  validate=" mobile:true" />                                     </td>
+                                </tr><tr id="liuyan" height="45px">
+                                    <td width="100" align="right" id="liuyan_wz"><font color="red">*</font> 我要留言：</td>
+                                    <td id="table" class="box_content">
+                                        <textarea  class="" name="content"  rows="10" cols="50"  id="content"   validate=" minlength:2, maxlength:200, required:true" /></textarea>                                    </td>
+                                </tr>                        <tr>
+                            <td width="100">&nbsp;</td>
+                            <td>&nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="100"></td>
+                            <td>
+                                <input TYPE="button"  onclick="xxpd();"  value="发表" class="button_submit" />
+                                <input TYPE="reset"  value="取消" class="button_reset" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </form>
+            
+            <div class="fkly">访客留言：</div>
+
+            
+      
+			
+			<div style="
+    text-align: center;
+    background: #f0e8dd;
+    padding: 8px 0;
+    cursor: pointer;
+    width: 180px;
+    margin: auto;
+    border: 1px solid #ccc;
+    color: red;
+    margin-top: 28px;
+" class="jiazai" onclick="sslyss();" id="sfsdfssss">加载更多...</div>
+			
+         </div>
+         <div class="xiamojixian">
+             <div class="chahu"><img src="/images/chahu.png" width="121" height="85"></div>
+         </div>
+      </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<!------------------------------------------container4结束------------------------------------------>
+
+<script>
+	document.getElementById('name').focus();
+	function  xxpd(){
+	
+		var name=$('#name').val();
+		var email=$('#email').val();
+		var telephone=$('#tel').val();
+		var content=$('#content').val();
+		
+		if(!name){
+		
+			layer.msg('请填写标题',{time:1000,shift:6}
+			
+			,function(){
+			
+			//alert('123');
+			//documnet.getElementById('xm').focus();
+			document.getElementById('name').focus();
+			
+			}
+			
+			
+			);
+			
+			return false;
+		
+		}
+		
+		if(!youxiang('email') || !email){
+		
+			layer.msg('请填写电子邮箱',{time:1500,shift:6}
+			
+			,function(){
+			
+			//$('#email').val('');
+			
+			document.getElementById('email').focus();
+			
+			}
+			
+			);
+			
+			return false;
+			
+		}
+		
+		if(!telephone || (telephone.length!=7 && telephone.length!=11) || isNaN(telephone)){
+		
+			layer.msg('请填写联系电话',{time:1000,shift:6}
+			
+			,function(){
+			
+
+			document.getElementById('tel').focus();
+			
+			}
+			
+			
+			);
+			
+			return false;
+		
+		}
+		if(!content){
+		
+			layer.msg('请填写留言内容',{time:1000,shift:6}
+			
+			,function(){
+			
+
+			document.getElementById('content').focus();
+			
+			}
+			
+			);
+			
+			return false;
+		
+		}
+		document.getElementById('myform').submit();
+	}
+	
+		function  youxiang(n){
+		
+		var email = document.getElementById(n).value;
+		
+		//alert(email);
+		
+		//return false;
+		
+            if (email != "") {
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                isok= reg.test(email );
+                if (!isok) {
+                    return false;
+                }
+				else return true;
+            }
+		}
+	nyyyyn=0;
+	sslyss();
+	function sslyss(){
+	$("#sfsdfssss").text('加载中...');
+	$.ajax( {
+			url: '/index.php?g=Home&m=Onlinemessagee&a=index&aid='+nyyyyn, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(!data){
+					$("#sfsdfssss").text('没有了');
+					return false;
+				}
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+				$("#sfsdfssss").before(data);
+				$("#sfsdfssss").text('查看更多...');
+				nyyyyn=nyyyyn+1;
+			}
+	});
+	//alert(nyyyyn);
+	
+	
+		/*var index = layer.load(1, {
+		shade: [0.2,'#fff'], //0.1透明度的白色背景
+		//time:2*1000,
+		});*/
+	
+	
+	
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+

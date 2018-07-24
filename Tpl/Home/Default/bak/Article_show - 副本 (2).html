@@ -1,0 +1,67 @@
+
+<!------------------------------------------container3开始------------------------------------------>
+<div class="container3">
+    <div class="leftbox">
+        <div class="lanmu">
+          <div class="lanmu-tp"></div>
+          <div class="lanmu-md"></div>
+          <div class="lanmu-btm"></div>
+             <div class="zbt">{$catname}<span class="hz">{$Categorys.$parentid.keywords}</span></div>
+             <div class="lbwz">
+                <ul>
+                   <include file="A:l"/>
+                </ul>
+             </div>
+       </div>
+        <div class="lxfs">
+           <include file="C:u"/>
+        </div>
+    </div>
+    
+    <div class="rightbox">
+      <div class="dqwzbg">
+         <include file="Home:catpos"/>
+      </div>
+      <div class="bottombox">
+         <div class="ejlmbt">{$catname}<span class="bybg"></span></div>
+         <div class="fhsyy mj"><a style="cursor: pointer;" onclick="history.go(-1)">返回上一页</a></div>
+		 
+		 
+		 
+
+		 
+		 <style>
+		 .biaozhu img{max-width:100%;}
+		 </style>
+		 
+		 
+         <div class="changmojixian"></div>
+       <div class="nrq" style="padding-top:20px;">
+           <div class="xqbt">{$title}</div>
+           <div class="biaozhu" style=" padding-top:10px; padding-bottom:10px; font-size:13px; color:#666; text-align:center;">发布者：管理员&nbsp;&nbsp;发布时间：{$createtime|toDate=###,'Y/m/d'}&nbsp;&nbsp;浏览次数：{$hits}</div>
+           {$content}
+		   
+		   
+		   <!--翻页start-->
+			 <style>
+			 .rightbox .bottombox .nrq .yema .a1,.rightbox .bottombox .nrq .yema span {
+    padding: 5px 10px;
+    margin: 3px;
+    color: #fff;
+    background-color: #000;
+}
+			 </style>
+            <div class="yema">
+               {$pages}
+            </div>
+             <!--翻页end-->
+         </div>
+         <div class="xiamojixian">
+             <div class="chahu"><img src="/images/chahu.png" width="121" height="85"></div>
+         </div>
+      </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<!------------------------------------------container3结束------------------------------------------>

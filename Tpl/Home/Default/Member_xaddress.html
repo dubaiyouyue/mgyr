@@ -1,0 +1,241 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>{$title} {$catname} {$site_name}</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" type="text/css" href="/js/src/mobile-select-area.css">
+<!-- <script type="text/javascript" src="/js/src/jquery-1.11.2.js"></script> -->
+<script type="text/javascript" src="/js/src/dialog.js"></script>
+<script type="text/javascript" src="/js/src/mobile-select-area.js"></script>
+<script>
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+</head>
+<body>
+<div class="dak"> 
+<style>
+.dak .grzl .hyjf .Login1 ul li .Code-Pic-5 .dzh{
+	height:7.25rem; width:99%; padding-left: 0.5rem;
+    padding-top: 0.5rem; border: 1px solid #ccc;
+}
+</style>
+<div class="grzl">
+<style type="text/css">
+	.cuwudz{color:red;background-color:#f9e70b}
+</style>
+<div class="hyjf">
+	<div class="Login1">
+		<ul>
+	        <li><p class="Code-Pic-1"><input type="text" name="uname" id="uname" value="{$newdzxg.xm}" placeholder="收货人 *" /></p></li>
+	        <li><p class="Code-Pic-2"><input type="text" name="tel" id='tel' value="{$newdzxg.tel}" placeholder="联系电话 *" /></p></li>
+	        <li><p class="Code-Pic-2"><input type="text" name="youbian" id='youbian' value="{$newdzxg.yb}" placeholder="邮编 *" /></p></li> 
+            <li><p class="Code-Pic-3"><input type="text" name="szdq" id='szdq' value="{$newdzxg.sf} {$newdzxg.shi} {$newdzxg.qy}" placeholder="所在地区" /></p></li>
+            <li><p class="Code-Pic-5"><textarea class="dzh" name="xiangxidz" id="xiangxidz" value="{$newdzxg.xx}" placeholder="请填写详细地址 *">{$newdzxg.xx}</textarea></p></li>
+            <li><p class="Code-Pic-1" style="width:100%;"><input type="button" id="tijiaodz" <if condition="$newdzxg"> onclick="xgdis({$newdzxg.id});" <else/>onclick="addxindz();" </if>style="width:100%; background-color:#f66606; color:#e4e2e1; font-weight:bold;font-size:16px; " value="提 交" ></p></li>
+		</ul>
+	</div>  
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+</div>
+</div>
+<script>
+	var selectArea2 = new MobileSelectArea();
+	selectArea2.init({trigger:'#szdq',value:$('#szdq').val(),data:'/js/data.json'});
+</script>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+<script type="text/javascript">
+function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+var adz=1;
+	function addxindz(){
+		if(adz==2){ tishicengjsqiuonclick('请稍后再提交','tijiaodz');return false;}
+		adz=2;
+		var tel=$('#tel').val();          //电话
+		var uname=$('#uname').val();      //收货人
+		var youbian=$('#youbian').val();  //邮编
+		var szdq=$('#szdq').val();        //所在地址
+		
+		var xiangxidz=$('#xiangxidz').val();//收货地址
+		if(!uname||uname=="请填写收货人"){
+			$("#uname").addClass("cuwudz");
+			$("#uname").val('请填写收货人');
+			adz=1;
+			return false;
+		}
+		if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+			$("#tel").addClass("cuwudz");
+			$("#tel").val('请填写收货人联系电话');
+			adz=1;
+			return false;
+		}
+		if(!youbian|| isNaN(youbian)){
+			$("#youbian").addClass("cuwudz");
+			$("#youbian").val('请填写邮编');
+			adz=1;
+			return false;
+		}
+		if(!xiangxidz||xiangxidz=="请填写详细地址"){
+			$("#xiangxidz").addClass("cuwudz");
+			$("#xiangxidz").val('请填写详细地址');
+			adz=1;
+			return false;
+		}	
+	$.ajax( {
+        url:"{:U('Home/Member/xaddress')}", 
+        type: "post", 
+        data:"tel="+tel+"&uname="+uname+"&szdq="+szdq+"&xiangxidz="+xiangxidz+"&youbian="+youbian,
+        success: function(msg){
+           if(msg['xdz']==1){
+           	   tishicengjsqiuonclick('成功添加新地址','tijiaodz');
+           	   adz=1;
+           	    setTimeout(function(){
+                   	setTimeout(' parent.location.reload();',1000);
+                },3000)
+           }else if(msg['xdz']==3){
+           		adz=1;	
+           		tishicengjsqiuonclick('您未登录，请先去登录','tijiaodz');
+           	    setTimeout(function(){
+           	    	setTimeout(' parent.location.reload();',1000);
+                },3000)   
+           }else{
+           		adz=1;
+           	   tishicengjsqiuonclick('添加失败','tijiaodz');
+           	    setTimeout(function(){
+           	    	setTimeout(' parent.location.reload();',1000);
+                },3000)   
+           }
+        }
+    });
+
+	}
+	$('#uname').click(function(){
+		var uname=$('#uname').val();
+		if(uname=="请填写收货人"){
+			$("#uname").removeClass("cuwudz");
+			$("#uname").val('');
+		}
+		
+	})
+	$('#tel').click(function(){
+		var tel=$('#tel').val();
+		if(tel=="请填写收货人联系电话"){
+			$("#tel").removeClass("cuwudz");
+			$("#tel").val('');
+		}
+	})
+	$('#youbian').click(function(){
+		var youbian=$('#youbian').val();
+		if(youbian=="请填写邮编"){
+			$("#youbian").removeClass("cuwudz");
+			$("#youbian").val('');
+		}
+	})
+	$('#xiangxidz').click(function(){
+		var xiangxidz=$('#xiangxidz').val();
+		if(xiangxidz=="请填写详细地址"){
+			$("#xiangxidz").removeClass("cuwudz");
+			$("#xiangxidz").val('');
+		}
+	})
+	var gdz=1;
+	function xgdis(gid){
+		if(gdz==2){ tishicengjsqiuonclick('请稍后再提交','tijiaodz');return false;}
+		gdz=2;
+		var tel=$('#tel').val();          //电话
+		var uname=$('#uname').val();      //收货人
+		var youbian=$('#youbian').val();  //邮编
+		var szdq=$('#szdq').val();        //所在地址
+		var jiedao=$('#jiedao').val();    //街道
+		var xiangxidz=$('#xiangxidz').val();//收货地址
+		if(!uname||uname=="请填写收货人"){
+			$("#uname").addClass("cuwudz");
+			$("#uname").val('请填写收货人');
+			gdz=1;
+			return false;
+		}
+		if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+			$("#tel").addClass("cuwudz");
+			$("#tel").val('请填写收货人联系电话');
+			gdz=1;
+			return false;
+		}
+		if(!youbian|| isNaN(youbian)){
+			$("#youbian").addClass("cuwudz");
+			$("#youbian").val('请填写邮编');
+			gdz=1;
+			return false;
+		}
+		if(!xiangxidz||xiangxidz=="请填写详细地址"){
+			$("#xiangxidz").addClass("cuwudz");
+			$("#xiangxidz").val('请填写详细地址');
+			gdz=1;
+			return false;
+		}	
+		$.ajax( {
+        url:"{:U('Home/Member/eidtdz')}", //这里是静态页的地址
+        type: "post", 
+        data:"tel="+tel+"&uname="+uname+"&szdq="+szdq+"&xiangxidz="+xiangxidz+"&youbian="+youbian+"&gid="+gid,
+        success: function(msg){
+           if(msg['is']==1){
+           	   tishicengjsqiuonclick('成功修改地址','tijiaodz');
+           	   	setTimeout(' parent.location.reload();',1000);
+           	    setTimeout(function(){
+                   gdz=1;
+                },10000)
+           }else if(msg['is']==3){
+           		gdz=1
+           		tishicengjsqiuonclick('您未登录，请先去登录','tijiaodz');
+           	    setTimeout(function(){
+           	    	 setTimeout(' parent.location.reload();',1000);
+                },3000)
+           } else{
+           	    gdz=1;
+           	    tishicengjsqiuonclick('修改失败','tijiaodz');
+           	    setTimeout(' parent.location.reload();',1000);
+           }
+        }
+    });
+
+	}
+</script>

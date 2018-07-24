@@ -1,0 +1,244 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--banner-->
+  <style type="text/css">
+  .sadasdf{ font-size: 14px;}
+  </style>
+  <div class="banner7"><img src="{$tupian}" width="100%" height="" /></div>
+  <div class="scjs3">
+    <ul>
+      <volist name='kfzx' id='vo'>
+        <a href="{:U('Home/Index/kefuzhongxin',array('tid'=>$vo[id]))}"><li  class="sadasdf  <if condition='$vo[id] eq $catid'>current</if>" <if condition="$i gt 1">style=" margin-left:0.24rem;"</if>>{$vo.catname}</li></a>
+      </volist>
+    </ul>
+  </div>
+
+  <div class="rm">
+    <div class="rm-1">
+      <div class="rm-1-left">
+        <h2>{$thisname}</h2>
+      </div>
+      <div class="rm-1-right"></div>
+    </div>
+  </div>
+  <!-- 在线客服 -->
+  <if condition="$catid eq 217 or $thisname eq '在线客服'">
+  <div class="dialogue">
+  <div class="kftx">
+  </div>
+  <div class="fr">
+    <p class="anxd">广羽人</p>
+    <div class="duihuangkuang">
+      <P>感谢您联络广羽人！</P>
+      <P style="padding-bottom:1rem; line-height:1.5rem;">在线咨询与电话客服的接待时间是早上10：00-晚上
+20:00，微信网站24小时都可以提交订单，确认后生
+效。</P>
+      <P>客服电话：<strong style="color:#F00; font-size:14px;">0771-1234567</strong></P>
+    </div>
+    <div class="sanjiaoxing"></div>
+    <div class="xtsj">今天9:34</div>
+  </div>
+</div>
+</if>
+<!-- 留言 -->
+ <if condition="$catid eq 218 or $thisname eq '会员留言'">
+        <div class="submit_box" >
+          <p><span>*</span>标题：</p><input name="lytitie"  id='lytitie' type="text">
+          <p><span>*</span>电子邮箱：</p><input name="lyyx" id='lyyx' type="text">
+          <p><span>*</span>手机号码：</p><input name="lytel" id='lytel' type="text">
+          <p><span>*</span>留言内容：</p><textarea name="lycontent" id='lycontent' cols="" rows=""></textarea>
+          <div class="clearfix"></div>
+        </div>
+</div>
+          <div class="anniu" style=" margin-left:5.55rem; margin-top:1rem;"><input id='hyliuyan' class="submit_button" style="width:4.25rem; color:#FFF; height:1.75rem; border:1px solid #F00; background-color: #F60;"  type="button" onclick="huiyuanly()"  title="提交留言" value="提交留言" />
+         <input class="cancel_button" style="width:4.25rem; height:1.75rem; border:1px solid #999; background-color: #ccc;" name="" onclick="quxiao()" type="button" title="取消留言" value="取消留言" /></div>
+</if>
+<!-- 反馈 -->
+ <if condition="$catid eq 219 or $thisname eq '客户反馈'">
+ <div class="Login2">
+    <ul>
+      <li>
+        <p>请选择反馈问题的类型</p>
+        <p class="Code-Pic1"><input type="text" maxlength='50' name="title" id="title" placeholder="功能异常   不能正常使用现有功能（50个字符）" /></p>
+      </li>    
+      <li>
+        <p class="Code-Pic1"><input type="text" maxlength='50' name="jianyi" id="jianyi" placeholder="其他问题   用的不爽、功能建议都提过吧 （50个字符）" /></p>
+      </li>
+      <li>
+        <p>问题和意见</p>
+        <p class="Code-Pic-5">
+          <textarea class="dzh"  maxlength='200' style="width:97%; height:auto; line-height:20px; padding-left:10px; border: 1px solid #ccc;resize: none;" placeholder="请描述您使用手机淘宝时的问题和意见，若功能异常，请输您的系统问题，我们将不断为您改进。（200个字符）" id="content" name="content"></textarea>  
+        </p>
+      </li>    
+      <li>
+        <p class="Code-Pic1"><input type="text"id="tel" name="tel" placeholder="填写您的手机号" /> </p>
+      </li>
+      <li class="Login-Btn">
+        <a  onclick="khfkui()" id="khfkxx">提交</a>
+      </li>    
+    </ul>
+</div>
+</div>
+</if>
+<!-- 退换退款 -->
+<if condition="$catid eq 220 or $thisname eq '退换退款'">
+
+<volist name='orderlist' id='vo'>
+<div class="thtk1"><p style="text-align:left; color:#333;<if condition='$i eq 1'> margin-top:1rem;<else />margin-top:6.5rem;</if>">下单时间：{$vo.add_time}   &nbsp;&nbsp;  订单号：{$vo.sn}</p>
+  <div class="thtk1-1"></div>
+  <div class="thtk1-2">
+    <a href=""{:U('Home/Product/detailes',array('id'=>$vo[shipping_id]))}"><div class="thtk1-left">
+      <div class="thtk1-pic1" style="background: url({$vo.thumb}) no-repeat;background-size: cover;"></div>
+      <div class="thtk1-wz">
+        <p>{$vo.shipping_name|asmsubstr=0,20,'utf-8',true}</p>
+        <p>颜色：{$vo.ys}   尺码：{$vo.cm}  x{$vo.number}</p><p>{$vo.cxprice} </p><p1>{$vo.yprice}</p1>
+      </div>
+    </div></a>
+  </div>
+  <div class="thtk1-right">
+    <div class="thtk1-right-1">
+      <!-- <a href="#"><div class="lxmj">等待付款</div></a> -->
+      
+      <a><div class="lxmj-2"><if condition="$vo[isth] eq 1">申请中<else/>申请通过</if></div></a>
+     
+     <!--  <a href=""><div class="lxmj-3">待收货</div></a> -->
+    </div>
+  </div>
+</div>
+</volist>
+</if>
+</div>
+  <div class="clearfix"></div>
+  <div class="foom">
+    <div class="foom-2"></div>
+    <div class="foom-1" style=" margin-bottom:-0.2rem;">
+      <include file="Home:banquan"/>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+ 
+  function huiyuanly(){
+    var title=$("#lytitie").val();
+    var lyyx=$("#lyyx").val();
+    var lytel=$("#lytel").val();
+    var lycontent=$("#lycontent").val();
+     if(!title){
+      tishicengjsqiuonclick("请输入标题",'lytitie');
+      return false;
+     }
+     if(!lyyx || !(youxiang('lyyx'))){
+   
+      tishicengjsqiuonclick('请填写正确的邮箱','lyyx');
+    return false;
+  }
+    if(!lytel || (lytel.length!=7 && lytel.length!=11) || isNaN(lytel)){
+      tishicengjsqiuonclick('请填写正确的手机号','lytel');
+      return false;
+    }
+    if(!lycontent){
+      tishicengjsqiuonclick('请输入内容','lycontent');
+      return false;
+    }
+    $.ajax({
+            type: "POST",
+            url: "{:U('Home/Index/addmessage')}",
+            data: "title=" + title +"&lyyx="+ lyyx +"&lytel=" + lytel +"&lycontent="+ lycontent,
+            success: function(msg) {
+                if(msg['ly']==1){
+                  tishicengjsqiuonclick('您的留言已提交成功','hyliuyan');
+                  setTimeout(function(){
+                    tishicengjsqiuonclick('感谢您的留言','hyliuyan');
+                  },3000)
+                }else if(msg['ly']==3){
+                  tishicengjsqiuonclick('您未登录，正前往登录','hyliuyan');
+                  setTimeout(function(){
+                    window.location.href="{:U('Home/Register/login')}"
+                  },3000)
+                }else if(msg['ly']==2){
+                   tishicengjsqiuonclick('每天只能提交一次留言，请您明天再来','hyliuyan');
+                }else if(!msg){
+                  tishicengjsqiuonclick('留言提交失败，请稍后重试','hyliuyan');
+                }
+            }
+    });
+  
+  }
+  function  youxiang(n){
+  var email = document.getElementById(n).value;
+  //alert(email);
+  //return false;
+  if (email != "") {
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    isok= reg.test(email );
+    if (!isok) {
+      return false;
+    }
+    else return true;
+  }
+  return false;
+}
+function quxiao(){
+   window.location.href="{:U('Home/Index/kefuzhongxin')}"
+}
+  function khfkui(){
+
+    var title=$("#title").val();
+    var jianyi=$("#jianyi").val();
+    var content=$("#content").val();
+    var tel=$("#tel").val();
+   
+   
+      if(!title){
+          tishicengjsqiuonclick("请输入标题",'title');
+          return false;
+       }
+      if(!jianyi){
+          tishicengjsqiuonclick("请输入您的意见",'jianyi');
+          return false;
+       }
+      if(!content){
+        tishicengjsqiuonclick("请输入反馈内容",'content');
+        return false;
+       }
+        if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+           tishicengjsqiuonclick('请填写正确的手机号','tel');
+        return false;
+        }
+     $.ajax({
+            type: "POST",
+            url: "{:U('Home/Index/addkhfk')}",
+            data: "title=" + title +"&jianyi="+ jianyi +"&content=" + content +"&tel="+ tel,
+            success: function(msg) {
+                if(msg['fk']==1){
+                  tishicengjsqiuonclick('您的反馈信息已提交成功','khfkxx');
+                  setTimeout(function(){
+                    tishicengjsqiuonclick('祝您生活愉快','khfkxx');
+                  },3000)
+                }else if(msg['fk']==3){
+                  tishicengjsqiuonclick('您未登录，正前往登录','khfkxx');
+                  setTimeout(function(){
+                    window.location.href="{:U('Home/Register/login')}"
+                  },3000)
+                }else if(msg['fk']==2){
+                   tishicengjsqiuonclick('每天只能提交一次反馈，请您明天再来','khfkxx');
+                }else if(!msg){
+                  tishicengjsqiuonclick('反馈提交失败，请稍后重试','khfkxx');
+                }
+            }
+    });
+  }
+ </script>

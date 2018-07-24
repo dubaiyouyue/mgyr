@@ -1,0 +1,55 @@
+
+
+<!---------------------------------footer开始--------------------------------->
+<!----------------------------box3开始---------------------------->
+<div id="footer" style="border-top:2px solid #C5C5C5;">
+ <div class="box3">
+   <div class="fwrd">
+     <div class="fuwuzx">
+        <span class="zhongxin">服务中心：</span>
+        <a class="a1" href="{$Categorys.178.url}">服务范围</a>
+        <a class="a2" href="{$Categorys.180.url}">服务理念</a>
+        <a class="a3" href="{$Categorys.181.url}">常见问题</a>
+        <a class="a4" href="{$Categorys.182.url}">客户服务</a>
+     </div>
+     <div class="rediandh" style="margin-top: -2px;height: 66px; background: #f2f2f2 url(/images/box3_right_bg.jpg) no-repeat 0 0;border-left: 0 none;">
+        <div class="rgdh" style="margin-left:35px;">
+         <a href="{$Categorys.142.url}">走进昇航<span class="xianxie">/</span></a>
+         <a href="{$Categorys.148.url}">新闻中心<span class="xianxie">/</span></a>
+         <a href="{$Categorys.169.url}">招聘信息<span class="xianxie">/</span></a>
+         <a href="{$Categorys.164.url}">在线留言</a>
+        </div>
+     </div>
+   </div>
+ </div>
+<!----------------------------box3结束---------------------------->
+<style>
+.box4 .yqlj .lianjie {
+    height: auto;
+    line-height: 25px;
+    margin-top: 15px;
+}.box4 .yqlj .lianjie  a{display:inline-block;}
+</style>
+<!----------------------------box4开始---------------------------->
+ <div class="box4">
+   <div class="yqlj">
+      <div class="lianjie">
+         <span class="ljbt">友情链接：</span>
+         
+        <GZ:list sql="select * from gz_link where status='1' order by listorder asc,id desc" key='i'>
+		<a href="{$r.siteurl}" target="_blank" style="padding-left:15px;">{$r.name}</a>
+			
+		</GZ:list>
+      </div>
+   </div>
+   <div class="copyright">
+      <div class="rgbq"><P>{$bq}</p>
+      <P>{$beian}&nbsp;&nbsp;&nbsp;技术支持：<span class="jslj"><a href="http://www.resonance.com.cn" target="_blank">广西共振广告</a></span></p></div>
+   </div>
+ </div>
+</div>
+<!----------------------------box4结束---------------------------->
+<!---------------------------------footerz结束--------------------------------->
+
+</body>
+</html>

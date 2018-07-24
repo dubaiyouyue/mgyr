@@ -1,0 +1,49 @@
+
+<!---------------------------------content5开始--------------------------------->
+<div class="content5">
+  <div class="lfbox1">
+   <volist name="list" id="r" empty="$em" key="k">
+  
+  
+     <div class="zhaopinlist1" <?php
+		if($k>1) echo ' style="margin-top:20px;"';
+	 ?>>
+        <a href="{$r.url}">
+          <div class="zplflb1">
+             <div class="gangwei">{$r.title}</div>
+             <P class="gaiyao">概要：{$r.description}</P>
+          </div>        
+          <div class="zprgxq1">》</div> 
+        </a>
+     </div>
+     
+     </volist>
+     
+          <!--翻页start-->
+			 <style>
+			 .yema span {
+    padding: 5px 10px;
+    margin: 3px;
+    color: #fff;
+    background-color: #009BCE;
+}
+			 </style>
+            <div class="yema">
+               {$pages}
+            </div>
+             <!--翻页end-->
+  </div>
+   
+   
+      
+   <div class="rgbox1">
+      <ul class="rgimg">
+         <include file="C:t"/>
+      </ul>
+   </div>
+</div>
+
+
+<div class="clearfix"></div>
+<!---------------------------------content5开始--------------------------------->
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>{$title} {$catname} {$site_name}</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+	<div class="Login">
+    <a href="/"><div class="zc-logo" style="margin-top:30px"><img src="/images/6/zc-logo.png"  /></div></a>
+    
+    
+    <h2><strong>忘记密码</strong></h2>
+		<ul>
+      <li>
+        <p>当前帐号为：{$zhanghaos}</p>
+        <p class="Code-Pic1"><input type="password" name="newpass" id="newpass"  placeholder="请输入新密码" />
+		  </li>	
+	    <li class="Login-Btn">
+				<p class="Code-Pic1"><input type="password" name="newpass2" id="newpass2"  placeholder="请再次输入新密码" />
+			</li>
+			 <li class="Login-Btn">
+        <a onclick="xiugaipass();" id="xiugaipass" >确定</a>
+      </li>     
+	  </ul>
+     <div class="dxf">
+          <p>短信费用一般为0.1元/条、全部由营商收取。</p>
+          <p><a>短信用不了？请更换其他验证方式。</a></p>
+      </div>
+     <input type="hidden" id="zhanghaos" value="{$zhanghaos}"> 
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script>
+    function tishicengjsqiuonclick(textwz,nicheng){
+        $('body').tishicengjsqiu({
+            textwz:  textwz, //提示层文字 支持html
+            tishicbj: '#ff662d', //提示层背景 #ddd
+            colors: '#fff', //文字颜色
+            iddtt:3, //自动关闭时间秒
+            admmint:'flipInX', //显示动画
+            //动画属性说明
+            admmout:'zoomOut' //隐藏动画
+        });
+        document.getElementById(nicheng).focus();
+    }
+   
+    function xiugaipass(){
+        var newpass=$("#newpass").val();
+        var newpass2=$("#newpass2").val();
+        var zhao=$("#zhanghaos").val();
+        if(!newpass){
+          tishicengjsqiuonclick('请输入新密码','xiugaipass');return false;
+        }
+        if(newpass.length<6||newpass.length>16){
+          tishicengjsqiuonclick('请输入新密码6~16个字符','xiugaipass');return false;
+        }
+        if(newpass2!=newpass){
+          tishicengjsqiuonclick('密码不一致，请输入相同密码','xiugaipass');return false;
+        }
+        $.ajax( {
+            url:"{:U('Home/Register/eidtpss')}", //这里是静态页的地址
+            type: "post", //静态页用get方法，否则服务器会抛出405错误
+            data:"mima="+newpass+"&zhao="+zhao,
+            success: function(msg){
+              if(msg['xg']==1){
+                tishicengjsqiuonclick('修改成功，请稍后','xiugaipass'); 
+                setTimeout(function(){
+                  window.location.href='/index.php/Home/Register/login';
+                },3000)
+              }else if(!msg||msg['xg']==2){
+                   tishicengjsqiuonclick('密码错误，请重新输入','xiugaipass'); 
+              }
+            }
+        });
+                
+      }       
+
+</script>

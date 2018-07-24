@@ -1,0 +1,134 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>个人资料</strong></div></a>
+</div>
+
+<div class="jbxx">
+<div class="jbxx-1"><span style="font-size: 14px; margin-left: 0.5rem; margin-right: 0.5rem">基本信息</span><a href="{:U('Home/Member/xggrzl')}" style="float:right;font-size: 14px;  margin-right: 0.5rem">修改</a></div>
+</div>
+
+<style type="text/css">
+  .gywm-mx{width: 70%}
+  .gywm{width: 25%;}
+</style>
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong>*</strong> 昵称：</p></div>
+<div class="gywm-mx"><p style="float:right; color:#999999">{$users.nicheng}</p></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm">
+  <p><strong>*</strong> 姓名：</p></div>
+<div class="gywm-mx">
+  <p style="float:right; color:#999999;display: block;overflow: hidden;">{$users.name|asmsubstr=0,8,'utf-8',ture}</p></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm">
+  <p><strong>*</strong>手机号：</p></div>
+<div class="gywm-mx" ><p style="float:right; color:#999999">{$users.tel}</p>
+</div>
+</div>
+</div></a>
+
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm">
+  <p><strong>*</strong> 生日：</p></div>
+<div class="gywm-mx">
+  <p style="float:right; color:#999999"><if condition="$users[srn]&&$users[sry]&&$users[srr]">{$users.srn}年{$users.sry}月{$users.srr}日</if></p>
+</div>
+</div>
+</div></a>
+
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong>*</strong> 性   别：</p></div>
+<div class="gywm-mx"><p style="float:right; color:#999999">{$users.sex}</p>
+</div>
+</div>
+</div></a>
+
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong>*</strong> 电子邮箱：</p></div>
+<div class="gywm-mx" ><p style="float:right; color:#999999">{$users.email}</p>
+</div>
+</div>
+</div></a>
+
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong>*</strong> 所在地：</p></div>
+<div class="gywm-mx"><p style="float:right; color:#999999">{$users.szds}{$users.szdsq}{$users.szdq}</p></div>
+</div>
+</div></a>
+
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm">
+  <p><strong>*</strong> 家乡：</p></div>
+<div class="gywm-mx"><p style="float:right; color:#999999">{$users.jxs}{$users.jxss}{$users.jxq}</p>
+</div>
+</div>
+</div></a>
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm">
+  <p><strong></strong> 帐号安全：</p></div>
+<div><p style="float:right; color:#999999"><button onclick="xiugaimmapp()" style="margin:0.5rem 0.5rem 0rem 0rem;
+" type="button">修改密码</button></p>
+</div>
+</div>
+</div></a>
+ 
+       <!------------------------------- footer开始 ---------------------------------->
+  <div class="clearfix"></div>     
+<div class="foom" style="width:94%">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+     </div>  
+    </div> 
+<script type="text/javascript">
+  //修改密码
+  function xiugaimmapp(){
+    layer.open({
+    type: 2,
+    title: '修改密码',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['80%', '70%'],
+    content: "{:U('Home/Register/eidtmm')}"
+  }); 
+  }
+</script>

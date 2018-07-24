@@ -1,0 +1,75 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>{$good_yhhd.catname}</strong></div></a>
+</div>
+<style type="text/css">
+  .saddf{width:100%;display:block;display: block;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+line-clamp: 3;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;}
+</style>
+<div id='listyhmore' style="margin-bottom:1rem">
+<volist name='get_yhgood' id='vo'>
+<div class="yhhd">
+<div class="yhhd-1">
+<p style="text-align:center;  height:2rem; line-height:2rem;  "><a href="{:U('Home/Index/yhdetails',array('id'=>$vo[id]))}"><strong>{$vo.title|asmsubstr=0,10,'utf-8',ture}</strong></a></p>
+<div class="yhhd-3"><a href="{:U('Home/Index/yhdetails',array('id'=>$vo[id]))}"><img src="{$vo.thumb}" width="100%" height="" /></a>
+  <p><a href="{:U('Home/Index/yhdetails',array('id'=>$vo[id]))}" class="saddf">{$vo.description|asmsubstr=0,84,'utf-8',ture}</a></p></div>
+</div>
+</div>
+</volist>
+</div>
+<input type="hidden" id="moreselllist" value="1"> 
+<a onclick="yhmorelist()"><div class="more" id='morelistyh'>加载更多>></div></a>
+
+ 
+       <!------------------------------- footer开始 ---------------------------------->
+      
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1" style=" margin-bottom:-0.2rem">
+           <include file="Home:banquan"/>
+        </div>
+    </div>
+<script type="text/javascript">
+ var yhgd=1; 
+  function yhmorelist(){
+    var pyh=$('#moreselllist').val();
+    if(yhgd==2){return false;}
+      yhgd=2;
+      $('#morelistyh').html('正在加载···');
+      $.ajax({
+            type: "POST",
+            url: "{:U('Home/Index/yhmoreajax')}",
+            data: "pyh=" + pyh,
+            success: function(msg){
+                  var html='';
+                if(msg['len']==1){
+                  $.each(msg.lists, function(i, valus) {
+                    html+='<div class="yhhd">';
+                    html+='<div class="yhhd-1">';
+                    html+='<p style="text-align:center;  height:2rem; line-height:2rem;  "><a href="'+valus.nurl+'"><strong>'+valus.title+'</strong></a></p>';
+                    html+='<div class="yhhd-3"><img src="'+valus.thumb+'" width="100%" height="" />';
+                    html+='<p><a href="'+valus.nurl+'"   class="saddf" >'+valus.description+'</p></a></div>';
+                    html+='</div>';
+                    html+='</div>';
+                  });
+                  yhgd=1;
+                  $('#morelistyh').html('加载更多>>');
+                  $("#moreselllist").val(msg['pyh']);
+                  $("#listyhmore").append(html);
+              }else{
+                  yhgd=2;
+                  $('#morelistyh').html('已加载完');
+              }
+
+          }
+    });
+  }      
+ </script>

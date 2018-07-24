@@ -1,0 +1,294 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>购物车</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak">
+  <div class="grzl"> <a  href="javascript:" onclick="self.location=document.referrer;">
+    <div class="zltb bj"><strong>购物车</strong></div>
+    </a> </div>
+  <div class="shoppingMain" style="margin-bottom:62px;">
+  <volist name='get_carts' id='vo'>
+    <div id="dangqian_{$vo.id}" class="shoppingBox" style="height: 5.3rem;"><a onclick="cssa({$vo.id})" data-id="{$vo.id}" data-num="{$vo.number}"  id="css_{$vo.id}" class="choose far" style=" margin-left:0.5rem;"></a> <a  href="{:U('Home/Product/detailes',array('id'=>$vo[product_id]))}"><div class="shoppingPic" style="width:23%; height:80%;float:left;background: url({$vo.product_thumb}) no-repeat;background-size: cover;"></div>
+        <p class="shoppingName" style="margin-right:0.5rem">{$vo.product_name|asmsubstr=0,12,'utf-8',ture}</p></a>
+      <ul class="shoppingTit">
+        <li>
+          <p>颜色：<span>{$vo.ys}</span></p>
+        </li>
+        <li>
+          <p>尺寸：<span>{$vo.cm}</span></p>
+        </li>
+      </ul>
+      <p class="shoppingRmb"> <span>{$vo.gprice}</span> <i>{$vo.gcprice}</i> </p>
+     <div class="shoppingNumber" style="bottom:17px"> <a  onclick="reduces({$vo.id})" class="shoppingNumber-L" style=" text-align:center; line-height:1.05rem;">-</a>
+          <input type="text" style="text-align:center" name="number" onblur="newnumber({$vo.id})" data-numder="{$vo.number}"  id="number_{$vo.id}" value="{$vo.number}" />
+          <a onclick="adds({$vo.id})" class="shoppingNumber-R" style=" text-align:center; line-height:1.05rem;" >+</a> </div>
+          <a onclick="deletes({$vo.id})" class="shoppingDet" style="bottom:0.5rem"><img src="/images/6/22.png"/> </a>
+      <div class="clear"></div>
+    </div>
+      <input type="hidden" id="ylnumber_{$vo.id}" value="{$vo.number}">
+      <input type="hidden" id="kucuns_{$vo.id}" value="{$vo.kcs}">
+      <input type="hidden" id="price_{$vo.id}" value="{$vo.gprice}">
+  </volist>
+   <input type="hidden" id="zongjia" value="{$sum}">
+  </div>
+</div>
+
+<!------------------------------- footer开始 ---------------------------------->
+<div class="clearfix"></div>
+<div class="gwc-js">
+        <div class="gwc-js1">合计：<strong id="heji">￥{$sum}</strong></div>
+        <a ><div id='shuliang' class="gwc-js2">结算<if condition="$sumcount">（{$sumcount}）</if></div></a>
+      </div>
+
+      </div>
+
+</body>
+</html>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+<script type="text/javascript">
+  function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+    function  reduces(_obj){
+      var ylmun=$('#ylnumber_'+_obj).val();
+      var mun=$('#number_'+_obj).val();
+      var price=$('#price_'+_obj).val();
+      var hj=$('#zongjia').val();
+      if($("#css_"+_obj).hasClass("far")){
+        if(mun>1){
+          mun--;
+
+          hj=hj-price;
+          $('#number_'+_obj).val(mun);
+          $('#ylnumber_'+_obj).val(mun);
+          $('#css_'+_obj).attr('data-num',mun)
+          $('#zongjia').val(hj);
+          $('#heji').text('￥'+hj.toFixed(2));
+        }
+      }
+    }
+    function  adds(_this){
+      var ylmun=$('#ylnumber_'+_this).val();
+      var price=$('#price_'+_this).val();
+      var hj=$('#zongjia').val();
+      var kcs=$('#kucuns_'+_this).val();
+      var mun=$('#number_'+_this).val();
+      if($("#css_"+_this).hasClass("far")){
+        if( Number(mun)< Number(kcs)){
+          mun++;
+          hj=Number(hj) + Number(price*(mun-ylmun));
+          $('#number_'+_this).val(mun);
+          $('#ylnumber_'+_this).val(mun);
+          $('#css_'+_this).attr('data-num',mun)
+          $('#zongjia').val(hj);
+          $('#heji').text('￥'+hj.toFixed(2));
+        }
+      }
+    }
+    function newnumber(_id){
+      var price=$('#price_'+_id).val();
+      var hj=$('#zongjia').val();
+      var mun=$('#number_'+_id).val();
+      var ylmun=$('#ylnumber_'+_id).val();
+      var kcs=$('#kucuns_'+_id).val();
+        
+      if($("#css_"+_id).hasClass("far")){
+        if((/^(\+|-)?\d+$/.test( mun ))&&mun>0){  
+            $('#number_'+_id).val(mun); 
+            $('#ylnumber_'+_id).val(mun);
+            $('#css_'+_id).attr('data-num',mun)
+        }else{
+            mun=ylmun;
+            $('#number_'+_id).val(mun);
+             $('#ylnumber_'+_id).val(mun);
+            $('#css_'+_id).attr('data-num',mun)
+        }
+        if(Number(mun)>Number(kcs)){
+            mun=kcs;
+            $('#number_'+_id).val(mun);
+            $('#ylnumber_'+_id).val(mun);
+            $('#css_'+_id).attr('data-num',mun)
+        }
+          if(Number(mun)>Number(ylmun)){
+                hj=Number(hj) + Number(price*(mun-ylmun));
+                $('#heji').text('￥'+hj.toFixed(2));
+                $('#zongjia').val(hj);
+            }else{
+                hj=Number(hj)- Number(price*(ylmun-mun));
+                $('#heji').text('￥'+hj.toFixed(2));
+                $('#zongjia').val(hj);
+            }
+      }
+    }
+    var scc=1;
+    function deletes(del){
+      if(scc==2){return false;}
+      scc=2;
+      var price=$('#price_'+del).val();
+      var hj=$('#zongjia').val();
+      var mun=$('#number_'+del).val();
+      layer.confirm('是否删除该数据？请谨慎操作！', {
+          btn: ['确定','取消'] //按钮
+        }, function(){
+          layer.msg('正在删除，请稍后...');
+           $.ajax({
+                type: "POST",
+                url: "{:U('Home/Member/del_cart')}",
+                data: "get_id=" + del,
+                success: function(msg) {
+                    if(msg['del']==1){
+                      layer.msg('删除成功', {icon: 1});
+                      $("#dangqian_"+del).remove();
+                      setTimeout(function(){
+                         scc=1;
+                          var sl=shuliang();
+                          if(sl>0){
+                              $('#shuliang').html('结算'+'（'+sl+'）');
+                          }else{
+                              $('#shuliang').html('结算');
+                          }
+                          hj=hj-mun*price;
+                          $('#zongjia').val(hj);
+                          $('#heji').text('￥'+hj.toFixed(2));
+                      },3000)
+                    }else if(msg['del']==3){
+                      scc=1;
+                      setTimeout(function(){
+                        window.location.href="{:U('Home/Register/login')}"
+                      },3000)
+                    }else {
+                      scc=1;
+                     tishicengjsqiuonclick('删除失败！请稍后重试',"dangqian_"+del);
+                    }
+                }
+            });  
+        }, function(){
+          scc=1;
+          layer.msg('已取消',{icon: 1});
+        });
+          setTimeout(function(){scc=1; },3000);  //防止重复
+    }
+    function cssa(id){
+      $("#css_"+id).toggleClass('far');
+      var sl =shuliang();
+      var mun = $('#number_'+id).val();
+      var price=$('#price_'+id).val();
+      var hj=$('#zongjia').val();
+      if(sl>0){
+          $('#shuliang').html('结算'+'（'+sl+'）');
+      }else{
+          $('#shuliang').html('结算');
+      }
+      if($("#css_"+id).hasClass("far")){
+          $('#number_'+id).removeAttr("disabled");
+          hj=Number(hj)+Number(mun*price);
+          $('#zongjia').val(hj);
+          $('#heji').text('￥'+hj.toFixed(2));
+       }else{
+          $('#number_'+id).attr("disabled","disabled");
+          hj=hj-mun*price;
+          $('#zongjia').val(hj);
+          $('#heji').text('￥'+hj.toFixed(2));
+       }
+     
+    }
+    function shuliang(){
+       var cs=0;
+     $('.choose').each(function(){
+         //判断当前循环的对象是否是选中状态
+         var che=$(this).is('.far');
+         //将当前循环的对象的选中状态反转
+        if(che){
+          cs++; 
+        }
+      })
+     return cs;
+    }
+    //结算
+   $("#shuliang").click(function(){
+       var chk_value =[]; 
+       var mus=[];
+       var hj=$('#zongjia').val();
+        tishicengjsqiuonclick('正在提交订单，请稍后...',"shuliang");
+        $(".far").each(function(){
+          chk_value.push($(this).attr('data-id'));
+          mus.push($(this).attr('data-num'));
+        });
+         if(mus==''){tishicengjsqiuonclick('请先选好要提交的数据',"shuliang"); return false;}
+         $.ajax({
+                type: "POST",
+                url: "{:U('Home/Member/ajax_js')}",
+                data: "get_id=" + chk_value+"&get_mun="+mus+"&hj="+hj,
+                success: function(msg) {
+                  if(msg['apjs']==1){
+                      tishicengjsqiuonclick('请稍候...',"shuliang");
+                     window.location.href="{:U('Home/Member/qrdd')}";
+                   }else if(msg['apjs']==3){
+                      setTimeout(function(){
+                        window.location.href="{:U('Home/Register/login')}"
+                      },3000)
+                   }else if(msg['apjs']==6){
+                     tishicengjsqiuonclick('结算失败<br/>商品：'+msg['name']+'、'+msg['ys']+'、'+msg['cm']+'仅剩'+msg['number']+'件<br/>无法完成结算',"shuliang");
+
+                   }else{
+                    tishicengjsqiuonclick('结算失败，请稍候重试',"shuliang");
+                   }
+                   
+                }
+            });
+   })
+   
+   
+    
+</script>

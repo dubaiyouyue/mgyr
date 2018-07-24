@@ -1,0 +1,199 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="textml;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>确认订单</title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+//- 设置html标签font-size
+(function (doc, win) {
+    var _root = doc.documentElement,
+        resizeEvent = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        resizeCallback = function () {
+            var clientWidth = _root.clientWidth,
+                fontSize = 20;
+            if (!clientWidth) return;
+            //if(clientWidth < 640) {
+                fontSize = 20 * (clientWidth / 320);
+            /*} else {
+                fontSize = 20 * (640 / 320);
+            }*/
+            _root.style.fontSize = fontSize + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvent, resizeCallback, false);
+    doc.addEventListener('DOMContentLoaded', resizeCallback, false);
+})(document, window);
+</script>
+
+</head>
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+
+<div class="grzl">
+<a  href="javascript:" onclick="self.location=document.referrer;">
+<div class="zltb bj"><strong>确认订单</strong></div></a>
+<div class="qrdd">
+  <div class="qrdd-1">
+    <p>收货人：{$ddzz.xm}</p>
+    <p>联系电话：{$ddzz.tel}</p>
+   <p>地址：{$ddzz.xx}&nbsp;&nbsp;<span style="color:#fe5400" onclick="xiugauidz()">【更换地址】</span><if condition="!$ddzz[xx]"><span style="color:#fe5400" onclick="addodzap()">【添加地址】</span></if></p>
+      
+    
+  </div>
+    <volist name='da_list' id='vo'>
+     <a href="{:U('Home/Product/detailes',array('id'=>$vo[shipping_id]))}"><div class="qrdd-sj1" style="height:5.8rem; border: 1px solid #E5E5E5; */">
+       <div class="qrdd-sj-1"  style="width:30%;background: url({$vo.product_thumb}) no-repeat;background-size:cover;"></div>
+       <div class="qrdd-sj-2" style="height:5.8rem">
+        <div class="qrdd22-wenzi" style="margin-right:0.5rem">
+        <p>{$vo.shipping_name|asmsubstr=0,18,'utf-8',true}</p>
+        <p style="margin-top:0rem">颜色：{$vo.ys}</p>
+        <p style="margin-top:0rem">尺码：{$vo.cm}</p>
+<p style=" color:#F00; float:left; margin-top:0rem">￥{$vo.gprice}</p>
+<p style=" color:#F00; float:right; margin-right:0.5rem;margin-top:0rem">x{$vo.number}</p>
+         </div>
+       </div>
+       
+     </div></a>
+     </volist>
+     
+     <div class="qrdd-4">
+     <p style="line-height:2.5rem; margin-left:0.5rem; float:left;">配送方式</p>
+     <p style="line-height:2.5rem; margin-right:0.5rem; float:right;">运费￥{$youfei}</p>
+     
+     </div>
+     <div class="qrdd-4">
+     <p style="line-height:2.5rem; margin-left:0.5rem; float:left;">合计价钱</p>
+     <p style="line-height:2.5rem; margin-right:0.5rem; float:right;">￥{$sum+$youfei}</p>
+     
+     
+     </div>
+    <a> <div class="qrdd-4">
+     <p style="line-height:2.5rem; margin-left:0.5rem; float:left;">可使用{$user.jifen}积分兑换￥<?php
+		echo $user['jifen']/$jifendk;
+	 ?>元</p>
+       <p onclick="appdianji()"  style=" margin-right:0.5rem; float:right; margin-top:0.83rem"><span style="color:#8c8888" id='djsyapp'>点击使用</span><img id="isappdian" style="display:none"  src="/images/2/5.png" width="21" height="21" /></p>
+     
+     </div></a>
+     
+     <div class="Login1" style="margin-bottom:2rem">
+    
+		<ul>
+        
+        <li>
+  <p class="Code-Pic-1">
+		<input id="bzxx" name="bzxx" type="text" placeholder="订单补充留言" />
+			</p>
+		  </li>
+        
+		</ul>
+	</div>
+</div>     
+<div class="clearfix"></div>
+   <!--  <div class="foom">
+      <div class="foom-2"></div>
+      <div class="foom-1">
+       <include file="Home:banquan"/>
+      </div>
+    </div> -->
+    <div class="foom-qrdd" style="margin-left:-0.5rem;">
+      <div class="foom-qrdd-left"><p style="line-height:2rem; text-align:center;">合计：<strong>￥{$sum+$youfei}</strong></p></div>
+        <a onclick="qrddxyb(this)"  id="nexts" ><div class="foom-qrdd-right"><p style="line-height:2rem; text-align:center; color:#FFF;"><strong>提交订单</strong></p></div></a>
+    </div>
+     <input type="hidden" id="jikuihuan" value="{$user.jifen}">
+     <input type="hidden" id="getyoufei" value="{$youfei}">
+</div>
+  </div>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+  function tishicengjsqiuonclick(textwz,nicheng){
+      $('body').tishicengjsqiu({
+        textwz:  textwz, //提示层文字 支持html
+        tishicbj: '#ff662d', //提示层背景 #ddd
+        colors: '#fff', //文字颜色
+        iddtt:3, //自动关闭时间秒
+        admmint:'flipInX', //显示动画
+        //动画属性说明
+        admmout:'zoomOut' //隐藏动画
+      });
+      document.getElementById(nicheng).focus();
+  }
+  function qrddxyb () {
+    tishicengjsqiuonclick('正在提交请稍后...','nexts');
+    var tj='tj';
+    var bzxx=$('#bzxx').val();
+    var zf=0;
+    var youfei=$('#getyoufei').val();
+    if($("#isappdian").is(":hidden")){
+      zf=0;
+    }else{
+      zf=$('#jikuihuan').val();
+    }
+    $.ajax({
+        type: "POST",
+        url: "{:U('Home/Member/cgtjdd')}",
+         data:"tj=" + tj+"&bzxx="+bzxx+"&zf="+zf+"&youfei="+youfei,
+        success: function(msg) {
+            if(msg['is']==1){
+                tishicengjsqiuonclick('订单提交成功','nexts');
+                setTimeout(function(){
+                  window.location.href="{:U('Home/Member/cgtjdd')}"
+                },3000)
+            }else if(msg['is']==3){
+                tishicengjsqiuonclick('该订单已提交，无需重复提交','nexts');
+            }else{
+              tishicengjsqiuonclick('提交失败，请稍后重试','nexts');
+            }
+        }
+      });
+  }
+    function xiugauidz(){
+      layer.open({
+        type: 2,
+        title: '更换地址',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['90%', '80%'],
+        content: "{:U('Home/Member/dizhilist')}"
+      }); 
+    }
+  function addodzap(){
+    layer.open({
+    type: 2,
+    title: '添加新地址',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['90%', '80%'],
+    content: "{:U('Home/Member/xaddress')}"
+  }); 
+  }
+  function appdianji(){
+    $("#isappdian").toggle();
+    if($("#isappdian").is(":hidden")){
+      $("#djsyapp").show();    //如果元素为隐藏,则将它显现   
+    }else{
+      $("#djsyapp").hide();     //如果元素为显现,则将其隐藏
+    }
+  }
+ </script>

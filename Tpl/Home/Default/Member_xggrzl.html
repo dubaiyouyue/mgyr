@@ -1,0 +1,322 @@
+<script src="/js/geo1.js"></script>
+<body>
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+<style type="text/css">
+  .gywm-mxxg{width: 73%;
+    height: 1.75rem;
+    float: right;}
+  .gywm{width: 22%;}
+</style>
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>个人资料</strong></div></a>
+</div>
+
+<div class="jbxx">
+<div class="jbxx-1"><p>基本信息</p></div>
+</div>
+
+<form method='post'  name="forms" >
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong></strong> 昵称：</p></div>
+<div class="gywm-mxxg"><input maxlength="6" id="nicheng" name="nicheng" value="{$grzl.nicheng}" style="float:left; height:1.75rem ; width:240px"   type="text" placeholder="请输入昵称,限定0-6个字符" /></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm">
+  <p><strong></strong> 姓名：</p></div>
+<div class="gywm-mxxg" >
+ <input maxlength="10" style="float:left; height:1.75rem ; width:240px" id="name" name="name" value="{$grzl.name}"  type="text" placeholder="请输入真实姓名：,限定0-16个字符" /></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm">
+  <p><strong>*</strong> 联系电话：</p></div>
+<div class="gywm-mxxg" >
+ <input maxlength="20" style="float:left; height:1.75rem ; width:240px" id="tel" name="tel" value="{$grzl.tel}"  type="text" placeholder="请输入联系电话" /></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm">
+  <p><strong>*</strong> 邮箱：</p></div>
+<div class="gywm-mxxg" >
+ <input maxlength="20" style="float:left; height:1.75rem ; width:240px" id="email" name="email" value="{$grzl.email}"  type="text" placeholder="请输入邮箱" /></div>
+</div>
+</div></a>
+
+<a href="#"><div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm">
+  <p><strong></strong> 出生日期：</p></div>
+<div class="gywm-mxxg">
+   <div style="float:left; height:1.75rem; width:240px;">
+       <select style="width:60px;height:1.2rem;" name="srn" id="srn" onchange="getDates()"> 
+        <option value="{$grzl.srn}">{$grzl.srn}</option>
+          <script language="javascript" type="text/javascript"> 
+          var date=new Date(); 
+          var year=date.getFullYear();
+          for(var i=year;i>=year-100;i--){ 
+          document.write("<option value="+i+">"+i+"</option>"); 
+          } 
+          function append(o,v){ 
+          //var option=document.createElement("option"); 
+          //option.value=v; 
+          //option.innerText=v; 
+          var option=new Option(v,v); 
+          //o.appendChild(option); 
+          o.options.add(option); 
+          }
+
+          function getDates(){
+
+          var y=document.getElementsByName("year")[0].value; 
+          var m=document.getElementsByName("month")[0].value;
+
+          var day=document.getElementsByName("day")[0]; 
+          day.innerHTML="";
+
+          if(m==1 || m==3 || m==5 || m==7 || m==8 || m==10 || m==12){ 
+          for(var j=1;j<=31;j++){ 
+          append(day,j); 
+          } 
+          } 
+          else if(m==4 || m==6 || m==9 || m==11){ 
+          for(var j=1;j<=30;j++){ 
+          append(day,j); 
+          } 
+          } 
+          else if(m==2){ 
+          var flag=true; 
+          flag=y%4==0&&y%100!=0||y%400==0; 
+          if(flag){ 
+          for(var j=1;j<=29;j++){ 
+          append(day,j); 
+          } 
+          } 
+          else{ 
+          for(var j=1;j<=28;j++){ 
+          append(day,j); 
+          } 
+          } 
+          }
+
+          } 
+          </script> 
+          </select> 
+          年 
+          <select style="width:60px;height:1.2rem;" name="sry" id="sry" onchange="getDates()"> 
+            <option value="{$grzl.sry}">{$grzl.sry}</option>
+          <script language="javascript" type="text/javascript">
+
+          for(var i=1;i<=12;i++){ 
+          document.write("<option value="+i+">"+i+"</option>"); 
+          } 
+          </script> 
+          </select> 
+          月 
+          <select style="width:60px;height:1.2rem;" id="srr" name="srr"> 
+            <option value="{$grzl.srr}">{$grzl.srr}</option>
+
+          <script language="javascript" type="text/javascript">
+
+          for(var i=1;i<=31;i++){ 
+          document.write("<option value="+i+">"+i+"</option>"); 
+          } 
+          </script> 
+          </select> 
+          日 
+    </div>
+</div>
+</div>
+</div></a>
+
+
+<div class="jbxx2">
+<div class="jbxx-2">
+
+<div class="gywm"><p><strong></strong> 性   别：</p></div>
+<div class="gywm-mxxg"><p style="float:right; color:#999999"><div style="float:left; height:1.5rem; width:100%;"><select name="sex" id="sexs" style="float:left; height:1.75rem ; width:30%" >
+<option <if condition="$grzl[sex]">value="{$grzl.sex}"<else />value=""</if>><if condition="$grzl[sex]">{$grzl.sex}<else />请选择</if></option>
+<option value="男">男</option>
+<option value="女">女</option>
+<option value="保密">保密</option>
+</select></div></p>
+</div>
+</div>
+</div>
+
+<div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm"><p><strong></strong> 所在地：</p></div>
+<div class="gywm-mxxg"> <div style="float:left; height:1.75rem; width:240px;">
+        <select style="width:60px;height:1.2rem;" class="Choice_txt3" name="szds" id="address-s1">
+             <option value="{$grzl.szds}">{$grzl.szds}</option>
+        </select>
+        <select style="width:80px;height:1.2rem;" class="Choice_txt4" name="szdsq" id="address-s2">
+           <option value="{$grzl.szdsq}">{$grzl.szdsq}</option>
+        </select>
+        <select style="width:80px;height:1.2rem;" class="Choice_txt4" name="szdq" id="address-s3">
+             <option value="{$grzl.szdq}">{$grzl.szdq}</option>
+        </select>
+    </div></div>
+</div>
+</div>
+
+<div class="jbxx2">
+<div class="jbxx-2">
+<div class="gywm">
+  <p><strong></strong> 家乡：</p></div>
+<div class="gywm-mxxg"><select style="width:60px;height:1.2rem;" class="Choice_txt4" name="jxs" id="address-s4">
+        <option value="{$grzl.jxs}">{$grzl.jxs}</option>
+        </select>
+        <select style="width:80px;height:1.2rem;" class="Choice_txt4" name="jxss" id="address-s5">
+          <option value="{$grzl.jxss}">{$grzl.jxss}</option>
+        </select>
+        <select style="width:80px;height:1.2rem;" class="Choice_txt4" name="jxq" id="address-s6">
+          <option value="{$grzl.jxq}">{$grzl.jxq}</option>
+        </select></p>
+</div>
+</div>
+</div>
+
+<div class="jbxx2">
+<div class="jbxx-2" style=" margin-top:0.5rem;">
+<input type="button"  id="appxgzl" onclick="xiugaixx()" style="float:right;font-size: 14px;width:100%;height:1.75rem;background:#d39343;color:#faf6f6" value="保存">
+</div>
+</div>
+</form>  
+       <!------------------------------- footer开始 ---------------------------------->
+  <div class="clearfix"></div>     
+<div class="foom" style="width:94%">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+     </div>  
+    </div>  
+<script>
+//生日日期选择
+$(function () {
+  $.ms_DatePicker({
+      YearSelector: "#sel_year",
+      MonthSelector: "#sel_month",
+      DaySelector: "#sel_day",
+      FirstText: '{$grzl.srn}',
+      FirstValue: '{$grzl.srn}',
+      sFirstText: '{$grzl.sry}',
+      sFirstValue: '{$grzl.sry}',
+      fFirstText: '{$grzl.srr}',
+      fFirstValue: '{$grzl.srr}',
+    });
+  //$.ms_DatePicker(); 空值初始化
+});
+//默认初始化省市级联动选择
+var opt0 = ["{$grzl.szds}", "{$grzl.szdsq}", "{$grzl.szdq}"];
+var opt01 = ["{$grzl.jxs}", "{$grzl.jxss}", "{$grzl.jxq}"];
+setup();
+function promptinfo()
+{
+  //省市级地址拼接
+    //var address = document.getElementById('address-address');
+    var s1 = document.getElementById('address-s1');
+    var s2 = document.getElementById('address-s2');
+    var s3 = document.getElementById('address-s3');
+    //address.value = s1.value + s2.value + s3.value;
+}
+</script>
+<script type="text/javascript">
+function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+  function xiugaixx(){
+  var tel=$('#tel').val();    //电话
+  var email=$('#email').val();    //邮箱
+  var nicheng=$('#nicheng').val();   //昵称
+  var name=$('#name').val();   //真实姓名
+  var sex=$('#sexs').val(); //性别
+    // 所在地区
+  var szds=$('#address-s1').val();    //省
+  var szdsq=$('#address-s2').val();   //市区
+  var szdq=$('#address-s3').val();    //地区
+
+  var jxs=$('#address-s4').val();     //省
+  var jxss=$('#address-s5').val();    //市区
+  var jxq=$('#address-s6').val();     //地区
+  var srn=$('#srn').val();   //年
+  var sry=$('#sry').val();   //月
+  var srr=$('#srr').val();   //日
+  if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+    /*document.getElementById('tel').focus();
+    tishi('','请填写正确的手机号');*/
+    tishicengjsqiuonclick('请填写正确的手机号','tel');
+    return false;
+  }
+  if(!email || !(youxiang(email))){
+    /*document.getElementById('email').focus();
+    tishi('','请填写正确的邮箱');*/
+    tishicengjsqiuonclick('请填写正确的邮箱','email');
+    return false;
+  }
+  var stylm="tel=" + tel+"&email="+email+"&nicheng="+nicheng+"&name="+name+"&sex="+sex+"&szds="+szds+"&szdsq="+szdsq+"&szdq="+szdq+"&jxs="+jxs+"&jxss="+jxss+"&jxq="+jxq+"&srn="+srn+"&sry="+sry+"&srr="+srr+"&mm="+'b';
+   $.ajax({
+            type: "POST",
+            url: "{:U('Home/Member/xggrzl')}",
+            data: stylm,
+            success: function(msg) {
+                if(msg['xgxx']==1){
+                  tishicengjsqiuonclick('修改成功','appxgzl');
+                  setTimeout(function(){
+                      window.location.href="{:U('Home/Member/material')}"
+                  },3000)
+                }else if(msg['xgxx']==2||!msg){
+                   tishicengjsqiuonclick('修改失败','appxgzl');
+                }else if(msg['xgxx']==3){
+                  tishicengjsqiuonclick('您未登录，正前往登录...','appxgzl');
+                  setTimeout(function(){
+                      window.location.href="{:U('Home/Register/login')}"
+                  },3000)
+                }else if(msg['xgxx']==4){
+                    tishicengjsqiuonclick('该手机号码已注册，无法修改','appxgzl');
+                }else if(msg['xgxx']==5){
+                    tishicengjsqiuonclick('该邮箱已存在，无法修改','appxgzl');
+                }
+               
+            }
+      });
+}
+  
+  function  youxiang(email){
+ 
+  if (email != "") {
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    isok= reg.test(email );
+    if (!isok) {
+      return false;
+    }
+    else return true;
+  }
+  return false;
+}
+</script>

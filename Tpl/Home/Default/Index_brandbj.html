@@ -1,0 +1,274 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--banner-->
+  <div class="banner1"><img src="{$tupian}" width="100%" height="" /></div>
+  <div class="scjs">
+    <style type="text/css">
+    .asdf{font-size: 14px}
+    </style>
+    <ul>
+      <volist  name='bjname' id='vo'>
+        <a href="{:U('Home/Index/brandbj',array('tid'=>$vo[id]))}"><li class="asdf <if condition='$bjtid eq $vo[id]'> current</if>" <if condition="$i gt 1">style=" margin-left:0.25rem;"</if>>{$vo.catname}</li></a>
+      </volist>
+    </ul>
+  </div>
+  <div class="rm" >
+    <div class="rm-1">
+      <div class="rm-1-left">
+        <h2>{$contents.title}</h2>
+      </div>
+      <div class="rm-1-right"></div>
+    </div>
+     <div class="rm-tu" style="margin-bottom:0.5rem"> 
+ <!--  友情链接 -->
+<if condition="$contents[id] eq 203">
+   
+<style type="text/css">
+  .listcss{
+    width: 30%; height: 2.4rem;display: block; float: left;border: 1px solid #D7D7D7;
+  }
+  .listts{
+    margin:0rem 0.2rem 0.5rem 0.2rem;
+  }
+  .listimg{ width: 100%; margin: 0 auto;}
+</style>
+      <div>
+        <ul style="width:100%;float: left;">
+        <volist name='linklist' id='vo'>
+          <if condition="$vo[logo]">
+            <li class="listcss listts"><a href="{$vo.siteurl}" target="_black"> <img class="listimg" src="{$vo.logo}" style="width:100%;height:2.4rem" /></li>
+          </if>
+        </volist>
+        </ul>
+      </div>
+      <div style="clear:both;"></div>
+    
+
+</if>
+<!--  end友情链接 -->
+<!-- 联系 我们 -->
+<if condition="$contents[id] eq 202">
+   <div class="lxwm1">
+      <p>{$lianxi.content}</p>
+      </div>
+
+    <div class="rm-1">
+      <div class="rm-1-left">
+      <h2>附近门店</h2>
+     </div>
+     <div class="rm-1-right"></div>
+    </div>
+  <?php
+  $zms=array(
+    '1'=>'A',
+    '2'=>'B',
+    '3'=>'C',
+    '4'=>'D',
+    '5'=>'E',
+    '6'=>'F',
+    '7'=>'G',
+    '8'=>'H',
+    '9'=>'I',
+    '10'=>'J',
+    '11'=>'K',
+    '12'=>'L',
+    '13'=>'M',
+    '14'=>'N',
+    '15'=>'O',
+    '16'=>'P',
+    '17'=>'Q',
+    '18'=>'R',
+    '19'=>'S',
+    '20'=>'T',
+    '21'=>'U',
+    '22'=>'V',
+    '23'=>'W',
+    '24'=>'X',
+    '25'=>'Y',
+    '26'=>'Z'
+  );
+
+
+  //$meidanfenbu[]=$Mdianfenbuapi;
+  //dump($Mdianfenbuapi);
+  
+  foreach($Mdianfenbuapi as $i=>$rddd){
+    $ik++;
+    if($nnssvs) $nnssvs.= ',{ title: "'.$rddd['mingc'].'", point: "'.$rddd['zuobo'].'", address: "'.$rddd['dizhi'].'",tel:"'.$rddd['tel'].'"}';
+    else $nnssvs= '{ title: "名称：'.$rddd['mingc'].'", point: "'.$rddd['zuobo'].'", address: "'.$rddd['dizhi'].'",tel:"'.$rddd['tel'].'"}';
+
+   }
+?>
+<volist name='Mdianfenbuapi' key="ik" id='v'>
+      <div class="fjmd">
+     <ul><?php
+      $lns=explode(',',$v['zuobo']);
+      $ln=$lns['0'];
+      $la=$lns['1'];
+   ?>
+     <li onclick="getdddsnew('{$ln}','{$la}','{$v.mingc}','{$v.dizhi}','{$v.tel}');"><span style="color:red;"><?php echo $zms[$ik];?></span> {$v.mingc}</li>
+     <p>{$v.dizhi}</p>
+     </ul>
+     
+     </div>
+      </volist>
+  
+      <div class="detu" id="map"></div>
+        
+
+<script>
+  var load = document.createElement("script");  
+  load.src = "http://api.map.baidu.com/api?v=1.4&callback=map_init";  
+  document.body.appendChild(load); 
+
+var markerArr = [ 
+  <?php echo $nnssvs;?>
+  //{ title: "名称：金外滩商务大厦", point: "108.33058,22.815521", address: "金外滩商务大厦1301"},
+  //{ title: "名称：人民公园", point: "108.336858,22.83404", address: "人民公园地址<br>电话13607875450 "}
+];  
+  
+                //var map; //Map实例  
+        //map = new BMap.Map("map"); 
+                function map_init() {  
+                    map = new BMap.Map("map");
+                    //第1步：设置地图中心点，南宁市政府  
+                    var point = new BMap.Point(108.33058,22.815521);  
+                    //第2步：初始化地图,设置中心点坐标和地图级别。  
+                    map.centerAndZoom(point, 15);  
+                    //第3步：启用滚轮放大缩小  
+                    map.enableScrollWheelZoom(true);  
+                    //第4步：向地图中添加缩放控件  
+                    var ctrlNav = new window.BMap.NavigationControl({  
+                        anchor: BMAP_ANCHOR_TOP_LEFT,  
+                        type: BMAP_NAVIGATION_CONTROL_LARGE  
+                    });  
+                    map.addControl(ctrlNav);  
+                    //第5步：向地图中添加缩略图控件  
+                    var ctrlOve = new window.BMap.OverviewMapControl({  
+                        anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
+                        isOpen: 1  
+                    });  
+                    map.addControl(ctrlOve);  
+  
+                    //第6步：向地图中添加比例尺控件  
+                    var ctrlSca = new window.BMap.ScaleControl({  
+                        anchor: BMAP_ANCHOR_BOTTOM_LEFT  
+                    });  
+                    map.addControl(ctrlSca);  
+  
+                    //第7步：绘制点    
+                    for (var i = 0; i < markerArr.length; i++) {  
+                        var p0 = markerArr[i].point.split(",")[0];  
+                        var p1 = markerArr[i].point.split(",")[1];  
+                        var maker = addMarker(new window.BMap.Point(p0, p1), i);  // i 标注字母顺序
+                        addInfoWindow(maker, markerArr[i], i);   
+                    }  
+                }  
+  
+                // 添加标注  
+                function addMarker(point, index) {  
+                    var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png",  
+                        new BMap.Size(23, 25), {  
+                            offset: new BMap.Size(10, 25),  
+                            imageOffset: new BMap.Size(0, 0 - index * 25)  
+                        });  
+                    var marker = new BMap.Marker(point, { icon: myIcon });  
+                    map.addOverlay(marker);  
+            //设置覆盖物的文字标签
+            var label = new BMap.Label(markerArr[index].title,{offset:new BMap.Size(20,-10)});
+            marker.setLabel(label);
+            //end
+                    return marker;  
+                }  
+  
+                // 添加信息窗口  
+                function addInfoWindow(marker, poi) {  
+          
+                    //pop弹窗标题  
+                    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px">' + poi.title + '</div>';  
+                    //pop弹窗信息  
+                    var html = [];  
+          
+          html.push('<p style="vertical-align:top;line-height:16px">地址:'+poi.address+'</p><p style="vertical-align:top;line-height:16px">电话:'+poi.tel+'</p>');
+                    /*html.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');  
+                    html.push('<tr>');  
+                    html.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">地址:</td>');  
+                    html.push('<td style="vertical-align:top;line-height:16px">' + poi.address + ' </td>');
+          html.push('</tr><tr><td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">电话:</td>');
+          html.push('<td style="vertical-align:top;line-height:16px">' + poi.tel + ' </td>');         
+                    html.push('</tr>');  
+                    html.push('</tbody></table>');  */
+                    var infoWindow = new BMap.InfoWindow(html.join(""), { title: title/*, width: 200*/ });  
+  
+                    var openInfoWinFun = function () {  
+                        marker.openInfoWindow(infoWindow);  
+                    };  
+                    marker.addEventListener("click", openInfoWinFun);  
+                    return openInfoWinFun;  
+                }  
+  
+                //异步调用百度js  
+                /*function map_load() {  
+                    var load = document.createElement("script");  
+                    load.src = "http://api.map.baidu.com/api?v=1.4&callback=map_init";  
+                    document.body.appendChild(load);  
+                }  
+                window.onload = map_load; */ 
+        //点击打开标注点移动到标注点地图中心
+        function getdddsnew(ln,la,title,address,tel){
+          /*var timestampmapp=new Date().getTime();
+          $('#mapp').attr('name','mapp'+timestampmapp);
+          $('#mapp').attr('id','mapp'+timestampmapp);*/
+          $("html,body").animate({scrollTop:$("#map").offset().top},1000);
+          
+          //pop弹窗标题  
+                    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px">' + title + '</div>';  
+                    //pop弹窗信息  
+                    /*var html = [];  
+                    html.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');  
+                    html.push('<tr>');  
+                    html.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">地址:</td>');  
+                    html.push('<td style="vertical-align:top;line-height:16px">' + address + ' </td>');
+          html.push('</tr><tr><td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">电话:</td>');
+          html.push('<td style="vertical-align:top;line-height:16px">' + tel + ' </td>');         
+                    html.push('</tr>');  
+                    html.push('</tbody></table>');*/
+          html='<p style="vertical-align:top;line-height:16px">地址:'+address+'</p><p style="vertical-align:top;line-height:16px">电话:'+tel+'</p>';
+          
+        
+          //alert(lnat);
+          //map.panTo(new BMap.Point(116.409, 39.918));平滑移动至新中心点 如果移动距离超过了当前地图区域大小，则地图会直跳到该点。
+          var Point=new BMap.Point(ln,la);
+          var opts = {    
+           //width : 250,     // 信息窗口宽度    
+           //height: 100,     // 信息窗口高度    
+           title : title  // 信息窗口标题   
+          }    
+          var infoWindow = new BMap.InfoWindow(html, opts);  // 创建信息窗口对象    
+          //map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+          map.openInfoWindow(infoWindow, Point);
+        }
+        
+        //map.panTo(new BMap.Point(116.409, 39.918));
+            </script>  
+          </div>
+  </div>
+</div>
+</if>
+<!-- 联系我们 -->
+  </div>
+  <if condition="!$lianxi">
+  <div class="scjs-1">
+   <p>{$contents.content}</p>
+  </div>
+</if>
+<div class="foom" style="margin-top: 0rem;" >
+      <div class="foom-2"></div>
+        
+        <div class="foom-1" style=" margin-bottom:-0.2rem">
+           <include file="Home:banquan"/>
+        </div>
+      </div>

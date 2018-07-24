@@ -1,0 +1,128 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>默认收货地址</strong></div></a>
+<div class="shdz">
+  <div class="shdz-1">
+    <div class="shdz-mr">
+      <div class="shdz-mrdz"><p><strong>默认收货地址</strong></p></div>
+       <div class="sgdz-xg">
+       </div>
+         
+        
+    </div>
+    <div class="shdz-wenzi">
+      <p>收货人姓名：<if condition="$ddzzwx[xm]">{$ddzzwx.xm}<else />{$users.name}</if></p> 
+      <p>联系电话： <if condition="$ddzzwx[tel]">{$ddzzwx.tel}<else />{$users.tel}</if></p>
+      <if condition="$ddzzwx[xx]"><p id="dqdzid_{$ddzzwx.id}" data-urls="{:U('Home/Member/xaddress',array('dzid'=>$ddzzwx[id]))}">地址：{$ddzzwx.xx}<span style="margin-left:5px;" onclick="shdzapp({$ddzzwx.id})">【修改】</span><span onclick="delnewdz({$ddzzwx.id})">【删除】</span></p></if>
+      <volist name='newdz' id='vo'>
+      <p id="dqdzid_{$vo.id}" data-urls="{:U('Home/Member/xaddress',array('dzid'=>$vo[id]))}">地址 {$i}：{$vo.xx}<span style="margin-left:5px;" onclick="shdzapp({$vo.id})">【修改】</span><span onclick="delnewdz({$vo.id})">【删除】</span></p>
+      </volist>
+    </div>
+  </div>
+  
+   <div class="sgdz-bc">
+    <!--  <a onclick="shdzapp(this)"><div class="shdz-left">保存</div></a> -->
+     <a onclick="addnewdz(this)" ><div class="shdz-right"><p>使用新地址</p></div></a>
+   <!-- href="{:U('Home/Member/xaddress')}" -->
+   </div>
+</div>
+
+
+  
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+         <include file="Home:banquan"/>
+        </div>
+    </div>
+<script type="text/javascript">
+ function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+  // function shdzapp () {
+  //   var dz=$('#shdz').val();
+  //   tishicengjsqiuonclick('正在保存，请稍等','shdz');
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "{:U('Home/Member/eidtdz')}",
+  //     data:"dzs=" + dz,
+  //       success: function(msg) {
+  //         if(msg['is']==1){
+  //           tishicengjsqiuonclick('保存成功','shdz');
+  //           setTimeout(function(){
+  //             window.location.href="{:U('Home/Member/myaddress')}"
+  //           },3000)
+  //         }else {
+  //           tishicengjsqiuonclick('保存失败！请稍后重试','shdz');
+  //         }
+  //       }
+  //   });
+  // }
+  function addnewdz(){
+    layer.open({
+    type: 2,
+    title: '添加新地址',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['90%', '80%'],
+    content: "{:U('Home/Member/xaddress')}"
+  }); 
+  }
+// 删除地址
+  function delnewdz(did){
+    layer.confirm('是否删除该数据？请谨慎操作！', {
+
+          btn: ['确定','取消'] //按钮
+        }, function(){
+          layer.msg('正在删除，请稍后...');
+    $.ajax({
+      type: "POST",
+      url: "{:U('Home/Member/deldizhi')}",
+      data:"did=" + did,
+        success: function(msg) {
+          if(msg['dl']==1){
+              layer.msg('删除成功', {icon: 1});
+              setTimeout(' location.reload();',1000);
+              $("#dqdzid_"+did).remove();
+          }else if(msg['dl']==2||!msg){
+             layer.msg('删除失败，请稍后重试', {icon: 2});
+          }else if(msg['dl']==3){
+            window.location.href="{:U('Home/Register/login')}"
+
+          }
+        }
+    });
+    }, function(){
+          scc=1;
+          layer.msg('已取消',{icon: 1});
+        });
+  }
+  //修改地址
+  function shdzapp(dzid){
+    var urls=$("#dqdzid_"+dzid).attr("data-urls");
+    layer.open({
+    type: 2,
+    title: '修改地址',
+    shadeClose: true,
+    shade: 0.8,
+    area: ['90%', '80%'],
+    content:urls
+  }); 
+  }
+</script>

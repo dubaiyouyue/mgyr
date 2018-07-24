@@ -1,0 +1,134 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>充值</strong></div></a>
+</div>
+  </div>
+<div class="czxyib"> 
+  <div class="yue"></div>
+  <div class="tyecz">
+    <div class="cz-left">请填入预付金额：</div>
+    
+    <div class="cz-right">
+      <div class="cz-k"><input style="display:block;width:100%;height: 1.4rem;outline:medium;" type="text" id="chongzhije" value="" ></div>
+      <div class="cz-wenzi">元</div>
+    </div>
+  </div>
+  <div class="cz-wenzi-1">当前余额：{$users.yue}元</div>
+  
+</div>
+
+
+
+<style type="text/css">
+  .zfimg{margin-top: 0.4rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;}
+</style>
+  <div class="cgtj-111" style="height:11rem;">
+  <p><strong>请选择支付方式：</strong></p> 
+  
+<div class="bzhjbox">
+			
+			<span style="margin-left: 18px;"><input name="fkfs" type="radio" id="alipayid" value="1"><label style="cursor: pointer;" for="alipayid">支付宝<img src="/Alipay_48.png"></label></span>
+			<span style="margin-left: 18px;"><input name="fkfs" type="radio" id="wxspayid" checked="" value="2"><label style="cursor: pointer;" for="wxspayid">微信<img src="/Wechat_48.png"></label></span>
+		   </div>
+  
+  
+  
+        <div class="cgtj-yg clearfix" style="display:none;">
+          <!-- 微信支付 -->
+          <form id="form1" onclick="appzhifufs('wx')" name="form1" method="post" action="">
+            <table  width="110" style="float:left;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup1" id="zftype_wx" class="xuzhongl" type="radio"  value="" checked="checked" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"><img src="/images/20.png" width="100" height="20" class='zfimg'/></div></td>
+              </tr>
+            </table>
+          </form>
+          <!-- 支付宝支付 -->
+          <form id="form1" onclick="appzhifufs('zfb')" name="form1" method="post" action="">
+            <table  width="110" style="float:right;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup0" class="xuzhongl" type="radio" id="zftype_zfb" value="" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"> <img src="/images/23.png" width="100" height="29" class='zfimg' /></div></td>
+              </tr>
+            </table>
+          </form>    
+          <!-- 余额支付     -->
+          <form onclick="appzhifufs('ye')" id="form1"  name="form1" method="post" action="">
+            <table width="110" style="float:left;">
+              <tr>
+                <td width="20"><label>
+                    <input name="RadioGroup1" type="radio" class="xuzhongl" id="zftype_ye" value="" />
+                  </label></td>
+                <td width="110"><label for="textfield"></label>
+                  <div class="cgtj-yh1"> <img src="/images/21.png" width="100" height="29" class='zfimg' /></div></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+     
+<div class="top-up" style="margin-top:2rem" onclick="nextrag();">继续下一步</div>
+</div>
+
+<script>
+function nextrag(){
+	
+	var chongzhije=$('#chongzhije').val();
+	var fkfs=2;
+	fkfs=$("input[name='fkfs']:checked").val();
+	if(isNaN(chongzhije) || chongzhije==0 || !chongzhije){
+		alert('请输入数字充值金额！');
+		return false;
+	}
+	location.href = '/index.php/Home/Chongzhi/index/fkfs/'+fkfs+'/je/'+chongzhije;
+	//ssyyrightt('/index.php/Home/Chongzhi/index/fkfs/'+fkfs+'/je/'+chongzhije,'');
+}
+</script>
+  
+      
+       <!------------------------------- footer开始 ---------------------------------->
+      <div class="clearfix"></div>
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+         <include file="Home:banquan"/>
+        </div>
+    </div>
+<script type="text/javascript">
+  var zflx='wx';
+function  appzhifufs(types) {
+  
+  if(types=='wx'){
+    zflx='wx';
+     $("#zftype_wx").attr("checked",true);
+     $('#zftype_zfb').attr('checked',false);
+     $('#zftype_ye').attr('checked',false);
+     return false;
+  }
+   if(types=='zfb'){
+    zflx='zfb';
+     $("#zftype_zfb").attr("checked",true);
+     $('#zftype_ye').attr('checked',false);
+     $("#zftype_wx").attr("checked",false);
+     return false;
+  }
+   if(types=='ye'){
+    zflx='ye';
+     $("#zftype_ye").attr("checked",true);
+     $("#zftype_zfb").attr("checked",false);
+     $("#zftype_wx").attr("checked",false);
+     return false;
+  }
+}
+</script> 

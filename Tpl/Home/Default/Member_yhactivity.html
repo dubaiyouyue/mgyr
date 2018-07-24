@@ -1,0 +1,66 @@
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>{$good_yhhd.catname}</strong></div></a>
+</div>
+<div id='listyhmore'>
+<volist name='get_yhgood' id='vo'>
+<div class="yhhd">
+<div class="yhhd-1">
+<p style="text-align:center;  height:2rem; line-height:2rem;  "><a href="{:U('Home/Member/yhdetails',array('id'=>$vo[id]))}"><strong>{$vo.title}</strong></a></p>
+<div class="yhhd-3"><a href="{:U('Home/Member/yhdetails',array('id'=>$vo[id]))}"><img src="{$vo.thumb}" width="100%" height="" /></a>
+  <p><a href="{:U('Home/Member/yhdetails',array('id'=>$vo[id]))}">{$vo.description}</a></p></div>
+</div>
+</div>
+</volist>
+</div>
+<input type="hidden" id="moreselllist" value="1"> 
+<a onclick="yhmorelist()"><div class="more" id='morelistyh'>加载更多>></div></a>
+
+ 
+       <!------------------------------- footer开始 ---------------------------------->
+      
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1" style=" margin-bottom:-0.2rem">
+           <include file="Home:banquan"/>
+        </div>
+    </div>
+<script type="text/javascript">
+ var yhgd=1; 
+  function yhmorelist(){
+    var pyh=$('#moreselllist').val();
+    if(yhgd==2){return false;}
+      yhgd=2;
+      $('#morelistyh').html('正在加载···');
+      $.ajax({
+            type: "POST",
+            url: "{:U('Home/Member/yhmoreajax')}",
+            data: "pyh=" + pyh,
+            success: function(msg){
+                  var html='';
+                if(msg['len']==1){
+                  $.each(msg.lists, function(i, valus) {
+                    html+='<div class="yhhd">';
+                    html+='<div class="yhhd-1">';
+                    html+='<a href="'+valus.nurl+'">';
+                    html+='<p style="text-align:center;  height:2rem; line-height:2rem;  "><strong>'+valus.title+'</strong></p>';
+                    html+='<div class="yhhd-3"><img src="'+valus.thumb+'" width="100%" height="" />';
+                    html+='<p>'+valus.description+'</p></div></a>';
+                    html+='</div>';
+                    html+='</div>';
+                  });
+                  yhgd=1;
+                  $('#morelistyh').html('加载更多>>');
+                  $("#moreselllist").val(msg['pyh']);
+                  $("#listyhmore").append(html);
+              }else{
+                  yhgd=2;
+                  $('#morelistyh').html('已加载完');
+              }
+
+          }
+    });
+  }      
+ </script>

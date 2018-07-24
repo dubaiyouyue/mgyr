@@ -1,0 +1,32 @@
+
+
+
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div style="height:300px;">
+<p style="text-align: center;margin-top: 150px;color: green;">请使用微信扫描二维码完成充值</p>
+<p style="text-align: center;width:111px;height:111px;margin: auto;background:url(data:image/gif;base64,R0lGODlhEAAQALMPAHp6evf394qKiry8vJOTk83NzYKCgubm5t7e3qysrMXFxe7u7pubm7S0tKOjo////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAPACwAAAAAEAAQAAAETPDJSau9NRDAgWxDYGmdZADCkQnlU7CCOA3oNgXsQG2FRhUAAoWDIU6MGeSDR0m4ghRa7JjIUXCogqQzpRxYhi2HILsOGuJxGcNuTyIAIfkECQgADwAsAAAAABAAEAAABGLwSXmMmjhLAQjSWDAYQHmAz8GVQPIESxZwggIYS0AIATYAvAdh8OIQJwRAQbJkdjAlUCA6KfU0VEmyGWgWnpNfcEAoAo6SmWtBUtCuk9gjwQKeQAeWYQAHIZICKBoKBncTEQAh+QQJCAAPACwAAAAAEAAQAAAEWvDJORejGCtQsgwDAQAGGWSHMK7jgAWq0CGj0VEDIJxPnvAU0a13eAQKrsnI81gqAZ6AUzIonA7JRwFAyAQSgCQsjCmUAIhjDEhlrQTFV+lMGLApWwUzw1jsIwAh+QQJCAAPACwAAAAAEAAQAAAETvDJSau9L4QaBgEAMWgEQh0CqALCZ0pBKhRSkYLvM7Ab/OGThoE2+QExyAdiuexhVglKwdCgqKKTGGBgBc00Np7VcVsJDpVo5ydyJt/wCAAh+QQJCAAPACwAAAAAEAAQAAAEWvDJSau9OAwCABnBtQhdCQjHlQhFWJBCOKWPLAXk8KQIkCwWBcAgMDw4Q5CkgOwohCVCYTIwdAgPolVhWSQAiN1jcLLVQrQbrBV4EcySA8l0Alo0yA8cw+9TIgAh+QQFCAAPACwAAAAAEAAQAAAEWvDJSau9WA4AyAhWMChPwXHCQRUGYARgKQBCzJxAQgXzIC2KFkc1MREoHMTAhwQ0Y5oBgkMhAAqUw8mgWGho0EcCx5DwaAUQrGXATg6zE7bwCQ2sAGZmz7dEAAA7);background-repeat: no-repeat;background-position: center;"><img src="{$wximg}" /></p><div style="width: 194px;margin: auto;">
+<p>充值金额：{$je}元</p>
+<p>会员手机：{$userinfoall.tel}</p>
+<p style="
+    background: #ddd;
+    color: #666;
+    text-align: center;
+    padding: 6px 0px;
+    margin-top: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+" onclick="location.reload();">二维码不显示？重新加载</p>
+<p style="
+    background: red;
+    color: yellow;
+    text-align: center;
+    padding: 6px 0px;
+    margin-top: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+" onclick="location.href = '/index.php/Home/Member/recharge.html';">已经支付完成？查看余额</p>
+</div>
+</div>
+
+
+

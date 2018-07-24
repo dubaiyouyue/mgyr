@@ -1,0 +1,113 @@
+
+<!--+++大图轮播+++-->
+
+<div class="banner_top"></div>
+
+<div class="banner1 banner2" style="background: url({$Categorys.$catid.image}) no-repeat center;background-size: cover;">
+
+
+</div>
+
+<div class="banner_bottom"></div>
+
+<!--+++大图下来整体大背景+++-->
+
+<div class="dbj">
+
+	<!--+++++内容+++++-->
+	
+	<div class="dbj_con zhuti_con clearfloat">
+	
+
+
+	<!--+++++内容左边+++++-->
+	
+		<div class="zhuti_con_l">
+		
+			<div class="zhuti_con_l_ttop">
+		
+			<div class="zhuti_con_l_t">{$catname} / {$Categorys.$parentid.keywords}</div>
+			
+			<div class="zhuti_con_l_b">
+			
+				<ul>
+				
+					<include file="A:l"/>
+				
+				</ul>
+			
+			</div>
+			
+			</div>
+			
+			<div class="zhuti_con_l_bbottom">
+			
+			
+				<include file="C:u"/>
+				
+				
+			
+			</div>
+			
+		
+		</div>
+		
+<!--+++++内容右边+++++-->	
+		
+		<div class="zhuti_con_r">
+		
+			<div class="zhuti_con_r_t clearfloat">
+			
+		
+				<div class="zhuti_con_r_t_l">{$catname} <span>{$Categorys.$catid.keywords}</span></div>
+			<include file="Home:catpos"/>
+			
+			</div>
+			
+			<!--+++++装内容的盒子+++++-->
+			
+			<div class="zhuti_con_r_b">
+			
+				<div class="nry_con contentimg">
+										
+						<div class="nry_con_t">{$title}</div>
+						
+						<div class="nry_con_b">
+						
+						<a>发布者：管理员</a>
+						
+						<a>发布时间：{$createtime|toDate=###,'Y-m-d'}</a>
+						
+						<a>浏览次数：{$hits}</a>
+						
+						</div>
+						
+						<div class="nry_zhuti">
+						 {$content}
+						</div>
+<!--+++翻页+++-->
+				
+					<div class="fanye">
+
+						<ul class="fy_ul">
+							
+					
+				
+				
+				{$pages}
+				</ul></div>
+					
+				<!--+++翻页结束+++-->
+					</div>
+			
+			</div>
+			
+		
+		</div>
+	
+
+
+	
+	</div>
+
+</div>

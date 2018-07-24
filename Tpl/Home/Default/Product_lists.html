@@ -1,0 +1,173 @@
+<body>
+
+<!--order 20161216--->
+<style type="text/css">
+.zui-pic1-1-desc {
+    width: 0.5rem;
+    height: 0.25rem;
+    display: block;
+    float: right;
+    background: url(/images/3.png) no-repeat;
+    margin-top: 0.5rem;}
+</style>
+<!--end-->
+
+<!--头部-->
+<!--<div class="toubuone1"><img class="toubuonelogo1" src="images/logo.png" /></div>
+--><div class="dak-1">
+ <div class="nvz">
+   <div class="nvz-sho">
+      <div class="sho-left">
+        <p><input name='searchname'  id='searchname' maxlength="36" style="display:block;width:100%;height: 1.4rem;outline:medium; background-color: #F9F9F9;" type="text" value="{$names}" placeholder="搜索品牌、商品" ></p>
+      </div>
+      <div class="sho-right" id='searchs'>
+        <p><a onclick="searchs()">搜索</a></p>
+      </div>
+   
+   
+      </div>
+   </div>
+        <div class="zui">
+          <div class="zui-1">
+            <div class="zui-picl">
+            <a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>zx,'dxps'=>$dxps))}"><div class="zui-pic1-1 <if condition='$orders eq zx and $dxps eq desc'> zui-pic1-1-desc</if>">
+            </div></a>
+            <div class="zui-pic1-2"><p><a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>zx,'dxps'=>$dxps))}">最新</a></p></div>
+            </div>
+          </div>
+          <div class="zui-2">
+            <div class="zui-pic2">
+            <a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>jg,'dxps'=>$dxps))}"><div class="zui-pic1-1 <if condition='$orders eq jg and $dxps eq desc'>
+            zui-pic1-1-desc</if>"></div></a>
+            <div class="zui-pic2-2"><p><a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>jg,'dxps'=>$dxps))}">价格</a></p></div>
+            </div>
+          </div>
+          <div class="zui-3">
+          
+            <div class="zui-picl">
+            <a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>xl,'dxps'=>$dxps))}"><div class="zui-pic1-1 <if condition='$orders eq xl and $dxps eq desc'>
+            zui-pic1-1-desc</if>"></div></a>
+            <div class="zui-pic1-2"><p><a href="{:U('Home/Product/lists',array('id'=>$get_tids,'order'=>xl,'dxps'=>$dxps))}">销量</a></p></div>
+            </div>
+          </div>
+        </div>
+</div>
+
+<div class="nr" id="goodlistmore">
+
+
+
+
+<!---->
+<style type="text/css">
+  .hlist{padding-bottom:0.5rem;}
+</style>
+  <volist name='list' key="kkns" id='vo'>
+ <div class="nr-1 hlist" style="<?php
+	if($kkns<3){
+		echo 'margin-top:4.65rem;';
+	}
+	if(!($kkns%2)){
+		echo 'float: right;';
+	}
+ ?>"><a href="{:U('Home/Product/detailes',array('id'=>$vo[id]))}" style="display: block; width:100%;height:7.372rem;background:url({$vo.thumb});    background-repeat: no-repeat;
+    background-size: cover;
+  "></a>
+  <p><a href="{:U('Home/Product/detailes',array('id'=>$vo[id]))}">{$vo.title|asmsubstr=0,16,'utf-8',true}</a></p>
+  <strong>￥{$vo.price}</strong>
+  </div>
+  </volist>
+
+<!--end-->
+
+ </div>
+ 
+
+</div>
+ <div class="clearfix"></div>
+ <a onclick="listmore()" style="color:#333333;" ><div id="list_mores" class="chakan" style=" width:96%; height:1.5rem; margin-left:0.3rem; line-height:1.5rem; margin-right:0.5rem;background-color:#D7D9D6; text-align:center; display:block;">加载更多>></div></a>
+ <input type="hidden" id="type_id" value="{$get_tids}">
+ <input type="hidden" id="typeorder" value="{$orders}">
+ <input type="hidden" id="typefs" value="{$pxfs}">
+ <input type="hidden" id="listp" value="1">
+<!------------------------------- footer开始 ---------------------------------->
+
+<div class="foom" <if condition="empty($list)">style="margin-top: 21rem;"</if>>
+  <div class="foom-2"></div>
+  <div class="foom-1" style=" margin-bottom:-0.2rem">
+        <include file="Home:banquan"/>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+   function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+  function searchs(){
+    var wds=$('#searchname').val();
+    if(wds.length<0||!wds){
+      tishicengjsqiuonclick('请输入搜索内容','searchname'); return false;
+    }
+    $.ajax({
+        type: "get",
+        url: "{:U('Home/Product/goodsearch')}",
+        data: "wds=" + wds,
+        success: function(msg){
+            window.location.href="/index.php/Home/Product/goodsearch/wds/"+wds;
+        }
+    });
+   
+  }
+</script>
+<script type="text/javascript">
+  var list=1;
+  function listmore(){
+    var type_id=$('#type_id').val();
+    var listp=$('#listp').val();
+    var typeorder=$('#typeorder').val();
+    var typefs=$('#typefs').val();
+    if(list==2){return false;}
+      list=2;
+      $('#list_mores').html('正在加载···');
+      $.ajax({
+            type: "POST",
+            url: "{:U('Home/Product/morelist')}",
+            data: "type_id=" + type_id+"&listp="+listp+"&typeorder="+typeorder+"&typefs="+typefs,
+            success: function(msg){
+                var html='';
+                if(msg['len']==1){
+                  $.each(msg.lists, function(i, valus) {
+                    var le=i+1;
+                    if(le%2==0){var cs2='float: right;';}
+                      html+='<div class="nr-1 hlist" style="'+cs2+'">';
+                      html+='<a href="'+valus.nurl+'" style="display: block; width:100%;height:7.372rem;background:url('+valus.thumb+'); background-repeat: no-repeat; background-size: cover;"  /></a>';
+                      html+='<p><a href="">'+valus.title+'</a></p>';
+                      html+='<strong>￥'+valus.price+'</strong>';
+                      html+='</div>';
+                      
+                  });
+                  list=1;
+                  $('#list_mores').html('加载更多>>');
+                  $("#listp").val(msg['listp']);
+                  $("#goodlistmore").append(html);
+              }else{
+                  list=2;
+                  
+                  $('#list_mores').html('已加载完');
+              }
+
+          }
+    });
+  }
+</script>

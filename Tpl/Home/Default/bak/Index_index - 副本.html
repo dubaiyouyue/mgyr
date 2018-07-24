@@ -1,0 +1,233 @@
+{__NOLAYOUT__}<?php
+		//dump($Categorys);
+		//一级栏目 xlcatid($Categorys)
+		//2级栏目 xlcatid($Categorys,$parentid)
+		//3级栏目 xlcatid($Categorys,$parentid,3)
+		//4级栏目 xlcatid($Categorys,$parentid,4)
+		function xlcatid($Categorys,$parentid='0',$c='2'){
+			$narr=array();
+			$s=$c-1;
+			$e=$c;
+			foreach($Categorys as $k=>$v){
+if(!$parentid){
+if(!$v['parentid'] && $v['ismenu']) $narr[$v['id']]=$v;
+}
+else{
+$c_arr=explode(',',$v['arrparentid']);
+$sid=$c_arr[$s];
+$eid=$c_arr[$e];
+if($sid==$parentid && $v['ismenu'] && !$eid) $narr[$v['id']]=$v;
+}
+}
+return $narr;
+}
+//dump(xlcatid($Categorys,103,4));
+?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$title} {$catname} {$site_name}</title>
+<link rel="Shortcut Icon" href="/favicon.ico">
+<link rel="Bookmark" href="/favicon.ico">
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<!--css start-->
+<link rel="stylesheet" href="/css/fjylgj.css" />
+<!--css end-->
+</head>
+
+<body>
+<!------------------------------------------wrap开始------------------------------------------>
+<div class="wrap" style="width:100%; height:514px; margin-bottom:30px;">
+<!------------------------------------------fanyan、moji、menu开始------------------------------------------>
+<div class="fanyan"></div>
+<div class="moji"></div>
+<div class="menu">
+  <div class="logo"><a href="/"><img src="/images/logo.png" width="183" height="125"></a></div>
+  <div class="nav">
+     <ul>
+       <li><a href="/">首页</a></li>
+      <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+            }
+?>
+     </ul>
+  </div>
+</div>
+<!------------------------------------------fanyan、moji、menu结束------------------------------------------>
+
+<!--banner插件start-->
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script src="/js/banner.js"></script>
+<!--banner插件end-->
+<!------------------------------------------banner开始------------------------------------------>
+<div class="banner">
+  <div class="b-img">
+    
+<GZ:list sql="select * from gz_slide_data where fid = '1' and  status='1' order by listorder desc,id desc" key='i'>
+<li><a href="{$r.link}" style="background:url({$r.pic}) center no-repeat;"></a></li>
+		
+		</GZ:list>
+  </div>
+  <div class="b-list"></div>
+</div>
+<!------------------------------------------banner结束------------------------------------------>
+</div>
+<!------------------------------------------wrap结束------------------------------------------>
+
+
+
+<GZ:list sql="select * from gz_page where id=145">
+<!------------------------------------------公司简介start------------------------------------------>
+<div class="gsjj">
+    <div class="gsjj-img"><img src="{$r.thumb}" width="500" height="250"></div>
+    <div class="gsjj-wz">
+      <div class="gsjj-wz-bt">
+          <div class="gsjj-wz-bt-hz">{$r.title|str_cut=###,58}</div>
+          <P>{$r.description|str_cut=###,320}
+</P>
+          <div class="ckxq">
+          <a href="{$Categorys.145.url}"><span class="jiahao" style="color:#9F1819;">+</span>查看详情</a></span>
+          </div>
+       </div>
+       <div class="gsjj-wz-dabiaoyu"></div>
+    </div>
+</div>
+<!------------------------------------------公司简介end------------------------------------------>
+</GZ:list>
+
+
+
+<!------------------------------------------业务范围 start------------------------------------------>
+<div class="ywfw">
+   <div class="biaoti bg" style="display:inline-block;">
+      <span class="hongzi">业务</span>范围
+   </div>
+   <div class="gengduo"><a href="{$Categorys.176.url}"><span class="hz">+</span>更多</a></div>
+   <div class="heixian"></div>
+   <div class="fanwei">
+       <ul><?php
+	$where='thumb!=\'\'';
+?><GZ:list catid="176" limit="5" where="$where" key="ksss"><!-- posid="1"-->
+       
+         <li <?php 
+		 if($ksss>1) echo 'style="padding-left:20px;"';?>><a href="{$r.url}"><img src="{$r.thumb}" width="222" height="165"><span class="ywfwwzms">{$r.title|str_cut=###,18}</span></a></li>
+     </GZ:list>
+       </ul>
+   </div>
+</div>
+<!------------------------------------------业务范围 end------------------------------------------>
+
+
+
+
+<!------------------------------------------工程案例 start------------------------------------------>
+<div class="gcal">
+   <div class="biaoti bg" style="display:inline-block;">
+      <span class="hongzi">工程</span>案例
+   </div>
+   <div class="gengduo"><a href="{$Categorys.156.url}"><span class="hz">+</span>更多</a></div>
+   <div class="heixian"></div>
+   
+     <div class="v_show">
+       <div class="change_btn prev"></div>
+       <div class="change_btn next"></div>
+       <div class="v_content">
+          <div class="v_content_list">
+             <ul class="clearUl"><GZ:list catid="156" limit="5" where="$where" key="ksss"><!-- posid="1"-->
+             <!--第1组/每组4个-->
+                <li><a href="{$r.url}"><div class="imgbk"><img src="{$r.thumb}" /></div>
+                <div class="almc"><span class="mzwz">{$r.title|str_cut=###,22}</span></div></a>
+                </li>
+              
+                </GZ:list>
+             
+                
+             </ul>
+          </div>
+       </div>
+     </div>
+</div>
+<!------------------------------------------工程案例 end------------------------------------------>
+
+<!--图片滚动start-->
+<script src="js/tupiangundong.js?14"></script>
+<!--图片滚动end-->
+
+<!------------------------------------------荣誉资质 start------------------------------------------>
+<div class="ryzz">
+   <div class="biaoti bg" style="display:inline-block;">
+      <span class="hongzi">荣誉</span>资质
+   </div>
+   <div class="gengduo"><a href="{$Categorys.177.url}"><span class="hz">+</span>更多</a></div>
+   <div class="heixian"></div>
+   
+     <div class="v_show1">
+       <div class="change_btn prev1"></div>
+       <div class="change_btn next1"></div>
+       <div class="v_content1">
+          <div class="v_content1_list1">
+             <ul class="clearUl"><GZ:list catid="177" limit="5" where="$where" key="ksss">
+			    <li><a href="{$r.url}"><div class="imgbk1"><img src="{$r.thumb}" height="160"></div>
+                <div class="almc1"><span class="mzwz1">{$r.title|str_cut=###,22}</span></div></a></li>
+                
+             </GZ:list>
+	
+             </ul>
+          </div>
+       </div>
+    </div>
+</div>
+<!------------------------------------------荣誉资质 end------------------------------------------>
+
+
+
+<!------------------------------------------友情链接 start------------------------------------------>
+<div class="yqlj">
+<div class="biaoti bg">
+        <span class="hongzi">友情</span>链接
+    </div>
+    <div class="heixian"></div>
+    <div class="lianjie">
+       <ul>
+        <GZ:list sql="select * from gz_link where status='1' order by listorder asc,id desc" key='i'>
+			<li><a href="{$r.siteurl}" target="_blank">{$r.name}</a></li>
+		</GZ:list>
+       </ul>
+    </div>
+</div>
+<!------------------------------------------友情链接 end------------------------------------------>
+
+
+
+
+<!------------------------------------------footer开始------------------------------------------>
+<div class="footer">
+    <div class="footer_top"></div>
+    <div class="footer_nr">
+       <ul>
+        <li><a href="/">首页</a><span class="xiexian">/</span></li>
+        
+		 
+		 
+      <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+				$kvsss++;
+                echo '<li><a href="'.$v['url'].'">'.$v['catname'].'</a>';
+				if($kvsss<7) echo '<span class="xiexian">/</span>';
+				echo '</li>';
+            }
+?>
+       </ul>
+    <P>{$bq}</P>
+       <p>公司地址：{$address}</p>
+       <P>公司电话：{$hotline}</P>
+       <P> 技术支持：<span class="gslj"><a href="http://www.resonance.com.cn/" target="_blank">广西共振广告</a></span></P>
+    </div>
+</div>
+<!------------------------------------------footer结束------------------------------------------>
+</body>
+</html>

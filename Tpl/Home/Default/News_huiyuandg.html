@@ -1,0 +1,34 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--banner-->
+    <div class="banner4"><img src="{$tupian}" width="100%" height="" /></div>
+
+  <div class="scjs2">
+    <ul>
+      <volist name='hydg_list' id='vo'>
+        <li <if condition="$vo[id] eq $get_tid">class="current"</if> <if condition="$i gt 1">style=" margin-left:0.25rem;"</if> ><a href="{:U('Home/News/huiyuandg',array('tid'=>$vo[id]))}">{$vo.catname}</a></li>
+      </volist>
+    </ul>
+  </div>
+  <div class="rm">
+    <div class="rm-1">
+    <div class="rm-1-left">
+    <h2>{$hycontent.title}</h2>
+    </div>
+    <div class="rm-1-right"></div>
+    </div>
+<div class="fkfs-1">
+    
+      {$hycontent.content}
+  
+</div>      
+      <div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>

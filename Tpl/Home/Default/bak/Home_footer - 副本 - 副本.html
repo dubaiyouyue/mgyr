@@ -1,0 +1,57 @@
+
+
+
+<!------------------------------------------友情链接 start------------------------------------------>
+<div class="yqlj" style="padding-top:30px;">
+<div class="biaoti bg">
+        <span class="hongzi">友情</span>链接
+    </div>
+    <div class="heixian"></div>
+    <div class="lianjie">
+       <ul>
+       
+               <GZ:list sql="select * from gz_link where status='1' order by listorder asc,id desc" key='i'>
+			<li><a href="{$r.siteurl}" target="_blank">{$r.name}</a></li>
+		</GZ:list>
+       </ul>
+    </div>
+</div>
+<!------------------------------------------友情链接 end------------------------------------------>
+
+
+
+
+<!------------------------------------------footer开始------------------------------------------>
+<div class="footer">
+    <div class="footer_top"></div>
+    <div class="footer_nr">
+       <ul>
+         <li><a href="/">首页</a><span class="xiexian">/</span></li>
+        
+		 
+		 
+      <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+				$kvsss++;
+                echo '<li><a href="'.$v['url'].'">'.$v['catname'].'</a>';
+				if($kvsss<7) echo '<span class="xiexian">/</span>';
+				echo '</li>';
+            }
+?>
+		 
+		 
+		 
+		 
+		 
+		 
+       </ul>
+       <P>{$bq}</P>
+       <p>公司地址：{$address}</p>
+       <P>公司电话：{$hotline}</P>
+       <P> 技术支持：<span class="gslj"><a href="http://www.resonance.com.cn/" target="_blank">广西共振广告</a></span></P>
+    </div>
+</div>
+<!------------------------------------------footer结束------------------------------------------>
+</body>
+</html>

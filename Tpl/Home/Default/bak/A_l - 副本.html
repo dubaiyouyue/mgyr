@@ -1,0 +1,15 @@
+
+							
+                <?php
+            $narr=xlcatid($Categorys,$parentid);
+            //dump($narr);
+            //echo count($narr);
+            foreach($narr as $k=>$v){
+                $kv++;
+                echo '<li class="';
+				if($kv==1) echo ' litop_none ';
+                if($v['id']==$catid) echo 'liactive';
+                
+                echo '"><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+                }
+                ?>

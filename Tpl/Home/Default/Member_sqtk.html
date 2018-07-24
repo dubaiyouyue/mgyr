@@ -1,0 +1,89 @@
+{__NOLAYOUT__}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title></title>
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<!--css end-->
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+ <div class="submit_box" >
+          <p style="width:30%;display: block; float:left;"><span>*</span>申请类型：</p>
+          <select name="sqtype" id="sqtype"  style="width:50%;float:left; display: block; height: 1.6rem;margin-top: 0.75rem">
+          <option value="申请退换">申请退换</option>
+          <option value="申请退款">申请退款</option></select>
+          <p><span>*</span>电子邮箱：</p><input name="yx" id='yx' type="text">
+          <p><span>*</span>手机号码：</p><input name="bftel" id='bftel' type="text">
+          <p><span>*</span>退换理由：</p><textarea name="content" id='contentes' cols="5" rows="3"></textarea>
+          <div class="clearfix"></div>
+        </div>
+          <div class="anniu" style=" margin-left:5.55rem; margin-top:1rem;"><input id='hyliuyan' class="submit_button" style="width:4.25rem; color:#FFF; height:1.75rem; border:1px solid #F00; background-color: #F60;"  type="button" onclick="tjshenqi()"  title="提交申请" value="提交申请" />
+         <input class="cancel_button" style="width:4.25rem; height:1.75rem; border:1px solid #999; background-color: #ccc;" name="" onclick="quxiao()" type="button" title="取消" value="取消" /></div>
+         <input type="hidden" id="orderids" value="{$orderid}">
+ </body>
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+</html>
+<script type="text/javascript">
+function tjshenqi () {
+   var sqtype=$('#sqtype').val();
+	 var yx=$('#yx').val();
+   var bftel=$('#bftel').val();
+   var content=$('#contentes').val();
+   var orderid=$('#orderids').val();
+   if(!yx || !(youxiang(yx))){
+     layer.msg('请输入正确的邮箱');
+     $('#yx').focus();
+    return false;
+  }
+  if(!bftel || (bftel.length!=7 && bftel.length!=11) || isNaN(bftel)){   
+     layer.msg('请填写正确的手机号');
+    $('#bftel').focus();
+    return false;
+  }
+  if(content.length<20||content.length>300){   
+     layer.msg('请输入申请理由（20~300个字符）');
+    $('#content').focus();
+    return false;
+  }
+  $.ajax( {
+        url:"{:U('Home/Member/sqtk')}", //这里是静态页的地址
+        type: "post", 
+        data:"sqtype="+sqtype+"&yx="+yx+"&bftel="+bftel+"&content="+content+"&orderid="+orderid,
+        success: function(msg){
+           if(msg['sl']==1){
+                layer.msg('申请已提交');
+                setTimeout(function(){
+                    setTimeout(' parent.location.reload();',1000);
+                },3000)
+           }else if(msg['is']==3){
+               layer.msg('您未登录，请先去登录');
+                setTimeout(function(){
+                   setTimeout(' parent.location.reload();',1000);
+                },3000)
+           } else{
+                layer.msg('提交失败');
+           }
+        }
+    });
+}
+ function  youxiang(email){
+  if (email != "") {
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    isok= reg.test(email );
+    if (!isok) {
+      return false;
+    }
+    else return true;
+  }
+  return false;
+}
+	
+</script>

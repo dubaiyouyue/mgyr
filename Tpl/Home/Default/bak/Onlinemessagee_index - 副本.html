@@ -1,0 +1,35 @@
+{__NOLAYOUT__}<?php
+	foreach($list as $k=>$r){
+	?>
+<li>
+						
+							<div class="lyz clearfloat">
+							
+								<p class="lyrr">{$r.name}留言：</p>
+								
+								<p class="ly_time">{$r.createtime|toDate=###,'Y-m-d'}</p>
+							
+							</div>
+							
+							<div class="mess_con">
+	{$r.content}
+
+							</div>
+							
+							<div <?php
+							if(!$r['ahf']) echo 'style="display:none;";'?>><div class="mess_feg"></div>
+							
+							<div class="lyz clearfloat">
+							
+								<p class="lyrr">管理员回复：</p>
+								
+								<p class="ly_time">{$r.updatetime|toDate=###,'Y-m-d'}</p>
+							
+							</div>
+							
+							<div class="mess_con">
+	{$r.ahf}
+							</div></div>
+						
+						</li><?php
+						}?>

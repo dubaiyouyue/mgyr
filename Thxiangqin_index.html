@@ -1,0 +1,49 @@
+
+
+<form name="myform" id="myform" action="" method="post">
+
+<div class="table-list">
+    <table width="100%" cellspacing="0">
+		<thead> 
+            <tr> 
+			<th width="20"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>          
+            <th width="30">ID</th> 
+			<th width="110"  align="left">订单详情</th> 
+            <th width="80" align="left">订单金额（商品）</th> 
+            <th width="60" align="left">商品价格</th>
+            <th width="72">申请类型</th> 
+			<th width="100">申请时间</th>
+            <th  width="100">支付时间</th> 
+            <th  width="100">操作</th> 
+            </tr> 
+        </thead> 
+      	<tbody>
+      	
+      		<tr>
+			<td align="center"><input class="inputcheckbox " name="ids[]" value="{$vo['id']}" type="checkbox" ></td>
+			<td align="center">{$thxx['id']}</td>
+      		<td align="center">{$orderxx['xiangxixx']}</td>
+			<td><font color="red">{$orderxx.amount|number_format=###,2}</font></td>
+			<td><font color="red">{$orderxx.spprice|number_format=###,2}</font></td>
+      		<td align="center">{$thxx['title']}</td>
+		<!-- 	<td>{:L("order_status_".$vo['status'])} | {:L("pay_status_".$vo['pay_status'])} | {:L("shipping_status_".$vo['shipping_status'])}</td>  -->
+			 
+      		<td align="center">{$thxx['createtime']|toDate=###,'Y-m-d H:i:s'}</td>
+      		<td align="center">{$orderxx['utime']|toDate=###,'Y-m-d H:i:s'}</td>					
+			<td align="center"><a id="shenzhuang" onclick="shenhexx({$vo[id]})" data-url="{:U('Admin/Thxiangqin/shenhe',array(id=>$vo['id']))}">审核</a></td>      		
+      		</tr>
+      		
+      	</tbody>
+    </table>
+  
+   <!--  -->
+
+</form></div>    
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+<div id="pages" class="page"></div>
+<script type="text/javascript">
+	function shenhexx (obj) {
+		var urls=$("#shenzhuang").attr('data-url');
+		layer.alert('内容')
+	}
+</script>

@@ -1,0 +1,62 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+
+
+
+<div class="grzl">
+<a onclick="javascript:history.back(-1);"><div class="zltb bj"><strong>第三方登录</strong></div></a>
+</div>
+<style>.sinaa{    display: inline-block;
+    background: green;
+    color: #fff;
+    padding: 3px 28px;
+    margin-top: 8px;}
+.sssbangdingdssso{margin-right: 20px;
+padding: 6px;
+float: left;}.sssbangdingdssso p{line-height:20px;}.sssbangdingdssso a{color:#fff;    display: block;}
+ </style>
+<div class="sssbangdingdssso" style="margin-left: 8px;">新浪微博登录<?php
+			if($userinfoall['sinauid']){
+				echo '<p>已绑定</p>';
+				echo '<p>'.$userinfoall['sinaname'].'</p>';
+				echo '<p><img src="'.$userinfoall['sinatx'].'" width="50" height="50" /></p>';
+				echo '<p><a href="/index.php/Home/Unbindingsina/index.html" class="sinaa classsaloandgif">解绑</a></p>';
+			}else{
+				echo '<p><a href="/index.php/Home/Loginsinaapp/index" class="sinaa classsaloandgif">绑定</a></p>';
+			}
+		 ?></div>
+		 
+		<div class="sssbangdingdssso">QQ帐号登录<?php
+		if($userinfoall['qquid']){
+			echo '<p>已绑定</p>';
+			echo '<p>'.$userinfoall['qqname'].'</p>';
+			echo '<p><img src="'.$userinfoall['qqtx'].'" width="50" height="50" /></p>';
+			echo '<p><a href="/index.php/Home/Unbindingqq/index.html" class="sinaa classsaloandgif">解绑</a></p>';
+		}else{
+			echo '<p><a href="/index.php/Home/Loginsinaapp/index/appqqurl/qq" class="sinaa classsaloandgif">绑定</a></p>';
+		}
+		?></div>
+
+</div>
+<script>
+var loadinggifurl='data:image/gif;base64,R0lGODlhEAAQALMPAHp6evf394qKiry8vJOTk83NzYKCgubm5t7e3qysrMXFxe7u7pubm7S0tKOjo////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAPACwAAAAAEAAQAAAETPDJSau9NRDAgWxDYGmdZADCkQnlU7CCOA3oNgXsQG2FRhUAAoWDIU6MGeSDR0m4ghRa7JjIUXCogqQzpRxYhi2HILsOGuJxGcNuTyIAIfkECQgADwAsAAAAABAAEAAABGLwSXmMmjhLAQjSWDAYQHmAz8GVQPIESxZwggIYS0AIATYAvAdh8OIQJwRAQbJkdjAlUCA6KfU0VEmyGWgWnpNfcEAoAo6SmWtBUtCuk9gjwQKeQAeWYQAHIZICKBoKBncTEQAh+QQJCAAPACwAAAAAEAAQAAAEWvDJORejGCtQsgwDAQAGGWSHMK7jgAWq0CGj0VEDIJxPnvAU0a13eAQKrsnI81gqAZ6AUzIonA7JRwFAyAQSgCQsjCmUAIhjDEhlrQTFV+lMGLApWwUzw1jsIwAh+QQJCAAPACwAAAAAEAAQAAAETvDJSau9L4QaBgEAMWgEQh0CqALCZ0pBKhRSkYLvM7Ab/OGThoE2+QExyAdiuexhVglKwdCgqKKTGGBgBc00Np7VcVsJDpVo5ydyJt/wCAAh+QQJCAAPACwAAAAAEAAQAAAEWvDJSau9OAwCABnBtQhdCQjHlQhFWJBCOKWPLAXk8KQIkCwWBcAgMDw4Q5CkgOwohCVCYTIwdAgPolVhWSQAiN1jcLLVQrQbrBV4EcySA8l0Alo0yA8cw+9TIgAh+QQFCAAPACwAAAAAEAAQAAAEWvDJSau9WA4AyAhWMChPwXHCQRUGYARgKQBCzJxAQgXzIC2KFkc1MREoHMTAhwQ0Y5oBgkMhAAqUw8mgWGho0EcCx5DwaAUQrGXATg6zE7bwCQ2sAGZmz7dEAAA7';
+  $('.classsaloandgif').on("click",function(){
+	$(this).after('<img src="'+loadinggifurl+'" />');
+	$(this).remove();
+  });
+</script>
+
+       <!------------------------------- footer开始 ---------------------------------->
+  <div class="clearfix"></div>     
+<div class="foom">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+    </div>
+     </div>  
+    </div>  

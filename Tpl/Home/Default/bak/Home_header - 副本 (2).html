@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$title} {$catname} {$site_name}</title>
+<link rel="Shortcut Icon" href="/favicon.ico">
+<link rel="Bookmark" href="/favicon.ico">
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<!--css start-->
+<link rel="stylesheet" href="/css/fjylgj.css" />
+<!--css end-->
+</head>
+
+
+<body>
+<!------------------------------------------topbox开始------------------------------------------>
+<div class="topbox" style="width:100%; height:448px; margin-bottom:30px; background-color:#CCC;">
+<!------------------------------------------fanyan、moji、menu开始------------------------------------------>
+<div class="fanyan"></div>
+<div class="moji"></div>
+<div class="menu">
+  <div class="logo"><a href="/"><img src="/images/logo.png" width="183" height="125"></a></div>
+  <div class="nav">
+     <ul>
+       <li><a href="/">首页</a></li>
+      <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+            }
+?>
+     </ul>
+  </div>
+</div>
+<!------------------------------------------fanyan、moji、menu结束------------------------------------------>
+
+
+<!------------------------------------------gywmdatu开始------------------------------------------>
+<div class="datu" style="background:url({$Categorys.$catid.image}) no-repeat center;"></div>
+<!------------------------------------------gywmdatu结束------------------------------------------>
+</div>
+<!------------------------------------------topbox结束------------------------------------------>

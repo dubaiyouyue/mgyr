@@ -1,0 +1,85 @@
+<body>
+<include file="Home:logo"/>
+<div class="dak"> 
+<div class="grzl">
+<a onclick="javascript:history.back(-1);">
+<div class="zltb bj"><strong>我的收藏</strong></div></a>
+<div class="qrdd">
+  
+<volist name='myshopcangp' id='vo'>
+<div id='wdscapp{$vo.id}' class="wdsc" <if condition="$i gt 1">style=" margin-top:0.5rem;"</if>>
+  <div class="wdsc-1">
+    <a href="#"><div class="wdsc-left"><if condition="$vo[goods][thumb]"><img src="{$vo.goods.thumb}" width="100%" height="" /></if></div></a> 
+<div class="wdsc-right">
+  <a href="#"><div class="wdsc-rihgt-wenzi">{$vo.goods.title}</div></a>
+  <div class="wdsc-wenzi2">
+   <div class="wdsv-wenzi2-1"><if condition="$vo[goods][price]">￥{$vo.goods.price}</if></div>
+   <a onclick="delshoucang({$vo.id})" id='delshca'><div class="wdsv-wenzi2-2"></div></a>
+  </div>
+
+</div>
+  </div>
+</div>
+  </volist>
+   
+</div>
+
+  <div class="clearfix"></div>
+    <div class="foom">
+      <div class="foom-2"></div>
+      <div class="foom-1">
+        <include file="Home:banquan"/>
+      </div>
+    </div>
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script type="text/javascript">
+  function tishicengjsqiuonclick(textwz,nicheng){
+    $('body').tishicengjsqiu({
+      textwz:  textwz, //提示层文字 支持html
+      tishicbj: '#ff662d', //提示层背景 #ddd
+      colors: '#fff', //文字颜色
+      iddtt:3, //自动关闭时间秒
+      admmint:'flipInX', //显示动画
+      //动画属性说明
+      admmout:'zoomOut' //隐藏动画
+    });
+    document.getElementById(nicheng).focus();
+  }
+
+  function delshoucang(boj){
+    // layer.msg('玩命提示中');
+    layer.confirm('是否删除该数据？请谨慎操作！', {
+      btn: ['确定','取消'] //按钮
+      }, function(){
+       tishicengjsqiuonclick('正在删除，请稍后...',"wdscapp"+boj);
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('Home/Member/delshoucangap')}",
+                    data: "get_id=" + boj,
+                    success: function(msg) {
+                        if(msg['delp']==1){
+                          layer.msg('删除成功', {icon: 1});
+                          setTimeout(function(){
+                            $("#wdscapp"+boj).remove();
+                          },3000)
+                        }else if(msg['delp']==2){
+                          tishicengjsqiuonclick('您未登录，正在前往登录',"wdscapp"+boj);
+                          setTimeout(function(){
+                             window.location.href="{:U('Home/Register/login')}"
+                          },3000)
+                        }else {
+                         tishicengjsqiuonclick('删除失败！请稍后重试',"wdscapp"+boj);
+                        }
+                    }
+                });
+      
+      }, function(){
+     
+          tishicengjsqiuonclick('已取消操作',"wdscapp"+boj);
+     
+    });
+        
+       
+  }
+</script>

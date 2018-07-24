@@ -1,0 +1,37 @@
+<body>
+
+<!--头部-->
+<include file="Home:logo"/>
+<div class="dak"> 
+  <!--banner-->
+    <div class="banner5"><img src="{$tupian}" width="100%" height="" /></div>
+<style type="text/css">
+  .sdadszs{font-size:14px;}
+</style>
+  <div class="scjs1">
+    <ul>
+      <volist name='gwzn_list' id='vo'>
+        <a href="{:U('Home/News/gwzhinan',array('tid'=>$vo['id']))}"><li class="sdadszs <if condition='$vo[id] eq $get_tid'>current</if>"  <if condition="$i gt 1">style=" margin-left:0.24rem;"</if>>{$vo.catname}</li></a>
+      </volist>
+    </ul>
+  </div>
+  <div class="rm">
+    <div class="rm-1">
+    <div class="rm-1-left">
+    <h2>{$catcontent.title}</h2>
+    </div>
+    <div class="rm-1-right"></div>
+    </div>
+<div class="fkfs-1">
+   <p> {$catcontent.content}</p>
+  </div> 
+</div>      
+      <div class="foom" style="width:94%">
+        <div class="foom-2"></div>
+        
+        <div class="foom-1">
+          <include file="Home:banquan"/>
+        </div>
+      </div>
+    </div> 
+</div>
